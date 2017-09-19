@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RCodingSchool", "RCodingSchool\RCodingSchool.csproj", "{F4B86D83-E59B-4CD4-A9A1-962CA3CA40E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{25C09F0D-56AD-4A80-95DC-BBC16E2C345F}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4B86D83-E59B-4CD4-A9A1-962CA3CA40E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4B86D83-E59B-4CD4-A9A1-962CA3CA40E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4B86D83-E59B-4CD4-A9A1-962CA3CA40E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4B86D83-E59B-4CD4-A9A1-962CA3CA40E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DCF528C6-7A5A-4692-B64A-6C1C24E8CBB1}
+	EndGlobalSection
+EndGlobal

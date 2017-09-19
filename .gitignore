@@ -1,0 +1,9 @@
+# Nuget packages
+packages/
+
+# Build folders
+bin/
+obj/
+
+.vs/
+RCodingSchool/Scripts/
