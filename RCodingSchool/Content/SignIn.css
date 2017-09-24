@@ -1,0 +1,46 @@
+﻿ .joinus a:hover{
+	text-decoration:none ;
+}
+ .form .message {
+font-size: 35px;
+  margin: 15px 0 0;
+  color:#709a87;
+  font-size: 18px;
+}
+.form .message a {
+  color: #912626;
+  text-decoration: none;
+}
+ .btn-primary{
+  background: #912626;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+ }
+ .form {
+  background: #FFFFFF;
+  margin-top: 10%;
+  max-width: 460px;
+  padding: 10%;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+ .btn-success{
+ background: #748a82;
+  color: #FFFFFF;
+ }
+ .form .message a:hover{
+     color: #784747;
+ }
+ .btn-primary:hover,.form button:active,.form button:focus {
+  background: #784747;
+}
+ .btn-success:hover,.form button:active,.form button:focus {
+  background: #6c7572;
+}
+.btn{
+     border-radius: 0px;
+}
+.input-lg {
+    min-width: 100%;
+    border-radius: 0px;
+}

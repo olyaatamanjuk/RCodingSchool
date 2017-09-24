@@ -16,6 +16,8 @@ namespace RCodingSchool.Mapping
 			CreateMap<User, UserVM>()
 			.ForMember(d => d.RememberMe, o => o.Ignore());
 			CreateMap<User, UserContext>();
+			CreateMap<Message, MessageVM>();
+
 		}
 	}
 }

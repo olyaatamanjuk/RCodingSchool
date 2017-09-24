@@ -17,10 +17,7 @@ namespace RCodingSchool.Controllers
     public class HomeController : Controller
     {
 		private readonly IUserRepository _userRepository;
-	/*	public HomeController()
-		{
 
-		}*/
 		public HomeController(IUserRepository userRepository)
 		{
 			_userRepository = userRepository;
@@ -49,7 +46,7 @@ namespace RCodingSchool.Controllers
 
 			var identity = new ClaimsIdentity(claims.ToArray<Claim>(), DefaultAuthenticationTypes.ApplicationCookie);
 			HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { IsPersistent = userVM.RememberMe }, identity);
-			return RedirectToAction("Index");
+			return RedirectToAction("Message", "Message");
 		}
 
 	}
