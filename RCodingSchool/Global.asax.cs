@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using RCodingSchool.EF;
+using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -11,8 +9,10 @@ namespace RCodingSchool
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+			Bootstrapper.Initialize();
+			AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+			Database.SetInitializer(new MyContextInitializer());
         }
     }
 }

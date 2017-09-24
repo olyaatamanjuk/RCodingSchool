@@ -5,9 +5,9 @@ using System.Web;
 
 namespace RCodingSchool.Models
 {
-    public class Student : Entity
-    {
-		public int GroupId { get; set; }
-		public int UserId { get; set; }
+	public class Group: Entity
+	{
+		public string Name { get; set; }
+		public IEnumerable<Teacher> Teachers { get; set; }
 	}
 }

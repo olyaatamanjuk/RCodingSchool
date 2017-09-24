@@ -9,6 +9,6 @@ namespace RCodingSchool.Models
         public IEnumerable<Topic> Topics { get; set; }
 
         public Teacher Author { get; set; }
-        public int AuthorId { get; set; }
+        public int TeacherId { get; set; }
     }
 }
