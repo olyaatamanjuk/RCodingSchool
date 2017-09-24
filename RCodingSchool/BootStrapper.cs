@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using RCodingSchool.DI;
+using RCodingSchool.Mapping.ModelsVM;
+using RCodingSchool.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
