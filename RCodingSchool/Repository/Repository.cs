@@ -1,61 +1,46 @@
 ﻿using RCodingSchool.EF;
-using RCodingSchool.Models;
-using RCodingSchool.UnitOW;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace RCodingSchool.Repository
 {
-	public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
-	{
-		protected readonly IUnitOfWork _unitOfWork;
-		private RCodingSchoolContext dbContext;
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    {
+        protected readonly RCodingSchoolContext dbContext;
 
-		public Repository(IUnitOfWork unitOfWork)
-		{
-			_unitOfWork = unitOfWork;
-		}
+        public Repository(RCodingSchoolContext context)
+        {
+            dbContext = context;
+        }
 
-		public Repository(RCodingSchoolContext dbContext)
-		{
-			this.dbContext = dbContext;
-		}
+        public TEntity Get(int id)
+        {
+            return dbContext.Set<TEntity>().Find(id);
+        }
 
-		public IUnitOfWork UnitOfWork
-		{
-			get { return _unitOfWork; }
-		}
+        public IEnumerable<TEntity> GetAll()
+        {
+            return dbContext.Set<TEntity>().ToList();
+        }
 
-		public TEntity Get(int id)
-		{
-			return _unitOfWork.Context.Set<TEntity>().Find(id);
-		}
+        public void Add(TEntity entity)
+        {
+            dbContext.Set<TEntity>().Add(entity);
+        }
 
-		public IEnumerable<TEntity> GetAll()
-		{
-			return _unitOfWork.Context.Set<TEntity>().ToList();
-		}
+        public void AddRange(IEnumerable<TEntity> entities)
+        {
+            dbContext.Set<TEntity>().AddRange(entities);
+        }
 
-		public void Add(TEntity entity)
-		{
-			_unitOfWork.Context.Set<TEntity>().Add(entity);
-		}
+        public virtual void Remove(TEntity entity)
+        {
+            dbContext.Set<TEntity>().Remove(entity);
+        }
 
-		public void AddRange(IEnumerable<TEntity> entities)
-		{
-			_unitOfWork.Context.Set<TEntity>().AddRange(entities);
-		}
-
-		public virtual void Remove(TEntity entity)
-		{
-			_unitOfWork.Context.Set<TEntity>().Remove(entity);
-		}
-
-		public void RemoveRange(IEnumerable<TEntity> entities)
-		{
-			_unitOfWork.Context.Set<TEntity>().RemoveRange(entities);
-		}
-	}
+        public void RemoveRange(IEnumerable<TEntity> entities)
+        {
+            dbContext.Set<TEntity>().RemoveRange(entities);
+        }
+    }
 }

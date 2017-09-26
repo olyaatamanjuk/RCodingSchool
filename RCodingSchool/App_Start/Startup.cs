@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartup(typeof(RCodingSchool.App_Start.Startup))]

@@ -1,47 +1,55 @@
 ﻿using RCodingSchool.EF;
-using RCodingSchool.Models;
+using RCodingSchool.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace RCodingSchool.UnitOW
 {
-	public class UnitOfWork : IUnitOfWork
-	{
-		private readonly RCodingSchoolContext _dbContext;
+    public class UnitOfWork : IUnitOfWork
+    {
+        private bool disposedValue = false;
+        private readonly RCodingSchoolContext _dbContext;
+        private IUserRepository _userRepository;
 
-		public UnitOfWork(RCodingSchoolContext dbcontext)
-		{
-			_dbContext = dbcontext;
-		}
-		public RCodingSchoolContext Context
-		{
-			get { return _dbContext; }
-		}
-		public void SaveChanges()
-		{
-			_dbContext.SaveChanges();
-		}
+        public UnitOfWork(RCodingSchoolContext dbcontext)
+        {
+            _dbContext = dbcontext;
+        }
 
-		private bool disposedValue = false;
+        public void SaveChanges()
+        {
+            _dbContext.SaveChanges();
+        }
 
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!disposedValue)
-			{
-				if (disposing)
-				{
-					_dbContext.Dispose();
-				}
-				disposedValue = true;
-			}
-		}
-		public void Dispose()
-		{
+        public IUserRepository UserRepository
+        {
+            get
+            {
+                if (_userRepository == null)
+                {
+                    _userRepository = new UserRepository(_dbContext);
+                }
 
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-	}
+                return _userRepository;
+            }
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _dbContext.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+    }
 }

@@ -1,14 +1,9 @@
-﻿using RCodingSchool.UnitOW;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace RCodingSchool.Repository
 {
-	public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> where TEntity : class
 	{
-		IUnitOfWork UnitOfWork { get; }
 		TEntity Get(int id);
 		IEnumerable<TEntity> GetAll();
 		void Add(TEntity entity);

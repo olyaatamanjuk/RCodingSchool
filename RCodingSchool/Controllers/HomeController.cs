@@ -5,7 +5,6 @@ using RCodingSchool.Mapping.ModelsVM;
 using RCodingSchool.Models;
 using RCodingSchool.Repository;
 using RCodingSchool.Session;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -28,6 +27,7 @@ namespace RCodingSchool.Controllers
         {
             return View();
         }
+
 		[HttpPost]
 		public ActionResult Index(UserVM userVM)
 		{
@@ -37,16 +37,22 @@ namespace RCodingSchool.Controllers
 				ModelState.AddModelError("credentials", "Invalid username or password");
 				return View();
 			}
+
 			SessionManager.CurentUserContext = Mapper.Map<User, UserContext>(user);
-			List<Claim> claims = new List<Claim>();
-			claims.Add(new Claim(ClaimTypes.Name, user.Email));
-			claims.Add(new Claim(ClaimTypes.Role, Roles.User));
-			if (SessionManager.CurentUserContext.IsAdmin)
-				claims.Add(new Claim(ClaimTypes.Role, Roles.Admin));
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Email),
+            };
+
+            if (SessionManager.CurentUserContext.IsAdmin)
+                claims.Add(new Claim(ClaimTypes.Role, Roles.Admin));
+            else
+                claims.Add(new Claim(ClaimTypes.Role, Roles.User));
 
 			var identity = new ClaimsIdentity(claims.ToArray<Claim>(), DefaultAuthenticationTypes.ApplicationCookie);
 			HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { IsPersistent = userVM.RememberMe }, identity);
-			return RedirectToAction("Message", "Message");
+
+            return RedirectToAction("Message", "Message");
 		}
 
 	}
