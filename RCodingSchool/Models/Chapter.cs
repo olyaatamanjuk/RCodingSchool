@@ -7,8 +7,5 @@ namespace RCodingSchool.Models
         public string Name { get; set; }
 
         public IEnumerable<Topic> Topics { get; set; }
-
-        public Teacher Author { get; set; }
-        public int TeacherId { get; set; }
     }
 }

@@ -1,13 +1,9 @@
-﻿using RCodingSchool.EF;
-using RCodingSchool.Models;
-using System;
+﻿using RCodingSchool.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace RCodingSchool.EF
+namespace RCodingSchool
 {
-	public class MyContextInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<RCodingSchoolContext>
+    public class MyContextInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<RCodingSchoolContext>
 	{
 		protected override void Seed(RCodingSchoolContext context)
 		{

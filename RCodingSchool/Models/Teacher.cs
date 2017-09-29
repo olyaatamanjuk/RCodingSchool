@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace RCodingSchool.Models
 {
     public class Teacher : Entity
     {
-		public IEnumerable<Group> Groups;
-		public int UserId { get; set; }
-	}
+        public int UserId { get; set; }
+        public User User { get; set; }
+
+        public IEnumerable<TeacherGroup> Groups { get; set; }
+        public IEnumerable<TeacherSubject> Subjects { get; set; }
+    }
 }

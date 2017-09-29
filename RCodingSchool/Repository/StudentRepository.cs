@@ -1,5 +1,4 @@
-﻿using RCodingSchool.EF;
-using RCodingSchool.Models;
+﻿using RCodingSchool.Models;
 
 namespace RCodingSchool.Repository
 {

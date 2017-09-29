@@ -1,5 +1,4 @@
-﻿using RCodingSchool.EF;
-using RCodingSchool.Models;
+﻿using RCodingSchool.Models;
 
 namespace RCodingSchool.Repository
 {
@@ -8,6 +7,13 @@ namespace RCodingSchool.Repository
         public ChapterRepository(RCodingSchoolContext context)
             : base(context)
         {
+        }
+
+        public void Test()
+        {
+            var chapter = dbContext.Chapters.Add(new Chapter { }); // chapter.id = -3456346;
+            dbContext.SaveChanges();
+            // chapter.id = 23;
         }
     }
 }

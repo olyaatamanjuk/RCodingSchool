@@ -1,4 +1,4 @@
-﻿using RCodingSchool.EF;
+﻿using RCodingSchool.Models;
 using RCodingSchool.Repository;
 using System;
 

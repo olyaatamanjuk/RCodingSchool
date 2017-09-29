@@ -1,6 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Mvc;
-using RCodingSchool.EF;
+using RCodingSchool.Models;
 using RCodingSchool.Repository;
 using RCodingSchool.UnitOW;
 

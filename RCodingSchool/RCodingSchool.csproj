@@ -242,9 +242,10 @@
     <Compile Include="DI\DependencyResolverConfig.cs" />
     <Compile Include="DI\IWebTypeResolver.cs" />
     <Compile Include="DI\WebTypeResolver.cs" />
-    <Compile Include="EF\Map.cs" />
-    <Compile Include="EF\MyContextInitializer.cs" />
-    <Compile Include="EF\RCoddingSchoolContext.cs" />
+    <Compile Include="App_Start\MyContextInitializer.cs" />
+    <Compile Include="Models\File.cs" />
+    <Compile Include="Models\GroupSubject.cs" />
+    <Compile Include="Models\RCoddingSchoolContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -256,15 +257,18 @@
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\TeacherGroup.cs" />
+    <Compile Include="Models\TeacherSubject.cs" />
     <Compile Include="Models\Topic.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ChapterRepository.cs" />
+    <Compile Include="Repository\FileRepository.cs" />
     <Compile Include="Repository\IChapterRepository.cs" />
+    <Compile Include="Repository\IFileRepository.cs" />
     <Compile Include="Repository\IMessageRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IStudentRepository.cs" />
@@ -277,6 +281,7 @@
     <Compile Include="Repository\TeacherRepository.cs" />
     <Compile Include="Repository\TopicRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Services\FileService.cs" />
     <Compile Include="Session\MVCManager.cs" />
     <Compile Include="Session\SessionManager.cs" />
     <Compile Include="Session\UserContext.cs" />
@@ -290,6 +295,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Message\Message.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

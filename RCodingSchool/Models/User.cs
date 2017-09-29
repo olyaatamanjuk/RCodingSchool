@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace RCodingSchool.Models
+﻿namespace RCodingSchool.Models
 {
     public class User : Entity
     {
@@ -11,6 +6,7 @@ namespace RCodingSchool.Models
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Password { get; set; }
+        public string RoleName { get; set; }
 		public bool isAdmin { get; set; }
-	}
+    }
 }

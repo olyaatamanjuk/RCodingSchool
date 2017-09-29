@@ -1,6 +1,4 @@
 ﻿using RCodingSchool.Models;
-using RCodingSchool.EF;
-
 namespace RCodingSchool.Repository
 {
     public class MessageRepository : Repository<Message>, IMessageRepository

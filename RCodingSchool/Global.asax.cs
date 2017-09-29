@@ -1,5 +1,4 @@
-﻿using RCodingSchool.EF;
-using RCodingSchool.Mapping;
+﻿using RCodingSchool.Mapping;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Routing;
