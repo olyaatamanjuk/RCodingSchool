@@ -1,4 +1,5 @@
-﻿
+﻿@model  RCodingSchool.Mapping.ModelsVM.UserVM
+
 @{
     Layout = null;
 }
@@ -14,14 +15,8 @@
         <input type="text" id="message" />
         <input type="button" id="sendmessage" value="Send" />
         <input type="hidden" id="displayname" />
-        <div class="media">
-            <div class="media-left">
-                <img src="img_avatar1.png" class="media-object" style="width:60px">
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading">John Doe</h4>
-                <p id="discussion">Lorem ipsum...</p>
-            </div>
+        <div class="media " id="discussion">
+
         </div>
     </div>
     <!--Script references. -->
@@ -37,31 +32,30 @@
             // Declare a proxy to reference the hub.
             var chat = $.connection.chatHub;
             // Create a function that the hub can call to broadcast messages.
-            chat.client.broadcastMessage = function (name, message) {
+            chat.client.broadcastMessage = function (name, message, stringTime) {
                 // Html encode display name and message.
                 var encodedName = $('<div />').text(name).html();
                 var encodedMsg = $('<div />').text(message).html();
+                var now = new Date();
+                var encodeNow = $('<div />').text(now).html();
                 // Add the message to the page.
                 $('#discussion').append('  <div class="media">' +
                          '<div class="media-left">' +
-                             '<img src="~/Content/images/default_user.png" class="media-object" style="width:60px">' +
+                             '<img src="../../Content/images/default_user.png" class="media-object" style="width:40px">' +
                          '</div>' +
                          '<div class="media-body">'+
-                             '<h4 class="media-heading">'+ encodedName +'</h4>'+
+                             '<h4 class="media-heading">' + encodedName + '<small> ' + stringTime + '</small></h4>' +
                              '<p>' + encodedMsg +'</p>'+
                          '</div>'+
                      '</div>'+
                  '</div><hr>');
             };
-            // Get the user name and store it to prepend to messages.
-            $('#displayname').val(prompt('Enter your name:', ''));
-            // Set initial focus to message input box.
-            $('#message').focus();
             // Start the connection.
             $.connection.hub.start().done(function () {
                 $('#sendmessage').click(function () {
                     // Call the Send method on the hub.
-                    chat.server.send($('#displayname').val(), $('#message').val());
+                    var currentUserMail = '@Model.Email';
+                    chat.server.send( $('#message').val(),currentUserMail);
                     // Clear text box and reset focus for next comment.
                     $('#message').val('').focus();
                 });

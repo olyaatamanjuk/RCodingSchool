@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RCodingSchool.Mapping.ModelsVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,11 @@ namespace RCodingSchool.Controllers
 {
     public class MessageController : Controller
     {
-        // GET: Message
-        public ActionResult Message()
+		// GET: Message
+		//[Authorize(Roles = "User")]
+		public ActionResult Message(UserVM currentUser)
         {
-            return View();
+            return View(currentUser);
         }
     }
 }

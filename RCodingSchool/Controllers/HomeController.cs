@@ -51,8 +51,9 @@ namespace RCodingSchool.Controllers
 
 			var identity = new ClaimsIdentity(claims.ToArray<Claim>(), DefaultAuthenticationTypes.ApplicationCookie);
 			HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { IsPersistent = userVM.RememberMe }, identity);
+			userVM = Mapper.Map<User, UserVM>(user);
 
-            return RedirectToAction("Message", "Message");
+			return RedirectToAction("Message", "Message", userVM );
 		}
 
 	}
