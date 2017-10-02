@@ -9,7 +9,6 @@ namespace RCodingSchool
     {
         protected void Application_Start()
         {
-			Bootstrapper.Initialize();
 			AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 			Database.SetInitializer(new MyContextInitializer());
