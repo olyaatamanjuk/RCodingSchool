@@ -28,11 +28,13 @@ namespace RCodingSchool.DI
 
             // Services
             container.RegisterType<MessageService>();
+			container.RegisterType<UserService>();
 
-            // Hubs
-            container.RegisterType<ChatHub>();
+			// Hubs
+			container.RegisterType<ChatHub>();
+			container.RegisterType<Connections>();
 
-            signalrResolver.Register(typeof(ChatHub), () => container.Resolve<ChatHub>());
+			signalrResolver.Register(typeof(ChatHub), () => container.Resolve<ChatHub>());
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 

@@ -10,7 +10,7 @@ namespace RCodingSchool.Controllers
     public class MessageController : Controller
     {
 		// GET: Message
-		//[Authorize(Roles = "User")]
+		[Authorize(Roles = "User")]
 		public ActionResult Message(UserVM currentUser)
         {
             return View(currentUser);
