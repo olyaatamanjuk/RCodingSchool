@@ -8,6 +8,7 @@ using System.Data;
 
 namespace RCodingSchool.Hubs
 {
+	//[Authorize(Roles = "User")]
 	public class ChatHub : Hub
 	{
         private readonly MessageService _messageService;
@@ -19,35 +20,35 @@ namespace RCodingSchool.Hubs
             _messageService = messageService;
 		}
 
-		public override Task OnConnected()
-		{
-			string name = Context.User.Identity.Name;
+		//public override Task OnConnected()
+		//{
+		//	string name = Context.User.Identity.Name;
 
-			_connections.Add(name, Context.ConnectionId);
+		//	_connections.Add(name, Context.ConnectionId);
 
-			return base.OnConnected();
-		}
+		//	return base.OnConnected();
+		//}
 
-		public override Task OnDisconnected(bool stopCalled)
-		{
-			string name = Context.User.Identity.Name;
+		//public override Task OnDisconnected(bool stopCalled)
+		//{
+		//	string name = Context.User.Identity.Name;
 
-			_connections.Remove(name, Context.ConnectionId);
+		//	_connections.Remove(name, Context.ConnectionId);
 
-			return base.OnDisconnected(stopCalled);
-		}
+		//	return base.OnDisconnected(stopCalled);
+		//}
 
-		public override Task OnReconnected()
-		{
-			string name = Context.User.Identity.Name;
+		//public override Task OnReconnected()
+		//{
+		//	string name = Context.User.Identity.Name;
 
-			if (!_connections.GetConnections(name).Contains(Context.ConnectionId))
-			{
-				_connections.Add(name, Context.ConnectionId);
-			}
+		//	if (!_connections.GetConnections(name).Contains(Context.ConnectionId))
+		//	{
+		//		_connections.Add(name, Context.ConnectionId);
+		//	}
 
-			return base.OnReconnected();
-		}
+		//	return base.OnReconnected();
+		//}
 
 		public void Send(string message, string email)
 		{

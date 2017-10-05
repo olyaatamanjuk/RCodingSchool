@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RCodingSchool.Models
 {
@@ -10,7 +11,12 @@ namespace RCodingSchool.Models
         public User User { get; set; }
 		public int UserId { get; set; }
 
-        [ForeignKey("RecieverId")]
+		public MessageGroup MessageGroup { get; set; }
+		public int MessageGroupId { get; set; }
+
+		public DateTime TimeOfSending { get; set; }
+
+		[ForeignKey("RecieverId")]
 		public User Reciever { get; set; }
         [ForeignKey("Reciever")]
         public int ReceiverId { get; set; }

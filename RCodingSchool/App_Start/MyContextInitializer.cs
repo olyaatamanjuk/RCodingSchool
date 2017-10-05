@@ -18,6 +18,7 @@ namespace RCodingSchool
 				new User (){ FirstName = "Вікторія", LastName = "Якозина", Email = "yakozina@gmail.com", Password = "123456" }
 			};
 			userList.ForEach(s => context.Users.Add(s));
+			//context.MessagesGroups.Add(new MessageGroup { Name = "General" });
 			context.SaveChanges();
 		}
 	}

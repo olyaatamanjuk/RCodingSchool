@@ -25,9 +25,10 @@ namespace RCodingSchool.DI
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IUserRepository, UserRepository>();
             container.RegisterType<IMessageRepository, MessageRepository>();
+			container.RegisterType<IMessageGroupRepository, MessageGroupRepository>();
 
-            // Services
-            container.RegisterType<MessageService>();
+			// Services
+			container.RegisterType<MessageService>();
 			container.RegisterType<UserService>();
 
 			// Hubs
@@ -37,11 +38,12 @@ namespace RCodingSchool.DI
 			signalrResolver.Register(typeof(ChatHub), () => container.Resolve<ChatHub>());
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+			GlobalHost.HubPipeline.RequireAuthentication();
 
-            app.MapSignalR(new HubConfiguration
+			app.MapSignalR(new HubConfiguration
             {
                 Resolver = signalrResolver
             });
-        }
+		}
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using RCodingSchool.Session;
+using System.Data.Entity;
 
 namespace RCodingSchool.Models
 {
@@ -10,8 +12,10 @@ namespace RCodingSchool.Models
 		public DbSet<Topic> Topics { get; set; }
 		public DbSet<Chapter> Chapters { get; set; }
 		public DbSet<Group> Groups { get; set; }
+//		public DbSet<Message> Messages { get; set; }
+//		public DbSet<MessageGroup> MessagesGroups { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TeacherGroup>()
                 .HasKey(x => new { x.GroupId, x.TeacherId });
