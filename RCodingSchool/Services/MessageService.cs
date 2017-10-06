@@ -22,10 +22,8 @@ namespace RCodingSchool.Services
 			if (!(String.IsNullOrEmpty(messageText) || userFrom == null || userTo == null))
 			{
 				Message message = new Message();
-				message.Reciever = userTo;
 				message.User = userFrom;
 				message.Text = messageText;
-				message.TimeOfSending = date;
 				_messageRepository.Add(message);
 			}
 		}
@@ -40,10 +38,8 @@ namespace RCodingSchool.Services
 				{
 					_messageGroupRepository.Add(messageGroup);
 				}
-				message.MessageGroup = messageGroup;
 				message.User = userFrom;
 				message.Text = messageText;
-				message.TimeOfSending = date;
 				_messageRepository.Add(message);
 			}
 		}
@@ -55,10 +51,8 @@ namespace RCodingSchool.Services
 			{
 				Message message = new Message();
 				//General group by default
-				message.MessageGroup = _messageGroupRepository.Get(1);
 				message.User = userFrom;
 				message.Text = messageText;
-				message.TimeOfSending = date;
 				_messageRepository.Add(message);
 			}
 		}

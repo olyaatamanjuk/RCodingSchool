@@ -1,5 +1,4 @@
-﻿
-using RCodingSchool.Models;
+﻿using RCodingSchool.Models;
 using System.Linq;
 
 namespace RCodingSchool.Repository
