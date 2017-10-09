@@ -8,6 +8,6 @@ namespace RCodingSchool.Models
 	public class MessageGroup: Entity
 	{
 		public string Name { get; set; }
-		public IEnumerable<User> Users { get; set; }
+		public virtual ICollection <User> Users { get; set; }
 	}
 }

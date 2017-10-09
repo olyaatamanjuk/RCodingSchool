@@ -17,8 +17,8 @@ namespace RCodingSchool.Models
 		public DateTime TimeOfSending { get; set; }
 
 		[ForeignKey("RecieverId")]
-		public User Reciever { get; set; }
+		public virtual User Reciever { get; set; }
         [ForeignKey("Reciever")]
-        public int ReceiverId { get; set; }
+        public int? ReceiverId { get; set; }
     }
 }

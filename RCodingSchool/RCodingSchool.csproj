@@ -254,6 +254,7 @@
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TeacherGroup.cs" />
     <Compile Include="Models\TeacherSubject.cs" />
     <Compile Include="Models\Topic.cs" />

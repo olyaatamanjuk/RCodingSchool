@@ -1,4 +1,7 @@
-﻿namespace RCodingSchool.Models
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace RCodingSchool.Models
 {
     public class User : Entity
     {
@@ -8,5 +11,6 @@
 		public string Password { get; set; }
         public string RoleName { get; set; }
 		public bool isAdmin { get; set; }
-    }
+		public ICollection<Message> Messages { get; set; }
+}
 }

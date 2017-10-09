@@ -1,7 +1,6 @@
 ﻿using RCodingSchool.Models;
 using RCodingSchool.Repository;
 using System;
-using System.Collections.Generic;
 
 namespace RCodingSchool.Services
 {
@@ -39,12 +38,14 @@ namespace RCodingSchool.Services
 				if (_messageGroupRepository.Get(messageGroup.Id) == null)
 				{
 					_messageGroupRepository.Add(messageGroup);
+					_messageGroupRepository.SaveChanges();
 				}
 				message.MessageGroup = messageGroup;
 				message.User = userFrom;
 				message.Text = messageText;
 				message.TimeOfSending = date;
 				_messageRepository.Add(message);
+				_messageRepository.SaveChanges();
 			}
 		}
 

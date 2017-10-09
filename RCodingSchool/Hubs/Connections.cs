@@ -9,34 +9,41 @@ namespace RCodingSchool.Hubs
 {
 	public class Connections
 	{
-		private readonly UserService _userService;
-		public readonly Dictionary<Models.User, HashSet<string>> _connections;
-		public Connections(UserService userService)
+		public  Dictionary<string, HashSet<string>> _connections;
+		public int Count
 		{
-			_userService = userService;
-		}
-
-		public void Add(string name, string connectionId)
-		{
-			HashSet<string> connections;
-			User user = _userService.GetUserByEmail(name);
-			if (!_connections.ContainsKey(user))
+			get
 			{
-				connections = new HashSet<string>();
-				connections.Add(connectionId);
-				_connections.Add(user, connections);
-			}
-			else
-			{
-				_connections[user].Add(connectionId);
+				return _connections.Count;
 			}
 		}
+		public Connections()
+		{
+			_connections = new Dictionary<string, HashSet<string>>();
+		}
 
-		public IEnumerable<string> GetConnections(string name)
+		public void Add(string key, string connectionId)
+		{
+			lock (_connections)
+			{
+				HashSet<string> connections;
+				if (!_connections.TryGetValue(key, out connections))
+				{
+					connections = new HashSet<string>();
+					_connections.Add(key, connections);
+				}
+
+				lock (connections)
+				{
+					connections.Add(connectionId);
+				}
+			}
+		}
+
+		public IEnumerable<string> GetConnections(string key)
 		{
 			HashSet<string> connections;
-			User user = _userService.GetUserByEmail(name);
-			if (_connections.TryGetValue(user, out connections))
+			if (_connections.TryGetValue(key, out connections))
 			{
 				return connections;
 			}
@@ -44,19 +51,12 @@ namespace RCodingSchool.Hubs
 			return Enumerable.Empty<string>();
 		}
 
-		public User GetUserByEmail(string name)
+		public void Remove(string key, string connectionId)
 		{
-			User user = _userService.GetUserByEmail(name);
-			return user;
-		}
-
-		public void Remove(string name, string connectionId)
-		{
-			User user = _userService.GetUserByEmail(name);
 			lock (_connections)
 			{
 				HashSet<string> connections;
-				if (!_connections.TryGetValue(user, out connections))
+				if (!_connections.TryGetValue(key, out connections))
 				{
 					return;
 				}
@@ -67,11 +67,10 @@ namespace RCodingSchool.Hubs
 
 					if (connections.Count == 0)
 					{
-						_connections.Remove(user);
+						_connections.Remove(key);
 					}
 				}
 			}
 		}
-
 	}
 }

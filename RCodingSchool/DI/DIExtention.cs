@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.SignalR;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Mvc;
 using Owin;
@@ -39,6 +42,11 @@ namespace RCodingSchool.DI
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 			GlobalHost.HubPipeline.RequireAuthentication();
+			app.UseCookieAuthentication(new CookieAuthenticationOptions
+			{
+				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+				LoginPath = new PathString("/Home/Index")
+			});
 
 			app.MapSignalR(new HubConfiguration
             {

@@ -1,14 +1,16 @@
 ﻿using RCodingSchool.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace RCodingSchool.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
-    {
+	{
         protected readonly RCodingSchoolContext dbContext;
+		private bool disposedValue = false;
 
-        public Repository(RCodingSchoolContext context)
+		public Repository(RCodingSchoolContext context)
         {
             dbContext = context;
         }
@@ -42,5 +44,9 @@ namespace RCodingSchool.Repository
         {
             dbContext.Set<TEntity>().RemoveRange(entities);
         }
-    }
+		public void SaveChanges()
+		{
+			dbContext.SaveChanges();
+		}
+	}
 }

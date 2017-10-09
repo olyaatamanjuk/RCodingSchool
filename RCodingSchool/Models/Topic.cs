@@ -16,6 +16,6 @@ namespace RCodingSchool.Models
         public Chapter Chapter { get; set; }
         public int ChapterId { get; set; }
 
-        public IEnumerable<File> Files { get; set; }
+        public ICollection<File> Files { get; set; }
     }
 }
