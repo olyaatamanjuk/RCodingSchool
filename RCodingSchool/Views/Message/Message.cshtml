@@ -9,16 +9,51 @@
 <head>
     <title>SignalR Simple Chat</title>
     <link href="~/Content/styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+.snippet{
+    height: 500px;
+    border: 1px solid #C1C1C1;
+    overflow: auto;
+}
+    </style>
 </head>
 <body>
-    <div class="container">
-        <input type="text" id="message" />
-        <input type="button" id="sendmessage" value="Send" />
-        <input type="hidden" id="displayname" />
-        <div class="media " id="discussion">
-
+    <div class="container bootstrap ">
+        <div class="row">
+            <div class="col-md-3 bg-white  bg-white ">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Повідомлення</div>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">Загальна бесіда <span class="badge">22</span></a>
+                        <a href="#" class="list-group-item">507м <span class="badge">24</span></a>
+                        <a href="#" class="list-group-item">Ігор Панчук <span class="badge">17</span></a>
+                        <a href="#" class="list-group-item">Степан Миронюк <span class="badge">1</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 bg-white col-xs-12 bg-white ">
+                <div class="chat-message snippet">
+                    <div class="media " id="discussion">
+                    </div>
+                <div class="chat-box bg-white">
+                    <!-- /input-group -->
+                </div>
+                    </div>
+                <div class="input-group">
+                    <input  type="text" id="message" class="form-control border no-shadow no-rounded" placeholder="Напишіть повідомлення">
+                    <span class="input-group-btn">
+                        <button id="sendmessage" class="btn btn-success no-rounded" type="button">Відправити</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-1 bg-white  bg-white "></div>
         </div>
     </div>
+
+    <footer>
+        <p>FMI &copy; 2017</p>
+    </footer>
+
     <!--Script references. -->
     <!--Reference the jQuery library. -->
     <script src="~/Scripts/jquery-2.1.3.min.js"></script>
