@@ -1,4 +1,4 @@
-﻿using RCodingSchool.Mapping.ModelsVM;
+﻿using RCodingSchool.ViewModels;
 using System.Web.Mvc;
 
 namespace RCodingSchool.Controllers

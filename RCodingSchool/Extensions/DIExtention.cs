@@ -12,7 +12,7 @@ using RCodingSchool.Services;
 using RCodingSchool.UnitOW;
 using System.Web.Mvc;
 
-namespace RCodingSchool.DI
+namespace RCodingSchool.Extensions
 {
     public static class DIExtention
     {

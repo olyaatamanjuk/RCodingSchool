@@ -1,39 +1,4 @@
-﻿@model  RCodingSchool.Mapping.ModelsVM.UserVM
-
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
-<link href="~/Content/SignIn.css" rel="stylesheet" type="text/css" />
-
-<div class="row register">
-    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form joinus", role = "form" }))
-        {
-            <h2>Будь ласка, увійдіть.</h2>
-            <hr>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.Email, htmlAttributes: new { @class = "form-control input-lg", @placeholder = "Е-мейл", @type = "email", @required = "true", @autofocus = "true" })
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.Password, htmlAttributes: new { @class = "form-control input-lg", @placeholder = "Пароль", @type = "password", @required = "true", @autofocus = "true" })
-                    </div>
-                </div>
-            </div>
-            <div class="checkbox">
-                <label>
-                    @Html.CheckBoxFor(m => m.RememberMe, htmlAttributes: new { @class = "checkbox-primary", })
-                    Запам'ятати
-                </label>
-            </div>
-            <button class="btn btn-primary btn-block btn-lg" type="submit">Увійти</button>
-            @Html.ValidationMessage("credentials")
-            <hr>
-            <p class="message">Не зареєстровані? <a href="@Url.Action("Register", "Home")">Зареєструватись</a></p>
-        }
-    </div>
-</div>

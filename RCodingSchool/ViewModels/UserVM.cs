@@ -1,12 +1,8 @@
 ﻿using RCodingSchool.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace RCodingSchool.Mapping.ModelsVM
+namespace RCodingSchool.ViewModels
 {
-	public class UserVM: Entity
+    public class UserVM: Entity
 	{
 		public bool RememberMe { get; set; }
 		public string Email { get; set; }

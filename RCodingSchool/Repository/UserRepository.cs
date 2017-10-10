@@ -10,14 +10,9 @@ namespace RCodingSchool.Repository
         {
         }
 
-        public User GetByCredentials(string email, string password)
-        {
-            return dbContext.Users.FirstOrDefault(e => e.Email == email && e.Password == password);
-        }
-
         public User GetByEmail(string email)
         {
-            return dbContext.Users.FirstOrDefault(e => e.Email == email);
+            return dbContext.Users.FirstOrDefault(e => e.Email.ToLower() == email.ToLower());
         }
     }
 }

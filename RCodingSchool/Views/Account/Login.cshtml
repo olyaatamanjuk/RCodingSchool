@@ -1,0 +1,60 @@
+﻿@model  RCodingSchool.ViewModels.UserVM
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/SignIn.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="container body-content">
+
+        <div class="row register">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form joinus", role = "form" }))
+                {
+                    <h2>Будь ласка, увійдіть.</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.Email, htmlAttributes: new { @class = "form-control input-lg", @placeholder = "Е-мейл", @required = "true", @autofocus = "true" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.Password, htmlAttributes: new { @class = "form-control input-lg", @placeholder = "Пароль", @type = "password", @required = "true", @autofocus = "true" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(m => m.RememberMe, htmlAttributes: new { @class = "checkbox-primary", })
+                            Запам'ятати
+                        </label>
+                    </div>
+                    <button class="btn btn-primary btn-block btn-lg" type="submit">Увійти</button>
+                    @Html.ValidationMessage("credentials")
+                    <hr>
+                    <p class="message">Не зареєстровані? <a href="@Url.Action("Register", "Home")">Зареєструватись</a></p>
+                }
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

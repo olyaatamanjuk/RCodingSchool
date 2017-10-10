@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using RCodingSchool.Session;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 
 namespace RCodingSchool.Models
 {
