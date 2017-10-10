@@ -11,7 +11,7 @@ namespace RCodingSchool
         {
 			AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-			Database.SetInitializer(new MyContextInitializer());
+            Database.SetInitializer(new MyContextInitializer());
 			AutoMapper.Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
         }
     }
