@@ -37,8 +37,8 @@ namespace RCodingSchool.Models
 				.HasForeignKey(c => c.ReceiverId)
 				.WillCascadeOnDelete(false);
 
-			modelBuilder.Entity<Message>()
-				.HasOptional(x => x.Reciever);
+			//modelBuilder.Entity<Message>()
+			//	.HasOptional(x => x.Reciever);
 
 			base.OnModelCreating(modelBuilder);
 		}

@@ -1,5 +1,6 @@
 ﻿using RCodingSchool.Models;
 using System.Collections.Generic;
+using System.Web.Helpers;
 
 namespace RCodingSchool
 {
@@ -18,6 +19,10 @@ namespace RCodingSchool
                 new User { FirstName = "Вікторія", LastName = "Якозина", Email = "yakozina@gmail.com", Password = "123456" },
                 new User { FirstName = "Вікторія", LastName = "Якозина", Email = "admin", Password = "admin" }
             };
+			foreach(User user in userList)
+			{
+				user.Password = Crypto.SHA256(user.Password);
+			}
 
             context.Users.AddRange(userList);
             context.SaveChanges();

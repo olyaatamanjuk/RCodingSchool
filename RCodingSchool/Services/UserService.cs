@@ -24,14 +24,14 @@ namespace RCodingSchool.Services
                 return false;
             }
 
-            //// TODO: Check this shit encrypting right way (ctrl + d + q)
-            //if (!string.Equals(user.Password, EncryptPassword(loginCreds.Password)))
-            //{
-            //    user = null;
-            //    return false;
-            //}
+			//// TODO: Check this shit encrypting right way (ctrl + d + q)
+			if (!string.Equals(user.Password, EncryptPassword(loginCreds.Password)))
+			{
+				user = null;
+				return false;
+			}
 
-            return true;
+			return true;
         }
 
 		public User GetUserByEmail (string email)

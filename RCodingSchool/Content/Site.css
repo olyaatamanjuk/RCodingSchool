@@ -1,15 +1,33 @@
-﻿body {
+﻿$font-primary: 'Montserrat', Arial, sans-serif;
+body {
+    font-family: $font-primary;
     padding-top: 50px;
     padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
+.navbar-fixed-top{
+    padding-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    padding: 30px 10px;
+    color: rgba(0, 0, 0, 0.9);
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
+.dropdown-item {
+    min-height: 40px;
+    font-size: x-small;
+    padding-top: 10px;
+}
+
 input,
 select,
 textarea {

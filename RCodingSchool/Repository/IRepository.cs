@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RCodingSchool.Repository
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> : IDisposable
+		where TEntity : class 
 	{
 		TEntity Get(int id);
 		IEnumerable<TEntity> GetAll();

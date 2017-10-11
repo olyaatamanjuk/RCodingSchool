@@ -48,5 +48,22 @@ namespace RCodingSchool.Repository
 		{
 			dbContext.SaveChanges();
 		}
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
+			{
+				if (disposing)
+				{
+					dbContext.Dispose();
+				}
+			}
+			this.disposedValue = true;
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
 	}
 }

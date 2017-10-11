@@ -39,9 +39,14 @@ namespace RCodingSchool.Services
 					_messageGroupRepository.SaveChanges();
 				}
 				message.User = userFrom;
+				message.UserId = userFrom.Id;
 				message.Text = messageText;
+				message.MessageGroup = messageGroup;
+				message.MessageGroupId = messageGroup.Id;
+				message.TimeOfSending = date;
 				_messageRepository.Add(message);
 				_messageRepository.SaveChanges();
+				_messageGroupRepository.Dispose();
 			}
 		}
 
