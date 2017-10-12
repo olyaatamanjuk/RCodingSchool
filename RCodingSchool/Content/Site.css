@@ -28,8 +28,16 @@ body {
     padding-top: 10px;
 }
 
-input,
-select,
-textarea {
-    max-width: 280px;
+.navbar {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    padding: 30px 10px;
+    transition: .5s;
+}
+
+.snippet {
+    height: 500px;
+    border: 1px solid #C1C1C1;
+    overflow: auto;
 }

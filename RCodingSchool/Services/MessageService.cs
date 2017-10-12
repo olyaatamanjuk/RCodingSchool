@@ -46,7 +46,6 @@ namespace RCodingSchool.Services
 				message.TimeOfSending = date;
 				_messageRepository.Add(message);
 				_messageRepository.SaveChanges();
-				_messageGroupRepository.Dispose();
 			}
 		}
 

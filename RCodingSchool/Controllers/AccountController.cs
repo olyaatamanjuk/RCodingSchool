@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using RCodingSchool.Models;
+﻿using RCodingSchool.Models;
 using RCodingSchool.Services;
 using RCodingSchool.ViewModels;
 using System.Collections.Generic;
@@ -43,6 +42,8 @@ namespace RCodingSchool.Controllers
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Email),
+                new Claim("id", user.Id.ToString()),
+                //new Claim("fullname", user.Id.ToString())
             };
 
             if (user.isAdmin)

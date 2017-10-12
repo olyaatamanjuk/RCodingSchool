@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.SignalR;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
+﻿using Microsoft.AspNet.SignalR;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Mvc;
 using Owin;
@@ -16,7 +13,7 @@ namespace RCodingSchool.Extensions
 {
     public static class DIExtention
     {
-        public static void ConfigureApp(this IAppBuilder app)
+        public static void Configure(this IAppBuilder app)
         {
             var signalrResolver = new DefaultDependencyResolver();
             var container = new UnityContainer();
@@ -41,17 +38,11 @@ namespace RCodingSchool.Extensions
 			signalrResolver.Register(typeof(ChatHub), () => container.Resolve<ChatHub>());
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
-			GlobalHost.HubPipeline.RequireAuthentication();
-			app.UseCookieAuthentication(new CookieAuthenticationOptions
-			{
-				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-				LoginPath = new PathString("/Home/Index")
-			});
 
-			app.MapSignalR(new HubConfiguration
+            app.MapSignalR(new HubConfiguration
             {
                 Resolver = signalrResolver
             });
-		}
+        }
     }
 }

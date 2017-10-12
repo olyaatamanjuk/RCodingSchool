@@ -44,10 +44,12 @@ namespace RCodingSchool.Repository
         {
             dbContext.Set<TEntity>().RemoveRange(entities);
         }
+
 		public void SaveChanges()
 		{
 			dbContext.SaveChanges();
 		}
+
 		protected virtual void Dispose(bool disposing)
 		{
 			if (!disposedValue)

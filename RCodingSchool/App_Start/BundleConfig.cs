@@ -7,7 +7,7 @@ namespace RCodingSchool.App_Start
 		public static void RegisterBundles(BundleCollection bundles)
 		{
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-									"~/Scripts/jquery-{version}.js"));
+									"~/Scripts/jquery-3.2.1.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 						"~/Scripts/modernizr-*"));
@@ -16,8 +16,7 @@ namespace RCodingSchool.App_Start
 					  "~/Scripts/bootstrap.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/signalrScripts").Include(
-						"~/signalr/hubs",
-						"~/Scripts/jquery.signalR-{version}.js"));
+						"~/Scripts/jquery.signalR-2.2.2.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/s").Include(
 			"~/Scripts/bootstrap.min.js",

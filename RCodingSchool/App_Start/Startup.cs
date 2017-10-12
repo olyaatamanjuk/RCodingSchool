@@ -12,7 +12,6 @@ namespace RCodingSchool.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
-            app.ConfigureApp();
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -20,6 +19,8 @@ namespace RCodingSchool.App_Start
                 SlidingExpiration = false,
                 ExpireTimeSpan = TimeSpan.FromDays(20)
             });
-		}
+
+            app.Configure();
+        }
     }
 }
