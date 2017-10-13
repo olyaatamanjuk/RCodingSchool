@@ -20,7 +20,7 @@ namespace RCodingSchool.Repository
             return dbContext.Set<TEntity>().Find(id);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
             return dbContext.Set<TEntity>().ToList();
         }

@@ -1,13 +1,25 @@
-﻿using System.Web.Mvc;
+﻿using AutoMapper;
+using RCodingSchool.Models;
+using RCodingSchool.Services;
+using RCodingSchool.ViewModels;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace RCodingSchool.Controllers
 {
     public class SubjectController : Controller
     {
+        private readonly SubjectService _subjectService;
+        public SubjectController(SubjectService subjectService)
+        {
+            _subjectService = subjectService;
+        }
         // GET: Subject
         public ActionResult Subject()
         {
-            return View();
+            List<Subject> subjects = _subjectService.GetList();
+            List <SubjectVM> subjectsVM= Mapper.Map<List<Subject>, List<SubjectVM>>(subjects);
+            return View(subjectsVM);
         }
     }
 }

@@ -1,19 +1,19 @@
-﻿using RCodingSchool.Models;
+﻿using System.Collections.Generic;
+using RCodingSchool.Models;
+using System.Linq;
 
 namespace RCodingSchool.Repository
 {
-    public class ChapterRepository :Repository<Chapter>, IChapterRepository
+    public class ChapterRepository : Repository<Chapter>, IChapterRepository
     {
         public ChapterRepository(RCodingSchoolContext context)
             : base(context)
         {
         }
 
-        public void Test()
+        public override IEnumerable<Chapter> GetAll()
         {
-            var chapter = dbContext.Chapters.Add(new Chapter { }); // chapter.id = -3456346;
-            dbContext.SaveChanges();
-            // chapter.id = 23;
+            return dbContext.Chapters.Include("Topics").ToList();
         }
     }
 }

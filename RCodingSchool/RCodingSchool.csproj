@@ -250,6 +250,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChapterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
@@ -265,7 +266,14 @@
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Extensions\Mapping.cs" />
+    <Compile Include="Repository\ISubjectRepository.cs" />
+    <Compile Include="Repository\SubjectRepository.cs" />
+    <Compile Include="Services\ChapterService.cs" />
+    <Compile Include="Services\SubjectService.cs" />
+    <Compile Include="ViewModels\ChapterVM.cs" />
+    <Compile Include="ViewModels\ListSubjectVM.cs" />
     <Compile Include="ViewModels\MessageVM.cs" />
+    <Compile Include="ViewModels\SubjectVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\Entity.cs" />
@@ -316,6 +324,7 @@
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Subject\Subject.cshtml" />
+    <Content Include="Views\Chapter\Chapter.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -324,7 +333,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mapping\" />
     <Folder Include="TopicImagesFolder\" />
   </ItemGroup>
   <PropertyGroup>

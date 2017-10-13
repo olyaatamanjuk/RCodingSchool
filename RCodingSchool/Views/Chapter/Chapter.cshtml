@@ -1,0 +1,38 @@
+﻿@model List<RCodingSchool.ViewModels.ChapterVM>
+
+@{
+    ViewBag.Title = "Subject";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 col-md-3">
+            <div class="panel-group" id="accordion">
+                @foreach (var el in Model)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="@("#collapse" + el.Id)">@el.Name</a>
+                            </h4>
+                        </div>
+                        <div id="@("collapse" + el.Id)" class="panel-collapse collapse">
+                            <div class="panel-body list-group">
+                                @foreach (var x in el.Topics)
+                                {
+                                    <a href="#" class="list-group-item list-group-item-action">@x.Name</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-sm-9 col-md-9">
+            <div class="well">
+                <h1> Тема 1</h1>
+                Введення у щось там...
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,6 +12,8 @@ namespace RCodingSchool.Extensions
                 .ForMember(d => d.RememberMe, o => o.Ignore());
 
             CreateMap<Message, MessageVM>();
+            CreateMap<Subject, SubjectVM>();
+            CreateMap<Chapter, ChapterVM>();
         }
     }
 }

@@ -12,7 +12,8 @@ namespace RCodingSchool.Models
 		public DbSet<Group> Groups { get; set; }
 		public DbSet<Task> Tasks { get; set; }
 		public DbSet<Message> Messages { get; set; }
-		public DbSet<MessageGroup> MessagesGroups { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<MessageGroup> MessagesGroups { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
@@ -37,10 +38,7 @@ namespace RCodingSchool.Models
 				.HasForeignKey(c => c.ReceiverId)
 				.WillCascadeOnDelete(false);
 
-			//modelBuilder.Entity<Message>()
-			//	.HasOptional(x => x.Reciever);
-
-			base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 		}
 	}
 }
