@@ -5,7 +5,7 @@ namespace RCodingSchool.Controllers
     public class SubjectController : Controller
     {
         // GET: Subject
-        public ActionResult Index()
+        public ActionResult Subject()
         {
             return View();
         }

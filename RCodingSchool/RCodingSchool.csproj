@@ -314,8 +314,8 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
-    <Content Include="Views\Subjects\Subjects.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Subject\Subject.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -326,7 +326,6 @@
   <ItemGroup>
     <Folder Include="Mapping\" />
     <Folder Include="TopicImagesFolder\" />
-    <Folder Include="Views\Subject\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
