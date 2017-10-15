@@ -19,7 +19,7 @@
                             <div class="panel-body list-group">
                                 @foreach (var x in el.Topics)
                                 {
-                                    <a href="#" class="list-group-item list-group-item-action">@x.Name</a>
+                                   <a href="#" onclick="d(@x.Id)" class="list-group-item list-group-item-action">@x.Name</a>
                                 }
                             </div>
                         </div>
@@ -30,9 +30,23 @@
 
         <div class="col-sm-9 col-md-9">
             <div class="well">
-                <h1> Тема 1</h1>
-                Введення у щось там...
+                @{ 
+                    Html.RenderAction("topic", Model[0].Topics.First());
+                  }
+
             </div>
         </div>
     </div>
 </div>
+@section Script
+{
+<script>
+    function d(id) {
+        var url = "/chapter/topic/";
+        $.post(url, { id: id })
+         .done(function (response) {
+             $("#listOfCustomers").html(response);
+         });
+    }
+</script>
+}

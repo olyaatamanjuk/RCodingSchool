@@ -8,12 +8,20 @@ namespace RCodingSchool.Extensions
     {
         public AutoMapperProfile()
         {
-            CreateMap<User, UserVM>()
-                .ForMember(d => d.RememberMe, o => o.Ignore());
+			CreateMap<User, UserVM>()
+				.ForMember(d => d.RememberMe, o => o.Ignore())
+				.ForMember(d => d.ConfirmPassword, o => o.Ignore())
+				.ForMember(d => d.GroupName, o => o.Ignore())
+				.ForMember(d => d.IsTeacher, o => o.Ignore());
 
             CreateMap<Message, MessageVM>();
+
             CreateMap<Subject, SubjectVM>();
-            CreateMap<Chapter, ChapterVM>();
-        }
+
+            CreateMap<Chapter, ChapterVM>()
+				.ForMember(d => d.CurrentTopicId, o=> o.Ignore());
+
+			CreateMap<Topic, TopicVM>();
+		}
     }
 }

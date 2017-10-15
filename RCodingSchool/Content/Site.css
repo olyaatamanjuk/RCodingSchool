@@ -37,7 +37,20 @@ body {
 }
 
 .snippet {
-    height: 500px;
+    height: 350px;
     border: 1px solid #C1C1C1;
     overflow: auto;
+}
+
+footer {
+	background-color: #f8f8f8;
+	border-color: #e7e7e7;
+    position: fixed;
+	height: 80px;
+    padding-top:30px;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px
 }

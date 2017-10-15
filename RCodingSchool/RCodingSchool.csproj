@@ -266,6 +266,8 @@
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Extensions\Mapping.cs" />
+    <Compile Include="Repository\GroupRepository.cs" />
+    <Compile Include="Repository\IGroupRepository.cs" />
     <Compile Include="Repository\ISubjectRepository.cs" />
     <Compile Include="Repository\SubjectRepository.cs" />
     <Compile Include="Services\ChapterService.cs" />
@@ -274,6 +276,7 @@
     <Compile Include="ViewModels\ListSubjectVM.cs" />
     <Compile Include="ViewModels\MessageVM.cs" />
     <Compile Include="ViewModels\SubjectVM.cs" />
+    <Compile Include="ViewModels\TopicVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\Entity.cs" />
@@ -325,6 +328,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Subject\Subject.cshtml" />
     <Content Include="Views\Chapter\Chapter.cshtml" />
+    <Content Include="Views\Chapter\Topic.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -29,9 +29,12 @@ namespace RCodingSchool.Extensions
             container.RegisterType<ISubjectRepository, SubjectRepository>();
             container.RegisterType<IChapterRepository, ChapterRepository>();
             container.RegisterType<ITopicRepository, TopicRepository>();
+			container.RegisterType<IStudentRepository, StudentRepository>();
+			container.RegisterType<ITeacherRepository, TeacherRepository>();
+			container.RegisterType<IGroupRepository, GroupRepository>();
 
-            // Services
-            container.RegisterType<MessageService>();
+			// Services
+			container.RegisterType<MessageService>();
 			container.RegisterType<UserService>();
             container.RegisterType<SubjectService>();
             container.RegisterType<ChapterService>();

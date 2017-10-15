@@ -10,7 +10,7 @@ namespace RCodingSchool.App_Start
 									"~/Scripts/jquery-3.2.1.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-						"~/Scripts/modernizr-*"));
+						"~/Scripts/modernizr-2.8.3.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
 					  "~/Scripts/bootstrap.js"));

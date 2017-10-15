@@ -7,6 +7,7 @@ namespace RCodingSchool.ViewModels
     {
         public string Name { get; set; }
 
-        public IEnumerable<Topic> Topics { get; set; }
+        public virtual ICollection<TopicVM> Topics { get; set; }
+		public int CurrentTopicId { get; set; }
     }
 }

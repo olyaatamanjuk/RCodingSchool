@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using RCodingSchool.Models;
 using System.Linq;
+using System;
 
 namespace RCodingSchool.Repository
 {
@@ -15,5 +16,10 @@ namespace RCodingSchool.Repository
         {
             return dbContext.Chapters.Include("Topics").ToList();
         }
-    }
+
+		public Chapter GetFirst()
+		{
+			return dbContext.Chapters.Include("Topics").FirstOrDefault();
+		}
+	}
 }

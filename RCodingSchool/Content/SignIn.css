@@ -17,14 +17,12 @@
 .btn-primary {
     background: #912626;
     border: 0;
-    padding: 15px;
     color: #FFFFFF;
 }
 
 .form {
     background: #FFFFFF;
     margin-top: 10%;
-    max-width: 460px;
     padding: 10%;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -48,6 +46,7 @@
 
 .btn {
     border-radius: 0px;
+    padding: 15px;
 }
 
 .input-lg {

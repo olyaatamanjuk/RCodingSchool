@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RCodingSchool.ViewModels;
+using System.Collections.Generic;
 
 namespace RCodingSchool.Models
 {
@@ -6,6 +7,6 @@ namespace RCodingSchool.Models
     {
         public string Name { get; set; }
 
-        public ICollection<Topic> Topics { get; set; }
+        public virtual ICollection<Topic> Topics { get; set; }
     }
 }

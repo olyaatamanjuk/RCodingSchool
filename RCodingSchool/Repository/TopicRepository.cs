@@ -1,5 +1,7 @@
 ﻿
 using RCodingSchool.Models;
+using System.Linq;
+using System;
 
 namespace RCodingSchool.Repository
 {
@@ -9,5 +11,10 @@ namespace RCodingSchool.Repository
             : base(context)
         {
         }
+
+		public Topic GetFirstFromChapter(int id)
+		{
+			return dbContext.Topics.FirstOrDefault(e => e.ChapterId == id);
+		}
     }
 }

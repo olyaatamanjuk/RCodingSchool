@@ -63,5 +63,17 @@ namespace RCodingSchool.Controllers
 
             return RedirectToAction("Login", "Account");
         }
-    }
+
+		[HttpGet]
+		public ActionResult Register()
+		{
+			return View();
+		}
+		[HttpPost]
+		public ActionResult Register(UserVM userVM)
+		{
+			User user = _userService.RegisterNew(userVM);
+			return RedirectToAction("Index", "Home");
+		}
+	}
 }
