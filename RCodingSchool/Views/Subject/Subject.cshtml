@@ -1,77 +1,33 @@
-﻿@Model List< RCodingSchool.ViewModels.SubjectVM>
+﻿@model List<RCodingSchool.ViewModels.SubjectVM>
 @{
     ViewBag.Title = "Subject";
 }
 <div class="container">
-    <div class="row">
-        <div class="col-sm-3 col-md-3">
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">1.	Знайомство з мовою R</a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse">
-                        <div class="panel-body list-group">
-                            <a href="#" class="list-group-item list-group-item-action">Мова R</a>
-                            <a href="#" class="list-group-item list-group-item-action">Синтаксис</a>
-                            <a href="#" class="list-group-item list-group-item-action">Функції</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">2.	Типи даних і робота з ними</a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse">
-                        <div class="panel-body list-group">
-                            <a href="#" class="list-group-item list-group-item-action">Оператори розгалуження</a>
-                            <a href="#" class="list-group-item list-group-item-action">Щось там ще</a>
-                            <a href="#" class="list-group-item list-group-item-action">Нема фантазії</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">3.	Програмування в R</a>
-                        </h4>
-                    </div>
-                    <div id="collapseFive" class="panel-collapse collapse">
-                        <div class="panel-body list-group">
-                            <a href="#" class="list-group-item list-group-item-action">De spa sito</a>
-                            <a href="#" class="list-group-item list-group-item-action">Stop it!</a>
-                            <a href="#" class="list-group-item list-group-item-action">Help US! SOS!</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">3.	Програмування в R</a>
-                        </h4>
-                    </div>
-                    <div id="collapseSix" class="panel-collapse collapse">
-                        <div class="panel-body list-group">
-                            <a href="#" class="list-group-item list-group-item-action">De spa sito</a>
-                            <a href="#" class="list-group-item list-group-item-action">Stop it!</a>
-                            <a href="#" class="list-group-item list-group-item-action">Help US! SOS!</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-9 col-md-9">
-            <div class="well">
-                <h1> Тема 1</h1>
-                Введення у щось там...
-            </div>
-        </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Назва предмету</th>
+                    <th>Вид контролю</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr>
+                        <td>@x.Name</td>
+                        @if (x.IsExam)
+                        {
+                            <td>Екзамен</td>
+                        }
+                        else
+                        {
+                            <td>Залік</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 

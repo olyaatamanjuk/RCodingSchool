@@ -34,28 +34,32 @@ namespace RCodingSchool
             {
                 UserId = user.Id
             });
-            context.SaveChanges();
+
 
             var subjectList = context.Subjects.AddRange(new List<Subject>()
             {
-                new Subject {  Name = "Системний аналіз" },
-                new Subject {  Name = "Випадкові процеси" },
-                new Subject {  Name = "Охорона праці" },
-                new Subject {  Name = "Алгоритми" },
-                new Subject {  Name = "Алгебра" }
+                new Subject {  Name = "Системний аналіз" , IsExam = true},
+                new Subject {  Name = "Випадкові процеси" , IsExam = false},
+                new Subject {  Name = "Охорона праці",IsExam = true },
+                new Subject {  Name = "Алгоритми",IsExam = false },
+                new Subject {  Name = "Алгебра", IsExam = true }
             });
+            context.SaveChanges();
+            var subject = context.Subjects.First();
+
 
             var chaptertList = new List<Chapter>()
             {
-                new Chapter {  Name = "Початок" },
-                new Chapter {  Name = "Типи даних і робота з нимим" },
-                new Chapter {  Name = "Цикли" },
-                new Chapter {  Name = "Масиви" },
-                new Chapter {  Name = "Опрацювання даних" },
-                new Chapter {  Name = "Графіки" },
-                new Chapter { Name = "Кінець" },
+                new Chapter {  Name = "Початок" , SubjectId = subject.Id},
+                new Chapter {  Name = "Типи даних і робота з нимим" , SubjectId = subject.Id },
+                new Chapter {  Name = "Цикли" , SubjectId = subject.Id },
+                new Chapter {  Name = "Масиви"  , SubjectId = subject.Id},
+                new Chapter {  Name = "Опрацювання даних" , SubjectId = subject.Id },
+                new Chapter {  Name = "Графіки"  , SubjectId = subject.Id},
+                new Chapter { Name = "Кінець" , SubjectId = subject.Id },
                 new Chapter
                 {
+                    SubjectId = subject.Id,
                     Name = "Кінець",
                     Topics = new List<Topic>()
                     {
@@ -67,7 +71,12 @@ namespace RCodingSchool
                 }
             };
             context.Chapters.AddRange(chaptertList);
+            context.SaveChanges();
 
+            context.Groups.Add(new Group
+            {
+                Name = "Bla1"
+            });
             context.SaveChanges();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using RCodingSchool.Models;
+using System;
 using System.Linq;
 
 namespace RCodingSchool.Repository
@@ -13,6 +14,11 @@ namespace RCodingSchool.Repository
         public User GetByEmail(string email)
         {
             return dbContext.Users.FirstOrDefault(e => e.Email.ToLower() == email.ToLower());
+        }
+
+        public User GetByRegisterCode(Guid registerCode)
+        {
+            return dbContext.Users.FirstOrDefault(x => x.RegisterCode.Equals(registerCode));
         }
     }
 }

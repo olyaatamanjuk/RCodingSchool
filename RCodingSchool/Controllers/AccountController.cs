@@ -9,6 +9,7 @@ using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using RCodingSchool.Common;
+using System;
 
 namespace RCodingSchool.Controllers
 {
@@ -58,6 +59,7 @@ namespace RCodingSchool.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public ActionResult Logout()
         {
             HttpContext.GetOwinContext().Authentication.SignOut();
@@ -78,13 +80,15 @@ namespace RCodingSchool.Controllers
 			ViewBag.Groups = groups;
 			return View();
 		}
+
 		[HttpPost]
 		public ActionResult Register(UserVM userVM)
 		{
 			if (_userService.CheckValidation(userVM))
 			{
 				User user = _userService.RegisterNew(userVM);
-				return RedirectToAction("Index", "Home");
+                //return RedirectToAction("Index", "Home"); // Change
+                return null;
 			}
 			else
 			{
@@ -92,5 +96,13 @@ namespace RCodingSchool.Controllers
 				return View();
 			}
 		}
-	}
+
+        [HttpGet]
+        public ActionResult RegisterConfirm(Guid registerCode)
+        {
+            _userService.FinishRegister(registerCode);
+
+            return RedirectToAction("Login", "Account");
+        }
+    }
 }

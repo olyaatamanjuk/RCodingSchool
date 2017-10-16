@@ -7,6 +7,7 @@ using RCodingSchool.Models;
 using RCodingSchool.Repository;
 using RCodingSchool.Services;
 using RCodingSchool.UnitOW;
+using System.Web;
 using System.Web.Mvc;
 
 namespace RCodingSchool.Extensions
@@ -25,25 +26,28 @@ namespace RCodingSchool.Extensions
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IUserRepository, UserRepository>();
             container.RegisterType<IMessageRepository, MessageRepository>();
-			container.RegisterType<IMessageGroupRepository, MessageGroupRepository>();
+            container.RegisterType<IMessageGroupRepository, MessageGroupRepository>();
             container.RegisterType<ISubjectRepository, SubjectRepository>();
             container.RegisterType<IChapterRepository, ChapterRepository>();
             container.RegisterType<ITopicRepository, TopicRepository>();
-			container.RegisterType<IStudentRepository, StudentRepository>();
-			container.RegisterType<ITeacherRepository, TeacherRepository>();
-			container.RegisterType<IGroupRepository, GroupRepository>();
+            container.RegisterType<IStudentRepository, StudentRepository>();
+            container.RegisterType<ITeacherRepository, TeacherRepository>();
+            container.RegisterType<IGroupRepository, GroupRepository>();
 
-			// Services
-			container.RegisterType<MessageService>();
-			container.RegisterType<UserService>();
+            // Services
+            container.RegisterType<MessageService>();
+            container.RegisterType<UserService>();
             container.RegisterType<SubjectService>();
             container.RegisterType<ChapterService>();
 
             // Hubs
             container.RegisterType<ChatHub>();
-			container.RegisterType<Connections>();
+            container.RegisterType<Connections>();
 
-			signalrResolver.Register(typeof(ChatHub), () => container.Resolve<ChatHub>());
+            // Dark magic
+            container.RegisterType<HttpContextBase>(new InjectionFactory(x => new HttpContextWrapper(HttpContext.Current)));
+
+            signalrResolver.Register(typeof(ChatHub), () => container.Resolve<ChatHub>());
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 

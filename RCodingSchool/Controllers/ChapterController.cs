@@ -35,7 +35,7 @@ namespace RCodingSchool.Controllers
 			}
 		}
 		[HttpPost]
-		[ActionName("topics")]
+		[ActionName("topic")]
 		public ActionResult topics(int id)
 		{
 			Topic topic = _chapterService.GetTopicById(id);

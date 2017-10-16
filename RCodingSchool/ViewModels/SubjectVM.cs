@@ -12,5 +12,6 @@ namespace RCodingSchool.ViewModels
 
         public IEnumerable<TeacherSubject> Teachers { get; set; }
         public IEnumerable<GroupSubject> GroupSubject { get; set; }
+        public bool IsExam { get; set; }
     }
 }
