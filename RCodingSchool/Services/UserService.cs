@@ -2,6 +2,10 @@
 using RCodingSchool.Repository;
 using RCodingSchool.ViewModels;
 using System.Web.Helpers;
+using System;
+using System.Net.Mail;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RCodingSchool.Services
 {
@@ -88,6 +92,32 @@ namespace RCodingSchool.Services
 				_studentRepository.SaveChanges();
 			}
 			return user;
+		}
+
+		public bool CheckValidation(UserVM userVM)
+		{
+			bool isValid = true;
+
+			try
+			{
+				MailAddress email = new MailAddress(userVM.Email);
+			}
+			catch (Exception)
+			{
+				isValid = false;
+			}
+
+			if (string.IsNullOrWhiteSpace(userVM.Password)
+				|| string.IsNullOrWhiteSpace(userVM.ConfirmPassword)
+				|| userVM.Password != userVM.ConfirmPassword)
+			{
+				isValid = false;
+			}
+			return isValid;
+		}
+		public List<Group> GetGroups()
+		{
+			return _groupRepository.GetAll().ToList();		
 		}
 	}
 }

@@ -53,3 +53,10 @@
     min-width: 100%;
     border-radius: 0px;
 }
+
+.field-validation-error {
+color: #912626;
+}
+.btn:active {
+    color: #f00; /* Цвет активной ссылки */ 
+   } 

@@ -36,7 +36,8 @@ namespace RCodingSchool.Controllers
         {
             if (!_userService.TryLogin(userVM, out User user))
             {
-                return View();
+				ModelState.AddModelError("credentials", "Невірний логін або пароль.");
+				return View();
             }
 
             List<Claim> claims = new List<Claim>
@@ -67,13 +68,29 @@ namespace RCodingSchool.Controllers
 		[HttpGet]
 		public ActionResult Register()
 		{
+			List<Group> groupList = _userService.GetGroups();
+			List<string> groupNames = new List<string>();
+			foreach (var group in groupList)
+			{
+				groupNames.Add(group.Name);
+			}
+			SelectList groups = new SelectList(groupNames,"Name");
+			ViewBag.Groups = groups;
 			return View();
 		}
 		[HttpPost]
 		public ActionResult Register(UserVM userVM)
 		{
-			User user = _userService.RegisterNew(userVM);
-			return RedirectToAction("Index", "Home");
+			if (_userService.CheckValidation(userVM))
+			{
+				User user = _userService.RegisterNew(userVM);
+				return RedirectToAction("Index", "Home");
+			}
+			else
+			{
+				ModelState.AddModelError("credentials", "Некоректно введені дані.");
+				return View();
+			}
 		}
 	}
 }

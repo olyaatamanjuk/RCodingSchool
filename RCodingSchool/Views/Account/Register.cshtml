@@ -20,7 +20,7 @@
     <div class="container body-content">
         <div class="row register">
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form joinus", role = "form" }))
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form joinus", role = "form" ,@id ="RegForm" }))
                 {
                     <h2>Будь ласка, введіть дані.</h2>
                     <hr>
@@ -37,20 +37,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-         
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    @Html.EditorFor(m => m.GroupName, new { htmlAttributes = new { @type = "text", @name = "group", @class = "form-control input-lg", @placeholder = "Група" } })
-                                </div>
-                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    @Html.EditorFor(m => m.IsTeacher, new { htmlAttributes = new { @type = "checkbox", @name = "teacher" } })
-                                    <label for="subscribeNews">Викладач</label>
-                                </div>
-                            </div>
+                    <div class="form-group">
+                        <label class="radio-inline">
+                           @Html.RadioButtonFor(m => m.IsTeacher, "teacher") Викладач
+                        </label>
+                        <label class="radio-inline">
+                        @Html.RadioButtonFor(m => m.IsTeacher,  "student") Студент
+                        </label>
                     </div>
+                            <div class="form-group" id="groupElements" hidden>
+                                <label for="sel1"> Виберіть групу:</label>
+                                @Html.DropDownListFor(m => m.GroupName, ViewBag.Groups as SelectList, new { @type = "text", @name = "group", @class = "form-control input-lg" })
+                            </div>
                         <div class="form-group">
                             @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @type = "email", @id = "email", @class = "form-control input-lg", @placeholder = "Е-мейл" } })
                         </div>
@@ -66,6 +64,7 @@
                                 </div>
                             </div>
                         </div>
+                        @Html.ValidationMessage("credentials", new { htmlAttributes = new { @class="text-danger"} })
                         <hr>
                         <div class="row">
                             <div class="col-xs-6 col-md-6"><input type="submit" value="Зареєструватись" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
@@ -79,5 +78,17 @@
     </footer>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        $('#RegForm input').on('change', function () {
+            if ($('input[name=IsTeacher]:checked', '#RegForm').val() == "student") {
+                $('#groupElements').removeAttr('hidden');
+                $('#groupElements').show();
+            }
+            else {
+                $('#groupElements').hide();
+            }
+        });
+
+    </script>
 </body>
 </html>
