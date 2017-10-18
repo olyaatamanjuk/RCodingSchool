@@ -42,5 +42,26 @@ namespace RCodingSchool.Controllers
 			TopicVM topicVM = Mapper.Map<Topic, TopicVM>(topic);
 			return PartialView(topicVM);
 		}
+
+		[HttpGet]
+		public ActionResult CreateTopic(int id){
+			TopicVM topicVM = new TopicVM();
+			topicVM.ChapterId = id;
+			return View(topicVM);
+		}
+
+		[HttpPost]
+		public ActionResult CreateTopic(TopicVM topicVM)
+		{
+		 if (_chapterService.TrySaveTopic(topicVM))
+			{
+				return RedirectToAction("Chapter", "Chapter", new { id = topicVM.Chapter.SubjectId });
+			}
+		 else
+			{
+				ModelState.AddModelError("credentials", "Перевірте, будь ласка, на заповненість поля.");
+				return View(topicVM);
+			}
+		}
 	}
 }

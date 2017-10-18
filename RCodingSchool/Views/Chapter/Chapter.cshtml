@@ -13,6 +13,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="@("#collapse" + el.Id)">@el.Name</a>
+                                <a href="@Url.Action("CreateTopic", "Chapter", new { id = el.Id})"><span class="glyphicon glyphicon-plus pull-right"></span></a>
                             </h4>
                         </div>
                         <div id="@("collapse" + el.Id)" class="panel-collapse collapse">
