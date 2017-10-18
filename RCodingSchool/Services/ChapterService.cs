@@ -37,5 +37,9 @@ namespace RCodingSchool.Services
 		{
 			return _chapterRepository.GetFirst();
 		}
+		public List<Chapter> GetListChaptersBySubjectId(int id)
+		{
+			return _chapterRepository.GetListChaptersBySubjectId(id).ToList();
+		}
 	}
 }

@@ -15,10 +15,10 @@ namespace RCodingSchool.Controllers
             _chapterService = chapterService;
         }
 
-        // GET: Subject
-        public ActionResult Chapter()
+		[HttpGet]
+		public ActionResult Chapter(int id)
         {
-            List<Chapter> chapters = _chapterService.GetList();
+            List<Chapter> chapters = _chapterService.GetListChaptersBySubjectId(id);
             List<ChapterVM> chaptersVM = Mapper.Map<List<Chapter>, List<ChapterVM>>(chapters);
             return View(chaptersVM);
         }

@@ -21,5 +21,10 @@ namespace RCodingSchool.Repository
 		{
 			return dbContext.Chapters.Include("Topics").FirstOrDefault();
 		}
+
+		public IEnumerable<Chapter> GetListChaptersBySubjectId(int id)
+		{
+			return dbContext.Chapters.Include("Topics").Where(x => x.SubjectId == id);
+		}
 	}
 }

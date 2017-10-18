@@ -4,9 +4,9 @@
 }
 <div class="container">
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
-                <tr>
+                <tr onclick="location.href='link.com'">
                     <th>Назва предмету</th>
                     <th>Вид контролю</th>
                 </tr>
@@ -15,7 +15,7 @@
                 @foreach (var x in Model)
                 {
                     <tr>
-                        <td>@x.Name</td>
+                        <td>@Html.ActionLink(@x.Name, "Chapter", "Chapter", new { id = @x.Id}, null)</td>
                         @if (x.IsExam)
                         {
                             <td>Екзамен</td>
