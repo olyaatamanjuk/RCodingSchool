@@ -12,7 +12,7 @@ namespace RCodingSchool.Models
 		public string LastName { get; set; }
 		public string Password { get; set; }
 
-		public IEnumerable<TeacherGroup> Groups { get; set; }
-        public IEnumerable<TeacherSubject> Subjects { get; set; }
+		public ICollection<TeacherGroup> Groups { get; set; }
+        public ICollection<TeacherSubject> Subjects { get; set; }
     }
 }

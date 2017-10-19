@@ -49,9 +49,17 @@ namespace RCodingSchool.Controllers
             };
 
             if (user.isAdmin)
+            {
                 claims.Add(new Claim(ClaimTypes.Role, Roles.Admin));
+            }
+            else if (_userService.IsTeacher(user.Id))
+            {
+                claims.Add(new Claim(ClaimTypes.Role, Roles.Teacher));
+            }
             else
-                claims.Add(new Claim(ClaimTypes.Role, Roles.User));
+             {
+                claims.Add(new Claim(ClaimTypes.Role, Roles.Student));
+             }
 
             var identity = new ClaimsIdentity(claims.ToArray<Claim>(), DefaultAuthenticationTypes.ApplicationCookie);
             HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { IsPersistent = userVM.RememberMe }, identity);

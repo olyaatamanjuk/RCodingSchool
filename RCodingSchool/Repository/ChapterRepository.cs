@@ -26,5 +26,10 @@ namespace RCodingSchool.Repository
 		{
 			return dbContext.Chapters.Include("Topics").Where(x => x.SubjectId == id);
 		}
-	}
+
+        public override Chapter Get(int id)
+        {
+            return dbContext.Chapters.Include("Topics").Include("Subject").FirstOrDefault(x => x.Id == id);
+        }
+    }
 }

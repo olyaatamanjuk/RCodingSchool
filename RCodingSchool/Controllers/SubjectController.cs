@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace RCodingSchool.Controllers
 {
+    [Authorize]
     public class SubjectController : Controller
     {
         private readonly SubjectService _subjectService;

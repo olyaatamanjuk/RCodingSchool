@@ -9,8 +9,9 @@
 {
     <form>
         <div class="form-group">
-            @Html.HiddenFor( m => m.ChapterId)
+            @Html.HiddenFor(m => m.ChapterId)
             @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.SubjectId)
             <label for="pwd">Назва теми:</label>
             @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
         </div>
@@ -24,7 +25,7 @@
                 Додати зображення <input type="file" style="display: none;">
             </label>
         </div>*@
-        @Html.ValidationMessage("credentials", new { htmlAttributes = new { @class = "text-danger" } })
+        @Html.ValidationMessage("credentials", new { HtmlAttributes = new { @class = "text-danger" } })
         <div class="btn-group">
             <button class="btn btn-default" >Код</button>
             <button class="btn btn-default">Зображення</button>

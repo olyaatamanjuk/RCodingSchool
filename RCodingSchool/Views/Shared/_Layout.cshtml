@@ -29,6 +29,10 @@
                             <li class="dropdown-item">@Html.ActionLink("Мої предмети", "Subject", "Subject")</li>
                             <li class="dropdown-item"><a href="#">Мої викладачі</a></li>
                             <li class="dropdown-item"><a href="#">Мої завдання</a></li>
+                            @if (this.User.IsInRole("Teacher"))
+                            {
+                                <li class="dropdown-item"><a href="#">Мої групи</a></li>
+                            }
                         </ul>
                     </li>
                     <li><a href="#">Інформація</a></li>

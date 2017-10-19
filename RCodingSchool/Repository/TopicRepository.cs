@@ -14,7 +14,12 @@ namespace RCodingSchool.Repository
 
 		public Topic GetFirstFromChapter(int id)
 		{
-			return dbContext.Topics.FirstOrDefault(e => e.ChapterId == id);
+			return dbContext.Topics.Include("Chapter").FirstOrDefault(e => e.ChapterId == id);
 		}
+
+        public override Topic Get(int id)
+        {
+            return dbContext.Topics.Include("Chapter").FirstOrDefault(x => x.Id == id);
+        }
     }
 }

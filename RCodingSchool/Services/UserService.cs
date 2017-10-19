@@ -33,25 +33,27 @@ namespace RCodingSchool.Services
         {
             user = _userRepository.GetByEmail(loginCreds.Email);
 
-            if (!user.RegisterCode.Equals(Guid.Empty))
-            {
-                user = null;
-                return false;
-            }
-
             if (user == null)
             {
                 user = null;
                 return false;
             }
-
-            if (!string.Equals(user.Password, Crypto.SHA256(loginCreds.Password)))
+            else
             {
-                user = null;
-                return false;
-            }
+                if (!user.RegisterCode.Equals(Guid.Empty))
+                {
+                    user = null;
+                    return false;
+                }
 
-            return true;
+                if (!string.Equals(user.Password, Crypto.SHA256(loginCreds.Password)))
+                {
+                    user = null;
+                    return false;
+                }
+
+                return true;
+            }
         }
 
         public User GetUserByEmail(string email)
@@ -153,6 +155,11 @@ namespace RCodingSchool.Services
             return _groupRepository.GetAll().ToList();
         }
 
+        public T GetActualUserById<T>(int id)
+        {
+            return _userRepository.GetActualUserById<T>(id);
+        }
+
         private bool SendEmail(string email, Guid registerCode)
         {
             try
@@ -177,6 +184,11 @@ namespace RCodingSchool.Services
             {
                 return false;
             }
+        }
+
+        public bool IsTeacher(int id)
+        {
+           return _userRepository.IsTeacher(id);
         }
     }
 }

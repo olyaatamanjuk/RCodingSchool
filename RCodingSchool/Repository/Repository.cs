@@ -15,7 +15,7 @@ namespace RCodingSchool.Repository
             dbContext = context;
         }
 
-        public TEntity Get(int id)
+        public virtual TEntity Get(int id)
         {
             return dbContext.Set<TEntity>().Find(id);
         }
