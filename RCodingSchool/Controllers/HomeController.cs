@@ -1,4 +1,9 @@
-﻿using RCodingSchool.Repository;
+﻿using AutoMapper;
+using RCodingSchool.Models;
+using RCodingSchool.Services;
+using RCodingSchool.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace RCodingSchool.Controllers
@@ -6,20 +11,51 @@ namespace RCodingSchool.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-		private readonly IUserRepository _userRepository;
+		private readonly NewsService _newsService;
+		private readonly UserService _userService;
 
-		public HomeController(IUserRepository userRepository)
+		public HomeController(NewsService newsService, UserService userService)
 		{
-			_userRepository = userRepository;
+			_newsService = newsService;
+			_userService = userService;
 		}
 
 		[HttpGet]
 		public ActionResult Index()
         {
-            // TODO: Test
-            var userId = User.Identity;
-
             return View();
         }
+
+		[HttpGet]
+		public ActionResult News()
+		{
+			List<News> newsList = _newsService.GetAll().ToList();
+			NewsListVM newsListVM = new NewsListVM
+			{
+				AllNews = Mapper.Map<List<News>, List<NewsVM>>(newsList)
+			};
+			return View(newsListVM);
+		}
+
+		[HttpGet]
+		public ActionResult NewsDetail(int? id)
+		{
+			News news = _newsService.Get(id.GetValueOrDefault());
+			NewsVM newsVM = Mapper.Map<News, NewsVM>(news);
+			return View(newsVM);
+		}
+
+		[HttpPost]
+		public ActionResult NewsDetail(NewsVM newsVM)
+		{
+			if (_newsService.TrySave(newsVM))
+			{
+				return RedirectToAction("NewsDetail", new { id = newsVM.Id });
+			}
+			else
+			{
+				return View();
+			}
+		}
 	}
 }

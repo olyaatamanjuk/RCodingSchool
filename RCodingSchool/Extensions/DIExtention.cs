@@ -33,15 +33,18 @@ namespace RCodingSchool.Extensions
             container.RegisterType<IStudentRepository, StudentRepository>();
             container.RegisterType<ITeacherRepository, TeacherRepository>();
             container.RegisterType<IGroupRepository, GroupRepository>();
+			container.RegisterType<INewsRepository, NewsRepository>();
+			container.RegisterType<ICommentRepository, CommentRepository>();
 
-            // Services
-            container.RegisterType<MessageService>();
+			// Services
+			container.RegisterType<MessageService>();
             container.RegisterType<UserService>();
             container.RegisterType<SubjectService>();
             container.RegisterType<ChapterService>();
+			container.RegisterType<NewsService>();
 
-            // Hubs
-            container.RegisterType<ChatHub>();
+			// Hubs
+			container.RegisterType<ChatHub>();
             container.RegisterType<Connections>();
 
             // Dark magic

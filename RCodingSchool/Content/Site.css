@@ -55,3 +55,11 @@ footer {
     text-transform: uppercase;
     letter-spacing: 2px
 }
+.comment{
+    background-color:ghostwhite;
+    padding:20px;
+    margin:20px;
+}
+.commenttext{
+      margin:20px;
+}

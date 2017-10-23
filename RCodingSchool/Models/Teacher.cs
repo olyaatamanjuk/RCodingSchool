@@ -14,5 +14,6 @@ namespace RCodingSchool.Models
 
 		public ICollection<TeacherGroup> Groups { get; set; }
         public ICollection<TeacherSubject> Subjects { get; set; }
-    }
+		public ICollection<News> News { get; set; }
+	}
 }

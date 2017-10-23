@@ -22,6 +22,9 @@ namespace RCodingSchool.Extensions
 				.ForMember(d => d.CurrentTopicId, o=> o.Ignore());
 
 			CreateMap<Topic, TopicVM>();
+
+			CreateMap<News, NewsVM>()
+				.ForMember(d => d.CommentText, o => o.Ignore());
 		}
     }
 }

@@ -6,15 +6,16 @@ using System.Web.Mvc;
 
 namespace RCodingSchool.Controllers
 {
-    public class MessageController : Controller
+	[Authorize]
+	public class MessageController : Controller
     {
 		private readonly UserService _userService;
 		public MessageController(UserService userService)
 		{
 			_userService = userService;
 		}
-		// GET: Message
-		[Authorize(Roles = "User")]
+		
+		[HttpGet]
 		public ActionResult Message()
         {
 			User user = _userService.GetUserByEmail(HttpContext.User.Identity.Name);

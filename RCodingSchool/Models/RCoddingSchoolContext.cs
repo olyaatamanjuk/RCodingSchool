@@ -14,6 +14,8 @@ namespace RCodingSchool.Models
 		public DbSet<Message> Messages { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<MessageGroup> MessagesGroups { get; set; }
+		public DbSet<News> News { get; set; }
+		public DbSet<Comment> Comments { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
@@ -38,7 +40,19 @@ namespace RCodingSchool.Models
 				.HasForeignKey(c => c.ReceiverId)
 				.WillCascadeOnDelete(false);
 
-            base.OnModelCreating(modelBuilder);
+			modelBuilder.Entity<User>()
+				.HasMany(t => t.Comments)
+				.WithOptional()
+				.HasForeignKey(c => c.UserId)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Teacher>()
+				.HasMany(t => t.News)
+				.WithOptional()
+				.HasForeignKey(c => c.NewsAuthorId)
+				.WillCascadeOnDelete(false);
+
+			base.OnModelCreating(modelBuilder);
 		}
 	}
 }

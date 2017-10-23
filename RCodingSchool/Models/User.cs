@@ -13,5 +13,6 @@ namespace RCodingSchool.Models
 		public bool isAdmin { get; set; }
         public Guid RegisterCode { get; set; }
         public ICollection<Message> Messages { get; set; }
-}
+		public ICollection<Comment> Comments { get; set; }
+	}
 }
