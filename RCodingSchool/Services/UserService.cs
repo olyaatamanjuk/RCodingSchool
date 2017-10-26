@@ -1,5 +1,5 @@
 ﻿using RCodingSchool.Models;
-using RCodingSchool.Repository;
+using RCodingSchool.Interfaces;
 using RCodingSchool.ViewModels;
 using System.Web.Helpers;
 using System;

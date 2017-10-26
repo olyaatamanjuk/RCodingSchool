@@ -1,7 +1,7 @@
 ﻿using RCodingSchool.Models;
 using System;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {

@@ -1,9 +1,7 @@
 ﻿using RCodingSchool.Models;
-using RCodingSchool.Repository;
-using System;
+using RCodingSchool.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace RCodingSchool.Services
 {

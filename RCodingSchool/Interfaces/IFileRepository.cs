@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Interfaces
 {
     interface IFileRepository : IRepository<File>
     {

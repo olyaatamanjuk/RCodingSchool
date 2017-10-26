@@ -1,11 +1,11 @@
 ﻿using RCodingSchool.Models;
-using RCodingSchool.Repository;
 using RCodingSchool.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
+using RCodingSchool.Interfaces;
 
 namespace RCodingSchool.Services
 {
@@ -15,7 +15,6 @@ namespace RCodingSchool.Services
         private readonly ITopicRepository _topicRepository;
         private readonly IUserRepository _userRepository;
         private HttpContextBase _httpContext;
-
 
         public ChapterService(IChapterRepository chapterRepository, ITopicRepository topicRepository, IUserRepository userRepository,
             HttpContextBase httpContext)

@@ -1,7 +1,7 @@
 ﻿using RCodingSchool.Models;
 using System.Collections.Generic;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Interfaces
 {
     public interface IChapterRepository : IRepository<Chapter>
     {

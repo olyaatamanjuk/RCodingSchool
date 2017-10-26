@@ -1,7 +1,7 @@
-﻿
-using RCodingSchool.Models;
+﻿using RCodingSchool.Models;
+using RCodingSchool.Interfaces;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Repositories
 {
     public class TeacherRepository : Repository<Teacher>, ITeacherRepository
     {

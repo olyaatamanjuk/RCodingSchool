@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using RCodingSchool.Models;
 using System.Linq;
-using System;
+using RCodingSchool.Interfaces;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Repositories
 {
     public class ChapterRepository : Repository<Chapter>, IChapterRepository
     {

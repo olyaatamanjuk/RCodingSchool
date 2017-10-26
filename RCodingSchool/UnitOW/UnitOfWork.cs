@@ -1,5 +1,6 @@
 ﻿using RCodingSchool.Models;
-using RCodingSchool.Repository;
+using RCodingSchool.Repositories;
+using RCodingSchool.Interfaces;
 using System;
 
 namespace RCodingSchool.UnitOW

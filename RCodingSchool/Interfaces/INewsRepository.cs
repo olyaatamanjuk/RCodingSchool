@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Interfaces
 {
-	public interface INewsRepository :IRepository<News>
-	{
-	}
+    public interface INewsRepository : IRepository<News>
+    {
+    }
 }

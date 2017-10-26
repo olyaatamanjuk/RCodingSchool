@@ -1,8 +1,9 @@
 ﻿using RCodingSchool.Models;
 using System;
 using System.Linq;
+using RCodingSchool.Interfaces;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Repositories
 {
     public class UserRepository : Repository<User>, IUserRepository
     {

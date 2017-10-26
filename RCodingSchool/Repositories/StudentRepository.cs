@@ -1,6 +1,7 @@
 ﻿using RCodingSchool.Models;
+using RCodingSchool.Interfaces;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Repositories
 {
     public class StudentRepository : Repository<Student>, IStudentRepository
     {

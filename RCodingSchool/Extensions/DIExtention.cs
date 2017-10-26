@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Mvc;
+using RCodingSchool.Interfaces;
 using Owin;
 using RCodingSchool.Hubs;
 using RCodingSchool.Models;
-using RCodingSchool.Repository;
+using RCodingSchool.Repositories;
 using RCodingSchool.Services;
 using RCodingSchool.UnitOW;
 using System.Web;

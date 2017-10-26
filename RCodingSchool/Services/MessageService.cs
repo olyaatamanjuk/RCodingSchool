@@ -1,6 +1,6 @@
 ﻿using RCodingSchool.Models;
-using RCodingSchool.Repository;
 using System;
+using RCodingSchool.Interfaces;
 
 namespace RCodingSchool.Services
 {

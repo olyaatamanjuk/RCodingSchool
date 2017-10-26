@@ -1,7 +1,8 @@
 ﻿using RCodingSchool.Models;
 using System.Linq;
+using RCodingSchool.Interfaces;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Repositories
 {
 	public class CommentRepository : Repository<Comment>, ICommentRepository
 	{

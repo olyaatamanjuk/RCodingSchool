@@ -1,6 +1,7 @@
-﻿using RCodingSchool.Models;
+﻿using RCodingSchool.Interfaces;
+using RCodingSchool.Models;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Repositories
 {
 	public class MessageGroupRepository : Repository<MessageGroup>, IMessageGroupRepository
 	{

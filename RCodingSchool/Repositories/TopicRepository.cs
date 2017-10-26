@@ -1,9 +1,8 @@
-﻿
-using RCodingSchool.Models;
+﻿using RCodingSchool.Models;
 using System.Linq;
-using System;
+using RCodingSchool.Interfaces;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Repositories
 {
     public class TopicRepository : Repository<Topic>, ITopicRepository
     {

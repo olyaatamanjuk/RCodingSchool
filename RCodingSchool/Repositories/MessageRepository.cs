@@ -1,5 +1,7 @@
 ﻿using RCodingSchool.Models;
-namespace RCodingSchool.Repository
+using RCodingSchool.Interfaces;
+
+namespace RCodingSchool.Repositories
 {
     public class MessageRepository : Repository<Message>, IMessageRepository
     {

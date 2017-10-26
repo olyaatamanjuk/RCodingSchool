@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RCodingSchool.Repository
+namespace RCodingSchool.Interfaces
 {
     public interface IRepository<TEntity> : IDisposable
 		where TEntity : class 
