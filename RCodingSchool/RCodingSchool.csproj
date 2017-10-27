@@ -344,6 +344,7 @@
     <Content Include="Views\Chapter\CreateTopic.cshtml" />
     <Content Include="Views\Home\News.cshtml" />
     <Content Include="Views\Home\NewsDetail.cshtml" />
+    <Content Include="Views\Account\ConfirmStudents.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

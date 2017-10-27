@@ -2,56 +2,50 @@
 @{
     ViewBag.Title = "CreateTopic";
 }
+@section Style{
+    @Styles.Render("~/bundles/markdownCSS")
+}
+
 
 <div class="container">
     <h2>Додайте нову тему</h2>
-    @using (Html.BeginForm("CreateTopic", "Chapter", FormMethod.Post))
+    @using (Html.BeginForm("CreateTopic", "Chapter", FormMethod.Post, new { @name = "topic-form"}))
     {
         <input type="file" class="fileloader hidden" />
-        <div class="btn-group">
-            <button class="btn btn-default">Код</button>
-            <button class="btn btn-default imgloader">Зображення</button>
-            <button class="btn btn-default">Формула</button>
+        <div class="form-group">
+            @Html.HiddenFor(m => m.ChapterId)
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.SubjectId)
+            <label for="pwd">Назва теми:</label>
+            @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
         </div>
-            <div class="form-group">
-                @Html.HiddenFor(m => m.ChapterId)
-                @Html.HiddenFor(m => m.Id)
-                @Html.HiddenFor(m => m.SubjectId)
-                <label for="pwd">Назва теми:</label>
-                @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="form-group">
+            <label for="comment">Вміст теми:</label>
+        </div>
+        <div class="form-group">
+            <div class="btn-group">
+                <button class="btn btn-default" type="button">Код</button>
+                <button class="btn btn-default imgloader" type="button">Зображення</button>
+                <button class="btn btn-default" type="button">Формула</button>
             </div>
-            <div class="form-group">
-                <label for="comment">Вміст теми:</label>
-                @Html.TextAreaFor(m => m.Text, new { @class = "form-control", @rows = "12", @id = "text-input" })
-
+            @Html.TextAreaFor(m => m.Text, new { @class = "form-control", @rows = "12", @id = "text-input" })
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="preview"></div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div id="preview"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="btn btn-default btn-file">
-                    Додати зображення <input type="file" style="display: none;">
-                </label>
-            </div>
-            @Html.ValidationMessage("credentials", new { HtmlAttributes = new { @class = "text-danger" } })
-            <button type="submit" class="upload btn btn-primary">Зберегти</button>
+        </div>
+        <div class="form-group">
+            <label class="btn btn-default btn-file">
+                Додати зображення <input type="file" style="display: none;">
+            </label>
+        </div>
+        @Html.ValidationMessage("credentials", new { HtmlAttributes = new { @class = "text-danger" } })
+        <button type="submit" class="upload btn btn-primary">Зберегти</button>
     }
 </div>
-
 @section Script
 {
     @Scripts.Render("~/bundles/markdown")
-    <script src="~/Scripts/fileloader.js">
-            //function Editor(input, preview) {
-            //    this.update = function () {
-            //        preview.innerHTML = markdown.toHTML(input.value);
-            //    };
-            //    input.editor = this;
-            //    this.update();
-            //}
-            //var $ = function (id) { return document.getElementById(id); };
-            //new Editor($("text-input"), $("preview"));
-    </script>
+    <script src="~/Scripts/fileloader.js"></script>
 }

@@ -9,9 +9,9 @@ namespace RCodingSchool.App_Start
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
 									"~/Scripts/jquery-3.2.1.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
-                                    "~/Scripts/markdown.js"));
-
+			bundles.Add(new ScriptBundle("~/bundles/markdown").Include(
+									"~/Scripts/simplemde.min.js"));
+			
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 						"~/Scripts/modernizr-2.8.3.js"));
 
@@ -32,6 +32,10 @@ namespace RCodingSchool.App_Start
 			bundles.Add(new StyleBundle("~/bundles/baseCSS").Include(
 					 "~/Content/bootstrap.css",
 					 "~/Content/Site.css"));
+
+			bundles.Add(new StyleBundle("~/bundles/markdownCSS").Include(
+				"~/Content/simplemde.min.css"
+				));
 		}
 	}
 }
