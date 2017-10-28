@@ -201,6 +201,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\admin.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -286,8 +287,11 @@
     <Compile Include="ViewModels\MessageVM.cs" />
     <Compile Include="ViewModels\NewsListVM.cs" />
     <Compile Include="ViewModels\NewsVM.cs" />
+    <Compile Include="ViewModels\StudentVM.cs" />
     <Compile Include="ViewModels\SubjectVM.cs" />
+    <Compile Include="ViewModels\TeacherVM.cs" />
     <Compile Include="ViewModels\TopicVM.cs" />
+    <Compile Include="ViewModels\UserListsVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\Entity.cs" />
@@ -344,7 +348,7 @@
     <Content Include="Views\Chapter\CreateTopic.cshtml" />
     <Content Include="Views\Home\News.cshtml" />
     <Content Include="Views\Home\NewsDetail.cshtml" />
-    <Content Include="Views\Account\ConfirmStudents.cshtml" />
+    <Content Include="Views\Account\Users.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

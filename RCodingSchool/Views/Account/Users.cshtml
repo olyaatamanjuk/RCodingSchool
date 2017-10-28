@@ -1,0 +1,140 @@
+﻿@model RCodingSchool.ViewModels.UserListsVM
+@{
+    ViewBag.Title = "Administration";
+}
+
+@if (@Model.NoActiveStudents.Count > 0)
+{
+    using (Html.BeginForm("Users", "Account", FormMethod.Post))
+    {
+        <h3>Студенти, чекаючі активації: </h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ім'я</th>
+                    <th>Фамілія</th>
+                    <th>E-mail</th>
+                    <th>Група</th>
+                    <th class="checktool col-md-1">Активувати</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.NoActiveStudents.Count(); i++)
+                {
+                    <tr>
+                        @Html.HiddenFor(m => m.NoActiveStudents[i].Id)
+                        <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                        <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                        <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                        <td>@Html.DropDownListFor(m => m.NoActiveStudents[i].Group.Name, ViewBag.Groups as SelectList, new { @type = "text", @name = "group", @class = "form-control input" })</td>
+                        <td>@Html.CheckBoxFor(m => m.NoActiveStudents[i].User.IsActive)</td>
+                    </tr>
+                  }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+        <hr>
+    }
+}
+
+@if (Model.NoActiveTeachers.Count > 0)
+{
+    using (Html.BeginForm("Users", "Account", FormMethod.Post))
+    {
+        <h3>Викладачі, чекаючі активації:</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ім'я</th>
+                    <th>Фамілія</th>
+                    <th>E-mail</th>
+                    <th class="checktool col-md-1">Активувати</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.NoActiveTeachers.Count(); i++)
+                {
+                    <tr>
+                        @Html.HiddenFor(m => m.NoActiveTeachers[i].Id)
+                        <td>@Html.EditorFor(m => m.NoActiveTeachers[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                        <td>@Html.EditorFor(m => m.NoActiveTeachers[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                        <td>@Html.EditorFor(m => m.NoActiveTeachers[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                        <td>@Html.CheckBoxFor(m => m.NoActiveTeachers[i].User.IsActive)</td>
+                    </tr>
+                    }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+        <hr>
+    }
+}
+
+@if (Model.Teachers.Count > 0)
+{
+    using (Html.BeginForm("Users", "Account", FormMethod.Post))
+    {
+        <h3>Студенти: </h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ім'я</th>
+                    <th>Фамілія</th>
+                    <th>E-mail</th>
+                    <th>Група</th>
+                    <th class="checktool col-md-1">Активний</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Students.Count(); i++)
+                {
+                    <tr>
+                        @Html.HiddenFor(m => m.Students[i].Id)
+                        <td>@Html.EditorFor(m => m.Students[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                        <td>@Html.EditorFor(m => m.Students[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                        <td>@Html.EditorFor(m => m.Students[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                        <td>@Html.DropDownListFor(m => m.NoActiveStudents[i].Group.Name, ViewBag.Groups as SelectList, new { @type = "text", @name = "group", @class = "form-control input" })</td>
+                        <td>@Html.CheckBoxFor(m => m.Students[i].User.IsActive)</td>
+                    </tr>
+                    }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+        <hr>
+    }
+}
+
+@if (Model.Teachers.Count > 0)
+{
+    using (Html.BeginForm("Users", "Account", FormMethod.Post))
+    {
+    <h3>Викладачі: </h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ім'я</th>
+                <th>Фамілія</th>
+                <th>E-mail</th>
+                <th class="checktool col-md-1">Активний</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Teachers.Count; i++)
+            {
+                <tr>
+                    @Html.HiddenFor(m => m.Teachers[i].Id)
+                    <td>@Html.EditorFor(m => m.Teachers[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                    <td>@Html.EditorFor(m => m.Teachers[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                    <td>@Html.EditorFor(m => m.Teachers[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                    <td>@Html.CheckBoxFor(m => m.Teachers[i].User.IsActive)</td>
+                </tr>
+                }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+    <hr>
+    }
+}
+
+@section Styles{
+    @Styles.Render("~/bundles/admin")
+}

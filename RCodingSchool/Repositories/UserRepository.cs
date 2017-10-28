@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using RCodingSchool.Interfaces;
+using System.Collections.Generic;
 
 namespace RCodingSchool.Repositories
 {
@@ -24,7 +25,6 @@ namespace RCodingSchool.Repositories
             {
                 result = dbContext.Students.Include("Group").FirstOrDefault(x => x.UserId == id);
             }
-
             return (T)result;
         }
 
@@ -38,7 +38,12 @@ namespace RCodingSchool.Repositories
             return dbContext.Users.FirstOrDefault(x => x.RegisterCode.Equals(registerCode));
         }
 
-        public bool IsTeacher(int id)
+		public IEnumerable<User> GetUsersByActivity(bool active)
+		{
+			return dbContext.Users.Where(e => e.IsActive == active);
+		}
+
+		public bool IsTeacher(int id)
         {
             Teacher teacher = dbContext.Teachers.FirstOrDefault(x => x.UserId == id);
             if (teacher == null)

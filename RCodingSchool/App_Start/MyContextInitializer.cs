@@ -10,17 +10,31 @@ namespace RCodingSchool
     {
         protected override void Seed(RCodingSchoolContext context)
         {
-            var userList = new List<User>()
+			var groupList = new List<Group>()
+			{
+				new Group { Name = "402" },
+				new Group { Name = "407" },
+				new Group { Name = "507" },
+				new Group { Name = "222" },
+			};
+			context.Groups.AddRange(groupList);
+
+			var userList = new List<User>()
             {
-                new User { FirstName = "Ольга",LastName="Атаманюк", Email="olyaatamanyuk@gmail.com", Password="123456" },
-                new User { FirstName = "Марина", LastName = "Волощук", Email = "voloshuk@gmail.com" , Password = "123456" },
-                new User { FirstName = "Василь", LastName = "Косован", Email = "kosovan@gmail.com", Password = "123456" },
+                new User { FirstName = "Ольга",LastName="Атаманюк", Email="olyaatamanyuk@gmail.com", Password="123456", IsActive = true },
+                new User { FirstName = "Марина", LastName = "Волощук", Email = "voloshuk@gmail.com" , Password = "123456",  IsActive = true },
+                new User { FirstName = "Василь", LastName = "Косован", Email = "kosovan@gmail.com", Password = "123456" ,  IsActive = true },
                 new User { FirstName = "Андрій", LastName = "Курган", Email = "kurgan@gmail.com", Password = "123456" },
                 new User { FirstName = "Степан", LastName = "Миронюк", Email = "myronjuk@gmail.com", Password = "123456" },
                 new User { FirstName = "Ігор", LastName = "Панчук", Email = "panchuk@gmail.com", Password = "123456" },
                 new User { FirstName = "Вікторія", LastName = "Якозина", Email = "yakozina@gmail.com", Password = "123456" },
-                new User { FirstName = "Вікторія", LastName = "Якозина", Email = "admin", Password = "admin" }
-            };
+                new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "admin", Password = "admin" },
+				new User { FirstName = "Ірина", LastName = "Дорошенко", Email = "doroshenko@mail.com", Password = "123456", IsActive = true  },
+				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "malyk@gmail.com", Password = "123456", IsActive = true  },
+				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "yurchenko@gmail.com", Password = "123456", IsActive = true  },
+				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "antonjuk@gmail.com", Password = "123456" },
+				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "lukashiv@gmail.com", Password = "123456" }
+			};
 
             foreach (User item in userList)
             {
@@ -31,13 +45,33 @@ namespace RCodingSchool
             context.SaveChanges();
             var user = context.Users.First();
 
-            context.Teachers.Add(new Teacher
-            {
-                UserId = user.Id
-            });
+			var teacherList = new List<Teacher>()
+			{
+				new Teacher {UserId = 9 },
+				new Teacher {UserId = 10 },
+				new Teacher {UserId = 11 },
+				new Teacher {UserId = 12 },
+				new Teacher {UserId = 13 },
+			};
+
+			context.Teachers.AddRange(teacherList);
+
+			var studentsList = new List<Student>()
+			{
+				new Student {UserId = 1 , GroupId = 1},
+				new Student {UserId = 2, GroupId = 2 },
+				new Student {UserId = 3, GroupId = 3},
+				new Student {UserId = 4, GroupId = 4 },
+				new Student {UserId = 5, GroupId = 4 },
+				new Student {UserId = 6, GroupId = 2 },
+				new Student {UserId = 7, GroupId = 2 },
+				new Student {UserId = 8, GroupId = 1}
+			};
+
+			context.Students.AddRange(studentsList);
 
 
-            var subjectList = context.Subjects.AddRange(new List<Subject>()
+			var subjectList = context.Subjects.AddRange(new List<Subject>()
             {
                 new Subject {  Name = "Системний аналіз" , IsExam = true},
                 new Subject {  Name = "Випадкові процеси" , IsExam = false},
@@ -79,12 +113,7 @@ namespace RCodingSchool
 
 			context.Chapters.AddRange(chaptertList);
 			context.News.AddRange(newsList);
-			context.SaveChanges();
 
-            context.Groups.Add(new Group
-            {
-                Name = "Bla1"
-            });
             context.SaveChanges();
         }
     }

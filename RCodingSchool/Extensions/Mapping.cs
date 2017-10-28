@@ -18,7 +18,11 @@ namespace RCodingSchool.Extensions
 
             CreateMap<Subject, SubjectVM>();
 
-            CreateMap<Chapter, ChapterVM>()
+			CreateMap<Student, StudentVM>();
+
+			CreateMap<Teacher, TeacherVM>();
+
+			CreateMap<Chapter, ChapterVM>()
 				.ForMember(d => d.CurrentTopicId, o=> o.Ignore());
 
 			CreateMap<Topic, TopicVM>();

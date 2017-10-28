@@ -36,6 +36,10 @@ namespace RCodingSchool.App_Start
 			bundles.Add(new StyleBundle("~/bundles/markdownCSS").Include(
 				"~/Content/simplemde.min.css"
 				));
+
+			bundles.Add(new StyleBundle("~/bundles/admin").Include(
+				"~/Content/admin.css"
+				));
 		}
 	}
 }

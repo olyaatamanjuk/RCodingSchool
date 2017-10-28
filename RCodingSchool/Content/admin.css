@@ -1,0 +1,25 @@
+﻿
+.checktool th{
+width: 5%;
+}
+
+form{
+    max-width: 800px;
+    margin: 0 auto;
+}
+.tdread{
+    background-color:white;
+    border:hidden;
+}
+.table tr:hover input
+{
+    background-color: #e3e5e8;
+}
+.table tr:hover
+{
+    background-color: #e3e5e8;
+}
+
+.table thead tr:hover{
+     background-color: white;
+}

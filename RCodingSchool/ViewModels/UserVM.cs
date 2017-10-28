@@ -9,6 +9,7 @@ namespace RCodingSchool.ViewModels
 		public string LastName { get; set; }
 		public string Password { get; set; }
 		public bool isAdmin { get; set; }
+		public bool IsActive { get; set; }
 
 		public bool RememberMe { get; set; }
 		public string GroupName { get; set; }

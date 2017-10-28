@@ -1,5 +1,6 @@
 ﻿using RCodingSchool.Models;
 using System;
+using System.Collections.Generic;
 
 namespace RCodingSchool.Interfaces
 {
@@ -9,5 +10,7 @@ namespace RCodingSchool.Interfaces
         User GetByRegisterCode(Guid registerCode);
         T GetActualUserById<T>(int id);
         bool IsTeacher(int id);
-    }
+		IEnumerable<User> GetUsersByActivity(bool active);
+
+	}
 }

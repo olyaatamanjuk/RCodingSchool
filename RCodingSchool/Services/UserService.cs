@@ -40,13 +40,13 @@ namespace RCodingSchool.Services
             }
             else
             {
-                if (!user.RegisterCode.Equals(Guid.Empty))
-                {
-                    user = null;
-                    return false;
-                }
+				if (!user.RegisterCode.Equals(Guid.Empty))
+				{
+					user = null;
+					return false;
+				}
 
-                if (!string.Equals(user.Password, Crypto.SHA256(loginCreds.Password)))
+				if (!string.Equals(user.Password, Crypto.SHA256(loginCreds.Password)))
                 {
                     user = null;
                     return false;
@@ -63,13 +63,14 @@ namespace RCodingSchool.Services
 
         public User RegisterNew(UserVM userVM)
         {
-            User user = new User
-            {
-                Email = userVM.Email,
-                FirstName = userVM.FirstName,
-                LastName = userVM.LastName,
-                Password = Crypto.SHA256(userVM.Password),
-                RegisterCode = Guid.NewGuid()
+			User user = new User
+			{
+				Email = userVM.Email,
+				FirstName = userVM.FirstName,
+				LastName = userVM.LastName,
+				Password = Crypto.SHA256(userVM.Password),
+				RegisterCode = Guid.NewGuid(),
+				IsActive = false
             };
 
             if (!SendEmail(user.Email, user.RegisterCode))
@@ -78,16 +79,11 @@ namespace RCodingSchool.Services
             }
 
             _userRepository.Add(user);
-            _userRepository.SaveChanges();
 
             if (userVM.IsTeacher)
             {
                 Teacher teacher = new Teacher
                 {
-                    Email = userVM.Email,
-                    FirstName = userVM.FirstName,
-                    LastName = userVM.LastName,
-                    Password = Crypto.SHA256(userVM.Password),
                     User = user
                 };
                 _teacherRepository.Add(teacher);
@@ -97,18 +93,12 @@ namespace RCodingSchool.Services
             {
                 Student student = new Student
                 {
-                    Email = userVM.Email,
-                    FirstName = userVM.FirstName,
-                    LastName = userVM.LastName,
                     Group = _groupRepository.GetByName(userVM.GroupName),
-                    Password = Crypto.SHA256(userVM.Password),
                     User = user
                 };
                 _studentRepository.Add(student);
                 _studentRepository.SaveChanges();
             }
-
-          
 
             return null;
         }
@@ -190,5 +180,41 @@ namespace RCodingSchool.Services
         {
            return _userRepository.IsTeacher(id);
         }
-    }
+
+		public List<Teacher> GetTeachers(bool active)
+		{
+			List<User> usersList = _userRepository.GetUsersByActivity(active).ToList();
+			List<Teacher> teacherList = new List<Teacher>();
+			foreach (var x in usersList)
+			{
+				var user = _userRepository.GetActualUserById<Teacher>(x.Id);
+				if (!(user == null))
+				{
+					teacherList.Add(user);
+				}
+			}  
+			return teacherList;
+		}
+
+		public List<Student> GetStudents(bool active)
+		{
+			List<User> usersList = _userRepository.GetUsersByActivity(active).ToList();
+			List<Student> studentList = new List<Student>();
+			foreach (var x in usersList)
+			{
+				var user = _userRepository.GetActualUserById<Student>(x.Id);
+				if (!(user == null))
+				{
+					studentList.Add(user);
+				}
+			}
+			return studentList;
+		}
+
+		public List <User> GetUsersByActivity(bool active)
+		{
+			return _userRepository.GetUsersByActivity(active).ToList();
+		}
+
+	}
 }

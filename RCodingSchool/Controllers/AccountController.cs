@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using RCodingSchool.Common;
 using System;
+using AutoMapper;
 
 namespace RCodingSchool.Controllers
 {
@@ -44,11 +45,15 @@ namespace RCodingSchool.Controllers
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Email),
-                new Claim("id", user.Id.ToString()),
+                new Claim("id", user.Id.ToString())
                 //new Claim("fullname", user.Id.ToString())
             };
 
-            if (user.isAdmin)
+			if (!(user.IsActive))
+			{
+				claims.Add(new Claim(ClaimTypes.Role, Roles.User));
+			}
+            else if (user.isAdmin)
             {
                 claims.Add(new Claim(ClaimTypes.Role, Roles.Admin));
             }
@@ -108,9 +113,34 @@ namespace RCodingSchool.Controllers
         [HttpGet]
         public ActionResult RegisterConfirm(Guid registerCode)
         {
-            _userService.FinishRegister(registerCode);
+           _userService.FinishRegister(registerCode);
 
             return RedirectToAction("Login", "Account");
         }
-    }
+		[HttpGet]
+		public ActionResult Users()
+		{
+			UserListsVM userLists = new UserListsVM();
+			userLists.NoActiveStudents = Mapper.Map<List<Student>, List<StudentVM>>(_userService.GetStudents(false));
+			userLists.NoActiveTeachers = Mapper.Map<List<Teacher>, List<TeacherVM>>(_userService.GetTeachers(false));
+			userLists.Students = Mapper.Map<List<Student>, List<StudentVM>>(_userService.GetStudents(true));
+			userLists.Teachers = Mapper.Map<List<Teacher>, List<TeacherVM>>(_userService.GetTeachers(true));
+
+			List<Group> groupList = _userService.GetGroups();
+			List<string> groupNames = new List<string>();
+			foreach (var group in groupList)
+			{
+				groupNames.Add(group.Name);
+			}
+			SelectList groups = new SelectList(groupNames, "Name");
+			ViewBag.Groups = groups;
+
+			return View(userLists);
+		}
+		[HttpPost]
+		public ActionResult Users(UserListsVM userLists)
+		{
+			return RedirectToAction("Users", "Account"); ;
+		}
+	}
 }
