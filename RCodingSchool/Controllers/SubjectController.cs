@@ -22,5 +22,13 @@ namespace RCodingSchool.Controllers
             List <SubjectVM> subjectsVM= Mapper.Map<List<Subject>, List<SubjectVM>>(subjects);
             return View(subjectsVM);
         }
-    }
+
+		public ActionResult Tasks()
+		{
+			List<Task> tasks = _subjectService.GetTaskList();
+			List<TaskVM> tasksVM = Mapper.Map<List<Task>, List<TaskVM>>(tasks);
+			return View(tasksVM);
+		}
+
+	}
 }

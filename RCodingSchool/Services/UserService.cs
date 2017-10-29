@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
+using AutoMapper;
 
 namespace RCodingSchool.Services
 {
@@ -216,5 +217,27 @@ namespace RCodingSchool.Services
 			return _userRepository.GetUsersByActivity(active).ToList();
 		}
 
+		public void SaveStudentChanges(List<StudentVM> listStudentVM)
+		{
+			foreach(StudentVM x in listStudentVM)
+			{
+				Student student = _studentRepository.Get(x.Id);
+				student.User.IsActive = x.User.IsActive;
+				if (!(x.newGroupId == 0))
+				{
+					student.GroupId = x.newGroupId;
+				}
+			}
+			_studentRepository.SaveChanges();
+		}
+		public void SaveTeacherChanges(List<TeacherVM> listTeacherVM)
+		{
+			foreach (TeacherVM x in listTeacherVM)
+			{
+				Teacher teacher = _teacherRepository.Get(x.Id);
+				teacher.User.IsActive = x.User.IsActive;
+			}
+			_teacherRepository.SaveChanges();
+		}
 	}
 }

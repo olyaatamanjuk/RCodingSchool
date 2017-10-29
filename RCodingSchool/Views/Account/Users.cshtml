@@ -5,7 +5,7 @@
 
 @if (@Model.NoActiveStudents.Count > 0)
 {
-    using (Html.BeginForm("Users", "Account", FormMethod.Post))
+    using (Html.BeginForm("NoActiveStudents", "Account", FormMethod.Post))
     {
         <h3>Студенти, чекаючі активації: </h3>
         <table class="table">
@@ -40,7 +40,7 @@
 
 @if (Model.NoActiveTeachers.Count > 0)
 {
-    using (Html.BeginForm("Users", "Account", FormMethod.Post))
+    using (Html.BeginForm("NoActiveTeachers", "Account", FormMethod.Post))
     {
         <h3>Викладачі, чекаючі активації:</h3>
         <table class="table">
@@ -72,7 +72,7 @@
 
 @if (Model.Teachers.Count > 0)
 {
-    using (Html.BeginForm("Users", "Account", FormMethod.Post))
+    using (Html.BeginForm("ActiveStudents", "Account", FormMethod.Post))
     {
         <h3>Студенти: </h3>
         <table class="table">
@@ -107,7 +107,7 @@
 
 @if (Model.Teachers.Count > 0)
 {
-    using (Html.BeginForm("Users", "Account", FormMethod.Post))
+    using (Html.BeginForm("ActiveTeachers", "Account", FormMethod.Post))
     {
     <h3>Викладачі: </h3>
     <table class="table">

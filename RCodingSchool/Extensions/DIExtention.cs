@@ -36,6 +36,7 @@ namespace RCodingSchool.Extensions
             container.RegisterType<IGroupRepository, GroupRepository>();
 			container.RegisterType<INewsRepository, NewsRepository>();
 			container.RegisterType<ICommentRepository, CommentRepository>();
+			container.RegisterType<ITaskRepository, TaskRepository>();
 
 			// Services
 			container.RegisterType<MessageService>();

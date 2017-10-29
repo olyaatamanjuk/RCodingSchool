@@ -21,6 +21,8 @@ namespace RCodingSchool.Extensions
 
 			CreateMap<Student, StudentVM>();
 
+			CreateMap<Task, TaskVM>();
+
 			CreateMap<Teacher, TeacherVM>();
 
 			CreateMap<Chapter, ChapterVM>()

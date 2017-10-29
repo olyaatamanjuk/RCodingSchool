@@ -1,0 +1,29 @@
+﻿@model List<RCodingSchool.ViewModels.TaskVM>
+@{
+    ViewBag.Title = "Tasks";
+}
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Предмет</th>
+                    <th>Завдання</th>
+                    <th>Викладач</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr>
+                        <td>@x.Subject.Name</td>
+                        <td>@Html.ActionLink(@x.Name, "Subject", "Task", new { id = @x.Subject.Id }, null)</td>
+                        <td>@x.Teacher.User.FirstName @x.Teacher.User.LastName</td>
+                    </tr>}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

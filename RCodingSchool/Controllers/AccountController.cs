@@ -136,8 +136,30 @@ namespace RCodingSchool.Controllers
 			return View(userLists);
 		}
 		[HttpPost]
-		public ActionResult Users(UserListsVM userLists)
+		public ActionResult NoActiveStudents(UserListsVM userLists)
 		{
+			_userService.SaveStudentChanges(userLists.NoActiveStudents);
+			return RedirectToAction("Users", "Account"); ;
+		}
+
+		[HttpPost]
+		public ActionResult ActiveStudents(UserListsVM userLists)
+		{
+			_userService.SaveStudentChanges(userLists.Students);
+			return RedirectToAction("Users", "Account"); ;
+		}
+
+		[HttpPost]
+		public ActionResult NoActiveTeachers(UserListsVM userLists)
+		{
+			_userService.SaveTeacherChanges(userLists.NoActiveTeachers);
+			return RedirectToAction("Users", "Account"); ;
+		}
+
+		[HttpPost]
+		public ActionResult ActiveTeachers(UserListsVM userLists)
+		{
+			_userService.SaveTeacherChanges(userLists.Teachers);
 			return RedirectToAction("Users", "Account"); ;
 		}
 	}

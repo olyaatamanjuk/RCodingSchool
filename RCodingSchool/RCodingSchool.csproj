@@ -260,6 +260,7 @@
     <Compile Include="Extensions\DIExtention.cs" />
     <Compile Include="App_Start\MyContextInitializer.cs" />
     <Compile Include="Hubs\Connections.cs" />
+    <Compile Include="Interfaces\ITaskRepository.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\GroupSubject.cs" />
@@ -279,6 +280,7 @@
     <Compile Include="Interfaces\ISubjectRepository.cs" />
     <Compile Include="Repositories\NewsRepository.cs" />
     <Compile Include="Repositories\SubjectRepository.cs" />
+    <Compile Include="Repositories\TaskRepository.cs" />
     <Compile Include="Services\ChapterService.cs" />
     <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\SubjectService.cs" />
@@ -289,6 +291,7 @@
     <Compile Include="ViewModels\NewsVM.cs" />
     <Compile Include="ViewModels\StudentVM.cs" />
     <Compile Include="ViewModels\SubjectVM.cs" />
+    <Compile Include="ViewModels\TaskVM.cs" />
     <Compile Include="ViewModels\TeacherVM.cs" />
     <Compile Include="ViewModels\TopicVM.cs" />
     <Compile Include="ViewModels\UserListsVM.cs" />
@@ -349,6 +352,7 @@
     <Content Include="Views\Home\News.cshtml" />
     <Content Include="Views\Home\NewsDetail.cshtml" />
     <Content Include="Views\Account\Users.cshtml" />
+    <Content Include="Views\Subject\Tasks.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
