@@ -40,6 +40,10 @@ namespace RCodingSchool.App_Start
 			bundles.Add(new StyleBundle("~/bundles/admin").Include(
 				"~/Content/admin.css"
 				));
+
+			bundles.Add(new StyleBundle("~/bundles/fonts").Include(
+				"~/Content/font-awesome.min.css"
+				));
 		}
 	}
 }
