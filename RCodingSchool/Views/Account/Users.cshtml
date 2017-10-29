@@ -23,10 +23,11 @@
                 {
                     <tr>
                         @Html.HiddenFor(m => m.NoActiveStudents[i].Id)
+                        @Html.HiddenFor(m => m.NoActiveStudents[i].GroupId)
                         <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
                         <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
                         <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                        <td>@Html.DropDownListFor(m => m.NoActiveStudents[i].Group.Name, ViewBag.Groups as SelectList, new { @type = "text", @name = "group", @class = "form-control input" })</td>
+                        <td>@Html.DropDownListFor(m => m.NoActiveStudents[i].newGroupId, Model.Categories, Model.NoActiveStudents[i].Group.Name, new { @type = "text", @name = "group", @class = "form-control input" })</td>
                         <td>@Html.CheckBoxFor(m => m.NoActiveStudents[i].User.IsActive)</td>
                     </tr>
                   }
@@ -89,10 +90,11 @@
                 {
                     <tr>
                         @Html.HiddenFor(m => m.Students[i].Id)
+                        @Html.HiddenFor(m => m.Students[i].GroupId)
                         <td>@Html.EditorFor(m => m.Students[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
                         <td>@Html.EditorFor(m => m.Students[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
                         <td>@Html.EditorFor(m => m.Students[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                        <td>@Html.DropDownListFor(m => m.NoActiveStudents[i].Group.Name, ViewBag.Groups as SelectList, new { @type = "text", @name = "group", @class = "form-control input" })</td>
+                        <td> @Html.DropDownListFor(m => m.Students[i].newGroupId, Model.Categories, Model.Students[i].Group.Name, new { @type = "text", @name = "group", @class = "form-control input" })</td>
                         <td>@Html.CheckBoxFor(m => m.Students[i].User.IsActive)</td>
                     </tr>
                     }

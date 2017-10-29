@@ -84,14 +84,13 @@ namespace RCodingSchool.Controllers
 		public ActionResult Register()
 		{
 			List<Group> groupList = _userService.GetGroups();
-			List<string> groupNames = new List<string>();
-			foreach (var group in groupList)
+			UserVM userVM = new UserVM();
+			userVM.Categories = groupList.Select(x => new SelectListItem
 			{
-				groupNames.Add(group.Name);
-			}
-			SelectList groups = new SelectList(groupNames,"Name");
-			ViewBag.Groups = groups;
-			return View();
+				Value = x.Id.ToString(),
+				Text = x.Name
+			});
+			return View(userVM);
 		}
 
 		[HttpPost]
@@ -127,13 +126,12 @@ namespace RCodingSchool.Controllers
 			userLists.Teachers = Mapper.Map<List<Teacher>, List<TeacherVM>>(_userService.GetTeachers(true));
 
 			List<Group> groupList = _userService.GetGroups();
-			List<string> groupNames = new List<string>();
-			foreach (var group in groupList)
+
+			userLists.Categories = groupList.Select(x => new SelectListItem
 			{
-				groupNames.Add(group.Name);
-			}
-			SelectList groups = new SelectList(groupNames, "Name");
-			ViewBag.Groups = groups;
+				Value = x.Id.ToString(),
+				Text = x.Name
+			});
 
 			return View(userLists);
 		}

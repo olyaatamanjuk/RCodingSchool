@@ -93,7 +93,7 @@ namespace RCodingSchool.Services
             {
                 Student student = new Student
                 {
-                    Group = _groupRepository.GetByName(userVM.GroupName),
+                    Group = _groupRepository.Get(userVM.GroupId),
                     User = user
                 };
                 _studentRepository.Add(student);

@@ -11,8 +11,9 @@ namespace RCodingSchool.Extensions
 			CreateMap<User, UserVM>()
 				.ForMember(d => d.RememberMe, o => o.Ignore())
 				.ForMember(d => d.ConfirmPassword, o => o.Ignore())
-				.ForMember(d => d.GroupName, o => o.Ignore())
-				.ForMember(d => d.IsTeacher, o => o.Ignore());
+				.ForMember(d => d.GroupId, o => o.Ignore())
+				.ForMember(d => d.IsTeacher, o => o.Ignore())
+				.ForMember(d => d.Categories, o => o.Ignore());
 
             CreateMap<Message, MessageVM>();
 

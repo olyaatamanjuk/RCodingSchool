@@ -1,4 +1,6 @@
 ﻿using RCodingSchool.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace RCodingSchool.ViewModels
 {
@@ -12,8 +14,9 @@ namespace RCodingSchool.ViewModels
 		public bool IsActive { get; set; }
 
 		public bool RememberMe { get; set; }
-		public string GroupName { get; set; }
+		public int GroupId { get; set; }
 		public string ConfirmPassword { get; set; }
 		public bool IsTeacher { get; set; }
+		public IEnumerable<SelectListItem> Categories { get; set; }
 	}
 }

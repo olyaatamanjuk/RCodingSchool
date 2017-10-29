@@ -1,4 +1,6 @@
 ﻿using RCodingSchool.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace RCodingSchool.ViewModels
 {
@@ -9,5 +11,7 @@ namespace RCodingSchool.ViewModels
 
 		public int UserId { get; set; }
 		public User User { get; set; }
+
+		public int newGroupId { get; set; }
 	}
 }
