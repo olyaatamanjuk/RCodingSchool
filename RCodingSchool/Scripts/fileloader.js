@@ -56,17 +56,101 @@
     var fileUploader = new FileLoader();
     var canSubmit = false;
     var simplemde = new SimpleMDE({
-        element: document.getElementById("text-input")
-        //, toolbar: [
-        //    {
-        //        name: "custom",
-        //        action: function customFunction(editor) {
-        //            // Add your own code
-        //        },
-        //        className: "fa fa-star",
-        //        title: "Custom Button",
-        //    }
-        //]
+        element: document.getElementById("text-input"),
+        toolbar: [{
+            name: "bold",
+            action: SimpleMDE.toggleBold,
+            className: "fa fa-bold",
+            title: "Жирний",
+             },
+            "|",
+            {
+                name: "italic",
+                action: SimpleMDE.toggleItalic,
+                className: "fa fa-italic",
+                title: "Курсив",
+            },
+            "|",
+            {
+                name: "сode",
+                action: SimpleMDE.toggleCodeBlock,
+                className: "fa fa-code",
+                title: "Додати код",
+            },
+            "|",
+            {
+                name: "сode",
+                action: SimpleMDE.togglePreview,
+                className: "fa fa-eye no-disable",
+                title: "Переглянути результат",
+            },
+            "|",
+            {
+                name: "squere",
+                action: function customFunction(editor) {
+                    var curval = simplemde.value();
+                    simplemde.value(curval + "<i>X <sup><small>2</small></sup>");
+                },
+                className: "fa fa-superscript",
+                title: "Піднести до квадрату",
+            },
+            "|",
+            {
+                name: "heading-2",
+                action: SimpleMDE.toggleHeading2,
+                className: "fa fa-header fa-header-x fa-header-2",
+                title: "Заголовок h2",
+            },
+            "|",
+            {
+                name: "heading-3",
+                action: SimpleMDE.toggleHeading3,
+                className: "fa fa-header fa-header-x fa-header-3",
+                title: "Заголовок h3",
+            },
+            "|",
+            {
+                name: "unordered-list",
+                action: SimpleMDE.toggleUnorderedList,
+                className: "fa fa-list-ul",
+                title: "Список маркований",
+            },
+            "|",
+            {
+                name: "ordered-list",
+                action: SimpleMDE.toggleOrderedList,
+                className: "fa fa-list-ol",
+                title: "Список",
+            },
+            "|",
+            {
+                name: "link",
+                action: SimpleMDE.drawLink,
+                className: "fa fa-link",
+                title: "Посилання",
+            },
+            "|",
+            {
+                name: "image",
+                action: SimpleMDE.drawImage,
+                className: "fa fa-picture-o",
+                title: "Зображення",
+            },
+            "|",
+            {
+                name: "fullscreen",
+                action: SimpleMDE.toggleFullScreen,
+                className: "fa fa-arrows-alt no-disable no-mobile",
+                title: "На повний екран",
+            },
+            "|",
+            {
+                name: "table",
+                action: SimpleMDE.drawTable,
+                className: "fa fa-table",
+                title: "Додати таблицю",
+            },
+        ]
     });
 
     fileUploader.fileChangeHandler = function (result) {
