@@ -1,0 +1,36 @@
+﻿.joinus a:hover {
+    text-decoration: none;
+}
+
+.form .message {
+    font-size: 35px;
+    margin: 15px 0 0;
+    font-size: 18px;
+}
+
+.btn-primary {
+    border: 0;
+    color: #FFFFFF;
+}
+
+.form {
+    background: #FFFFFF;
+    margin-top: 10%;
+    padding: 10%;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+
+.btn {
+    border-radius: 0px;
+    padding: 15px;
+}
+
+.input-lg {
+    min-width: 100%;
+    border-radius: 0px;
+}
+
+.field-validation-error {
+color: #912626;
+}

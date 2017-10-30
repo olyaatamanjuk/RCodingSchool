@@ -1,0 +1,32 @@
+﻿blockquote p{
+font-size: 15px;
+}
+.wel-info {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+    line-height: 1.6;
+    font-weight: 300;
+}
+.about p{
+    font-size: 15px;
+}
+.pull-right{
+color: #565656;
+}
+.brk {
+    height: 4px;
+    border-radius: 4px;
+    background: #337ab7;
+    margin: 25px auto;
+    display: block;
+    width: 80px;
+}
+h2{
+    color: #337ab7;
+}
+.about{
+    width:100%;
+}

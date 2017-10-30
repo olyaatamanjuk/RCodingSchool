@@ -3,6 +3,10 @@
     ViewBag.Title = "Administration";
 }
 
+@section Styles{
+    @Styles.Render("~/bundles/admin")
+}
+
 @if (@Model.NoActiveStudents.Count > 0)
 {
     using (Html.BeginForm("NoActiveStudents", "Account", FormMethod.Post))
@@ -135,8 +139,4 @@
     <button type="submit" class="btn btn-primary">Зберегти зміни</button>
     <hr>
     }
-}
-
-@section Styles{
-    @Styles.Render("~/bundles/admin")
 }

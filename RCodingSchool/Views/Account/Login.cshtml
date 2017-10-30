@@ -9,8 +9,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/bundles/baseCSS")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/bundles/login")
     <link href="~/Content/SignIn.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -50,7 +51,7 @@
         <hr />
     </div>
     <footer>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <p>&copy; @DateTime.Now.Year - ФМІ</p>
     </footer>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
