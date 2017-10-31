@@ -297,12 +297,14 @@
     <Compile Include="Repositories\NewsRepository.cs" />
     <Compile Include="Repositories\SubjectRepository.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Services\ChapterService.cs" />
     <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\SubjectService.cs" />
     <Compile Include="Services\TeacherService.cs" />
     <Compile Include="ViewModels\ChapterVM.cs" />
     <Compile Include="ViewModels\GroupVM.cs" />
+    <Compile Include="ViewModels\FileVM.cs" />
     <Compile Include="ViewModels\ListSubjectVM.cs" />
     <Compile Include="ViewModels\MessageVM.cs" />
     <Compile Include="ViewModels\NewsListVM.cs" />
