@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PagedList;
 using RCodingSchool.Models;
 using RCodingSchool.Services;
 using RCodingSchool.ViewModels;
@@ -27,14 +28,15 @@ namespace RCodingSchool.Controllers
         }
 
 		[HttpGet]
-		public ActionResult News()
+		public ActionResult News(int page = 1, int pagsize = 4)
 		{
 			List<News> newsList = _newsService.GetAll().ToList();
 			NewsListVM newsListVM = new NewsListVM
 			{
 				AllNews = Mapper.Map<List<News>, List<NewsVM>>(newsList)
 			};
-			return View(newsListVM);
+			PagedList<NewsVM> model = new PagedList<NewsVM>(newsListVM.AllNews, page, pagsize);
+			return View(model);
 		}
 
 		[HttpGet]
