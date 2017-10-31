@@ -269,6 +269,7 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChapterController.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
@@ -299,7 +300,9 @@
     <Compile Include="Services\ChapterService.cs" />
     <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\SubjectService.cs" />
+    <Compile Include="Services\TeacherService.cs" />
     <Compile Include="ViewModels\ChapterVM.cs" />
+    <Compile Include="ViewModels\GroupVM.cs" />
     <Compile Include="ViewModels\ListSubjectVM.cs" />
     <Compile Include="ViewModels\MessageVM.cs" />
     <Compile Include="ViewModels\NewsListVM.cs" />
@@ -369,6 +372,7 @@
     <Content Include="Views\Account\Users.cshtml" />
     <Content Include="Views\Subject\Tasks.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Group\Groups.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

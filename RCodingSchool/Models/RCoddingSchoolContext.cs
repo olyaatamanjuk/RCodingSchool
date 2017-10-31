@@ -16,6 +16,7 @@ namespace RCodingSchool.Models
         public DbSet<MessageGroup> MessagesGroups { get; set; }
 		public DbSet<News> News { get; set; }
 		public DbSet<Comment> Comments { get; set; }
+		public DbSet<TeacherGroup> TeacherGroup { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{

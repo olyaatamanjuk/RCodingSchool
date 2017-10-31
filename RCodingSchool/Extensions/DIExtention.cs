@@ -44,6 +44,7 @@ namespace RCodingSchool.Extensions
             container.RegisterType<SubjectService>();
             container.RegisterType<ChapterService>();
 			container.RegisterType<NewsService>();
+			container.RegisterType<TeacherService>();
 
 			// Hubs
 			container.RegisterType<ChatHub>();

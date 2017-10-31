@@ -9,5 +9,7 @@ namespace RCodingSchool.Interfaces
 	public interface IGroupRepository: IRepository<Group>
 	{
 		Group GetByName(string groupName);
+		void AddStudentToGroup(int studentId, int groupId);
+		void DeleteStudentFromGroup(int studentId, int groupId);
 	}
 }
