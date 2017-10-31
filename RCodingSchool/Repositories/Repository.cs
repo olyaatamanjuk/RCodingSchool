@@ -26,9 +26,9 @@ namespace RCodingSchool.Repositories
             return dbContext.Set<TEntity>().ToList();
         }
 
-        public void Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
-            dbContext.Set<TEntity>().Add(entity);
+            return dbContext.Set<TEntity>().Add(entity);
         }
 
         public void AddRange(IEnumerable<TEntity> entities)
