@@ -20,6 +20,7 @@ namespace RCodingSchool.Repositories
 				TeacherId = teacherId,
 				GroupId = groupId
 			};
+			dbContext.TeacherGroup.Add(teacherGroup);
 		}
 
 		public void DeleteGroup(int teacherId, int groupId)
@@ -28,23 +29,23 @@ namespace RCodingSchool.Repositories
 			dbContext.TeacherGroup.Remove(teacherGroup);
 		}
 
-		public List<Group> GetGroupsOfTeacher(int teacherId)
+		public List<Group> GetTeacherGroups(int teacherId)
 		{
 			IEnumerable<TeacherGroup> teacherGroups = dbContext.TeacherGroup.Where(x => x.TeacherId == teacherId);
 			List<Group> groups = new List<Group>();
 			foreach (var x in teacherGroups)
 			{
-				Group group = dbContext.Groups.Where(i => i.Id == x.Id).FirstOrDefault();
+				Group group = dbContext.Groups.Where(i => i.Id == x.GroupId).FirstOrDefault();
 				if (!(group == null)){
-					groups.Add(dbContext.Groups.Where(i => i.Id == x.Id).FirstOrDefault());
+					groups.Add(group);
 				}
 			}
 			return groups;
 		}
 
-		public Teacher GetTeacherByUserId(int id)
+		public Teacher GetTeacherByUserId(int userId)
 		{
-			return dbContext.Teachers.Where(x => x.UserId == id).FirstOrDefault();
+			return dbContext.Teachers.Where(x => x.UserId == userId).FirstOrDefault();
 		}
 	}
 }

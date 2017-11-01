@@ -24,6 +24,7 @@ namespace RCodingSchool.Services
             _userRepository = userRepository;
             _httpContext = httpContext;
         }
+
         public List<Chapter> GetList()
         {
             return _chapterRepository.GetAll().ToList();

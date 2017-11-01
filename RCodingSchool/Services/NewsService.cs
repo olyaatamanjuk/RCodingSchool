@@ -9,17 +9,17 @@ using System.Web;
 
 namespace RCodingSchool.Services
 {
-	public class NewsService
+	public class NewsService : BaseService
 	{
 		private readonly INewsRepository _newsRepository;
 		private readonly ICommentRepository _commentRepository;
-		private HttpContextBase _httpContext;
+	
 
-		public NewsService(INewsRepository newsRepository, ICommentRepository commentRepositpry, HttpContextBase httpContext)
+		public NewsService(INewsRepository newsRepository, ICommentRepository commentRepositpry, HttpContextBase httpContext) 
+			:base(httpContext)
 		{
 			_newsRepository = newsRepository;
 			_commentRepository = commentRepositpry;
-			_httpContext = httpContext;
 		}
 
 		public News Get(int id)
@@ -51,15 +51,6 @@ namespace RCodingSchool.Services
 		public IEnumerable<News> GetAll()
 		{
 			return _newsRepository.GetAll();
-		}
-
-		public int UserId
-		{
-			get
-			{
-				return int.Parse(((ClaimsIdentity)_httpContext.User.Identity).Claims.FirstOrDefault(x => x.Type == "id").Value);
-			}
-			private set { }
 		}
 	}
 }

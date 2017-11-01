@@ -49,9 +49,14 @@ namespace RCodingSchool.Models
 
 			modelBuilder.Entity<Teacher>()
 				.HasMany(t => t.News)
-				.WithOptional()
-				.HasForeignKey(c => c.NewsAuthorId)
+				.WithRequired( x => x.NewsAuthor)
 				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<News>()
+				.HasRequired(x => x.NewsAuthor)
+				.WithMany(c => c.News)
+				.WillCascadeOnDelete(false);
+				
 
 			base.OnModelCreating(modelBuilder);
 		}

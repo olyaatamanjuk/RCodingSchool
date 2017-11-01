@@ -13,5 +13,8 @@ namespace RCodingSchool.ViewModels
 		public User User { get; set; }
 
 		public int newGroupId { get; set; }
+
+		public bool MyGroups { get; set; }
+		public bool AllGroups { get; set; }
 	}
 }

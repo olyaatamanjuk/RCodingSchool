@@ -11,5 +11,6 @@ namespace RCodingSchool.Interfaces
 		Group GetByName(string groupName);
 		void AddStudentToGroup(int studentId, int groupId);
 		void DeleteStudentFromGroup(int studentId, int groupId);
+		List<Student> GetStudentsByGroupId(int groupId);
 	}
 }

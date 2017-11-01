@@ -8,7 +8,7 @@ namespace RCodingSchool.Interfaces
     {
 		void DeleteGroup(int teacherId, int groupId);
 		void AddGroup(int teacherId, int groupId);
-		List <Group> GetGroupsOfTeacher(int teacherId);
+		List <Group> GetTeacherGroups(int teacherId);
 		Teacher GetTeacherByUserId(int Id);
 	}
 }

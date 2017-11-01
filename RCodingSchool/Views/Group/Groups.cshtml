@@ -1,7 +1,81 @@
-﻿
+﻿@model RCodingSchool.ViewModels.GroupsVM
 @{
     ViewBag.Title = "Groups";
 }
+<div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-1"></div>
+    <div class="col-lg-8 col-md-8 col-sm-10">
+        @if (Model.MyGroups)
+        {
+            <a href="@Url.Action("Groups", "Group", new { myGroups = false })" title="Показати всі групиі"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
+            <h3>Мої групи</h3>}
+        else
+        {
+            <a href="@Url.Action("Groups", "Group", new { myGroups = true })" title="Показати мої групи"><i class="fa fa-eye-slash fa-2x" aria-hidden="true"></i></a>
+            <h3>Всі групи</h3>
+        }
+        @*<div class="form-group">
+                <a href="@Url.Action("Groups", "Group", new { myGroups = false})" title="Groups">
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(m => m.MyGroups, false) Всі групи
+                    </label>
+                </a>
+                <label class="radio-inline">
+                    @Html.RadioButtonFor(m => m.MyGroups, true, new { @name = "lf" }) Мої групи
+                </label>
+            </div>*@
 
-<h2>Groups</h2>
-
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th>Група</th>
+                    <th>Студенти</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model.GroupList)
+                {
+                    <tr>
+                        <td>@x.Name</td>
+                        @if (x.Students.Count == 0)
+                        {
+                            <td>Немає студентів</td>}
+                        else
+                        {
+                            <td>
+                                <ol>
+                                    @foreach (var i in x.Students)
+                                    {
+                                        <li>@i.User.FirstName @i.User.LastName</li>
+}
+                                </ol>
+                           </td>}
+                       </tr>}
+                    </tbody>
+                </table>
+                <br />
+                @using (Html.BeginForm("Groups", "Group", FormMethod.Post))
+                {
+                    <div>
+                        <h4>Додайте нову групу</h4>
+                        <div class="input-group">
+                            @Html.EditorFor(m => m.NewGroupName, new { htmlAttributes = new { @type = "text", @class = "form-control", @placeholder = "Назва групи" } })
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit">Зберегти</button>
+                            </span>
+                        </div>
+                    </div>
+}
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-1"></div>
+        </div>
+        @section Script{
+            @*<script>
+                     $('input:radio[name=MyGroups]').on('change', function () {
+                         var url = "/group/getgroups/";
+                         var myGroups = $('input[name=MyGroups]:checked').val();
+                         alert(myGroups);
+                         $.get(url, { mygroups: myGroups })
+                        });
+                </script>*@
+        }

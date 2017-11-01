@@ -28,8 +28,8 @@ namespace RCodingSchool
                 new User { FirstName = "Степан", LastName = "Миронюк", Email = "myronjuk@gmail.com", Password = "123456" },
                 new User { FirstName = "Ігор", LastName = "Панчук", Email = "panchuk@gmail.com", Password = "123456" },
                 new User { FirstName = "Вікторія", LastName = "Якозина", Email = "yakozina@gmail.com", Password = "123456" },
-                new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "admin", Password = "admin" },
 				new User { FirstName = "Ірина", LastName = "Дорошенко", Email = "doroshenko@mail.com", Password = "123456", IsActive = true  },
+				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "admin", Password = "admin" },
 				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "malyk@gmail.com", Password = "123456", IsActive = true  },
 				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "yurchenko@gmail.com", Password = "123456", IsActive = true  },
 				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "antonjuk@gmail.com", Password = "123456" },
@@ -80,8 +80,17 @@ namespace RCodingSchool
                 new Subject {  Name = "Алгебра", IsExam = true }
             });
             context.SaveChanges();
-            var subject = context.Subjects.First();
 
+			var teacherGroups = new List<TeacherGroup>()
+			{
+				new TeacherGroup { GroupId = 1, TeacherId = 1 },
+				new TeacherGroup { GroupId = 2, TeacherId = 1 },
+				new TeacherGroup { GroupId = 3, TeacherId = 1 },
+			};
+
+			context.TeacherGroup.AddRange(teacherGroups);
+
+            var subject = context.Subjects.First();
 
             var chaptertList = new List<Chapter>()
             {

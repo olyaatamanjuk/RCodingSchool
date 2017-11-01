@@ -1,6 +1,6 @@
 ﻿namespace RCodingSchool.Models
 {
-    public class TeacherGroup: Entity
+    public class TeacherGroup
     {
         public Teacher Teacher { get; set; }
         public int TeacherId { get; set; }
