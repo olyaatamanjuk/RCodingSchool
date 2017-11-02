@@ -8,7 +8,7 @@ namespace RCodingSchool.Services
 {
 	public abstract class BaseService
 	{
-		private readonly HttpContextBase _httpContext;
+		protected readonly HttpContextBase _httpContext;
 
 		public BaseService( HttpContextBase httpContext)
 		{

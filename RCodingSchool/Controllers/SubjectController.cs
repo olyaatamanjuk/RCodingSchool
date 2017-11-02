@@ -12,9 +12,11 @@ namespace RCodingSchool.Controllers
     public class SubjectController : Controller
     {
         private readonly SubjectService _subjectService;
-        public SubjectController(SubjectService subjectService)
+		private readonly FileService _fileService;
+		public SubjectController(SubjectService subjectService, FileService fileService)
         {
             _subjectService = subjectService;
+			_fileService = fileService;
         }
 
         public ActionResult Subject()
@@ -47,8 +49,13 @@ namespace RCodingSchool.Controllers
 		[HttpPost]
 		public ActionResult CreateTask(IEnumerable<HttpPostedFileBase> files, TaskVM taskVM)
 		{
-			//TODO: Save task, save files, redirect to this task
-			return RedirectToAction("Task", new { id = 1 });
+			taskVM.SubjectId = 1;
+			Task task = _subjectService.TrySaveTask(taskVM);
+			if (!(task == null) )
+			{
+				_fileService.SaveFilesFromTask(task.Id, files);
+			};
+			return RedirectToAction("Task", new { id = task.Id });
 		}
 	}
 }

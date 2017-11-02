@@ -387,6 +387,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\taskFiles\" />
     <Folder Include="TopicImagesFolder\" />
   </ItemGroup>
   <PropertyGroup>

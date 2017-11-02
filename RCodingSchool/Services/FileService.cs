@@ -10,24 +10,25 @@ using System.Web.Mvc;
 
 namespace RCodingSchool.Services
 {
-    public class FileService
-    {
-        private readonly FileRepository _fileRepository;
+	public class FileService : BaseService
+	{
+		private readonly FileRepository _fileRepository;
 
-        public FileService(FileRepository fileRepository)
-        {
-            _fileRepository = fileRepository;
-        }
+		public FileService(FileRepository fileRepository, HttpContextBase httpContext)
+			:base(httpContext)
+		{
+			_fileRepository = fileRepository;
+		}
 
-        public void SaveImage(Models.File file, HttpPostedFileBase postedFile)
-        {
-            var allowedExtensions = new[] { ".Jpg", ".png", ".jpg", "jpeg" };
-            var ext = Path.GetExtension(postedFile.FileName);
+		public void SaveImage(Models.File file, HttpPostedFileBase postedFile)
+		{
+			var allowedExtensions = new[] { ".Jpg", ".png", ".jpg", "jpeg" };
+			var ext = Path.GetExtension(postedFile.FileName);
 
-            if (allowedExtensions.Contains(ext))
-            {
-                string fullName = file.Id.ToString() + "_" + postedFile.FileName;
-                var generalFolderPath = WebConfigurationManager.AppSettings.Get("TopicImagesFolder");
+			if (allowedExtensions.Contains(ext))
+			{
+				string fullName = file.Id.ToString() + "_" + postedFile.FileName;
+				var generalFolderPath = WebConfigurationManager.AppSettings.Get("TopicImagesFolder");
 				var folderPath = Path.Combine(generalFolderPath, file.TopicId.ToString());
 				if (!(Directory.Exists(folderPath)))
 				{
@@ -35,43 +36,70 @@ namespace RCodingSchool.Services
 				}
 
 				var path = Path.Combine(folderPath, file.TopicId.ToString(), fullName);
-                postedFile.SaveAs(path);
-            }
-        }
+				postedFile.SaveAs(path);
+			}
+		}
 
-        public IEnumerable<FileVM> SaveImages(HttpFileCollectionBase files)
-        {
-            var newFiles = new List<FileVM>();
-            for (int i = 0; i < files.Count; i++)
-            {
-                var file = files.Get(i);
-                var fileLocation = $"{Guid.NewGuid().ToString()}.{file.FileName}";
-                var path = Path.Combine(WebConfigurationManager.AppSettings.Get("TopicImagesFolder"), "Temp", fileLocation);
-                file.SaveAs(path);
-
-                var dbFile = _fileRepository.Add(new Models.File
-                {
-                    Name = file.FileName,
-                    Location = fileLocation
-                });
-
-                newFiles.Add(new FileVM
-                {
-                    Id = dbFile.Id,
-                    Templorary = files.GetKey(i)
-                });
-            }
-
-            return newFiles;
-        }
-
-        public FileStreamResult GetFile(Models.File file)
+		public IEnumerable<FileVM> SaveImages(HttpFileCollectionBase files)
 		{
-			string path = Path.Combine("~/TopicImagesFolder/{0}/{1}", "Topic", file.Topic.Id.ToString(), file.Id.ToString()+ file.Name);
+			var newFiles = new List<FileVM>();
+			for (int i = 0; i < files.Count; i++)
+			{
+				var file = files.Get(i);
+				var fileLocation = $"{Guid.NewGuid().ToString()}.{file.FileName}";
+				var path = Path.Combine(WebConfigurationManager.AppSettings.Get("TopicImagesFolder"), "Temp", fileLocation);
+				file.SaveAs(path);
+
+				var dbFile = _fileRepository.Add(new Models.File
+				{
+					Name = file.FileName,
+					Location = fileLocation
+				});
+
+				newFiles.Add(new FileVM
+				{
+					Id = dbFile.Id,
+					Templorary = files.GetKey(i)
+				});
+			}
+
+			return newFiles;
+		}
+
+		public FileStreamResult GetFile(Models.File file)
+		{
+			string path = Path.Combine("~/TopicImagesFolder/{0}/{1}", "Topic", file.Topic.Id.ToString(), file.Id.ToString() + file.Name);
 			FileStream stream = new FileStream(path, FileMode.Open);
 			FileStreamResult result = new FileStreamResult(stream, string.Format(path, Path.GetExtension(file.Id.ToString() + file.Name)));
 			result.FileDownloadName = file.Name;
 			return result;
+		}
+
+		public void SaveFilesFromTask(int taskId, IEnumerable<HttpPostedFileBase> files)
+		{
+			//string folderPath = Path.Combine("~/App_Data/taskFiles/{0}/{1}", "Task", taskId.ToString());
+			string folderPath = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/taskFiles"), taskId.ToString());
+			bool exists = Directory.Exists(folderPath);
+			if (!(exists))
+			{
+				Directory.CreateDirectory(folderPath);
+			}
+
+			foreach (var file in files)
+			{
+				if (file.ContentLength > 0)
+				{
+					var fileName = Path.GetFileName(file.FileName);
+					var path = Path.Combine(folderPath, fileName);
+					file.SaveAs(path);
+					Models.File modelFile = new Models.File();
+					modelFile.Location = path;
+					modelFile.Name = fileName;
+					modelFile.TaskId = taskId;
+					_fileRepository.Add(modelFile);
+				}
+			}
+			_fileRepository.SaveChanges();
 		}
 	}
 }
