@@ -377,6 +377,8 @@
     <Content Include="Views\Subject\Tasks.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Group\Groups.cshtml" />
+    <Content Include="Views\Subject\Task.cshtml" />
+    <Content Include="Views\Subject\CreateTask.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

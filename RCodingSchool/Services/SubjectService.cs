@@ -27,5 +27,10 @@ namespace RCodingSchool.Services
 		{
 			return _taskRepository.GetAll().ToList<Task>();
 		}
+
+		public Task GetTaskById(int id)
+		{
+			return _taskRepository.Get(id);
+		}
 	}
 }

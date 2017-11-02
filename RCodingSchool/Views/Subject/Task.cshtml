@@ -1,0 +1,9 @@
+﻿@model RCodingSchool.ViewModels.TaskVM
+@{
+    ViewBag.Title = "Task";
+}
+
+    @Html.HiddenFor(m => m.Id)
+    <h2>@Model.Name</h2>
+    <p>@Model.Text</p>
+

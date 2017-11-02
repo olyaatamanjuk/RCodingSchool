@@ -17,7 +17,7 @@
                 {
                     <tr>
                         <td>@x.Subject.Name</td>
-                        <td>@Html.ActionLink(@x.Name, "Subject", "Task", new { id = @x.Subject.Id }, null)</td>
+                        <td>@Html.ActionLink(@x.Name, "Task", "Subject", new { id = @x.Id }, null)</td>
                         <td>@x.Teacher.User.FirstName @x.Teacher.User.LastName</td>
                     </tr>}
             </tbody>

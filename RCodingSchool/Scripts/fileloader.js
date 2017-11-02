@@ -88,11 +88,12 @@
             {
                 name: "squere",
                 action: function customFunction(editor) {
-                    var curval = simplemde.value();
-                    simplemde.value(curval + "<i>X <sup><small>2</small></sup>");
+                    var cm = editor.codemirror;
+                    var text = ' <i>X</i><sup><small>2</small></sup>';
+                    cm.replaceSelection(text);
                 },
                 className: "fa fa-superscript",
-                title: "Піднести до квадрату",
+                title: "Піднести до степеня",
             },
             "|",
             {
@@ -150,8 +151,24 @@
                 className: "fa fa-table",
                 title: "Додати таблицю",
             },
+                        "|",
+            {
+                name: "tablvcde",
+                action: function customFunction(editor) {
+                    var cm = editor.codemirror;
+                    var output = '';
+                    var selectedText = cm.getSelection();
+                    var text = selectedText || 'placeholder';
+
+                    output = '!!' + text + '!!';
+                    cm.replaceSelection(output);
+                },
+                className: "fa fa-bold",
+                title: "Red text (Ctrl/Cmd-Alt-R)",
+            },
         ]
     });
+
 
     fileUploader.fileChangeHandler = function (result) {
         var url = result.url;

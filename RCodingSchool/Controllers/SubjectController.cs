@@ -3,6 +3,7 @@ using RCodingSchool.Models;
 using RCodingSchool.Services;
 using RCodingSchool.ViewModels;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 
 namespace RCodingSchool.Controllers
@@ -15,7 +16,7 @@ namespace RCodingSchool.Controllers
         {
             _subjectService = subjectService;
         }
-        // GET: Subject
+
         public ActionResult Subject()
         {
             List<Subject> subjects = _subjectService.GetList();
@@ -30,5 +31,24 @@ namespace RCodingSchool.Controllers
 			return View(tasksVM);
 		}
 
+		public ActionResult Task(int id)
+		{
+			Task task = _subjectService.GetTaskById(id);
+			TaskVM taskVM = Mapper.Map<Task, TaskVM>(task);
+			return View(taskVM);
+		}
+
+		[HttpGet]
+		public ActionResult CreateTask()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult CreateTask(IEnumerable<HttpPostedFileBase> files, TaskVM taskVM)
+		{
+			//TODO: Save task, save files, redirect to this task
+			return RedirectToAction("Task", new { id = 1 });
+		}
 	}
 }
