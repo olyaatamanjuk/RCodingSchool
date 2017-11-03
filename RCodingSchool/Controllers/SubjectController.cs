@@ -72,12 +72,9 @@ namespace RCodingSchool.Controllers
 
 		public ActionResult Download(int id)
 		{
-			Models.File file = _fileService.Get(id);
-			return new DownloadResult
-			{
-				VirtualPath = file.Location,
-				FileDownloadName = file.Name
-			};
+			File file = _fileService.Get(id);
+
+            return File(file.Location, "application/octet-stream", file.Name);
 		}
 	}
 }

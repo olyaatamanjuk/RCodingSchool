@@ -26,7 +26,7 @@ namespace RCodingSchool.Services
 
 		public void AddGroup(int teacherId, int groupId)
 		{
-			_teacherRepository.DeleteGroup(teacherId, groupId);
+			_teacherRepository.AddGroup(teacherId, groupId);
 		}
 
 		public List<Group> GetTeacherGroups()

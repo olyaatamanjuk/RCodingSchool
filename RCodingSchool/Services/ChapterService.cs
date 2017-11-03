@@ -57,6 +57,8 @@ namespace RCodingSchool.Services
 
         public bool TrySaveTopic(TopicVM topicVM)
         {
+            // TODO: File save logic
+            //_httpContext.Request.Files;
             if (String.IsNullOrEmpty(topicVM.Name) || String.IsNullOrEmpty(topicVM.Text))
             {
                 return false;

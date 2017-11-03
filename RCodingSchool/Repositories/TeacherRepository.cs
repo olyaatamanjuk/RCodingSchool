@@ -1,6 +1,5 @@
 ﻿using RCodingSchool.Models;
 using RCodingSchool.Interfaces;
-using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -25,7 +24,7 @@ namespace RCodingSchool.Repositories
 
 		public void DeleteGroup(int teacherId, int groupId)
 		{
-			TeacherGroup teacherGroup = dbContext.TeacherGroup.Where(x => x.TeacherId == teacherId && x.GroupId == groupId).FirstOrDefault();
+			TeacherGroup teacherGroup = dbContext.TeacherGroup.FirstOrDefault(x => x.TeacherId == teacherId && x.GroupId == groupId);
 			dbContext.TeacherGroup.Remove(teacherGroup);
 		}
 
@@ -35,7 +34,7 @@ namespace RCodingSchool.Repositories
 			List<Group> groups = new List<Group>();
 			foreach (var x in teacherGroups)
 			{
-				Group group = dbContext.Groups.Where(i => i.Id == x.GroupId).FirstOrDefault();
+				Group group = dbContext.Groups.FirstOrDefault(i => i.Id == x.GroupId);
 				if (!(group == null)){
 					groups.Add(group);
 				}
@@ -45,7 +44,7 @@ namespace RCodingSchool.Repositories
 
 		public Teacher GetTeacherByUserId(int userId)
 		{
-			return dbContext.Teachers.Where(x => x.UserId == userId).FirstOrDefault();
+			return dbContext.Teachers.FirstOrDefault(x => x.UserId == userId);
 		}
 	}
 }

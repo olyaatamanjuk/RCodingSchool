@@ -7,10 +7,9 @@
     @Styles.Render("~/bundles/markdownCSS")
 }
 
-
 <div class="container">
     <h2>Додайте нову тему</h2>
-    @using (Html.BeginForm("CreateTopic", "Chapter", FormMethod.Post, new { @name = "topic-form"}))
+    @using (Html.BeginForm("CreateTopic", "Chapter", FormMethod.Post, new { @name = "topic-form" }))
     {
         <input type="file" class="fileloader hidden" />
         <div class="form-group">
@@ -30,11 +29,6 @@
                 <button class="btn btn-default" type="button">Формула</button>
             </div>
             @Html.TextAreaFor(m => m.Text, new { @class = "form-control", @rows = "12", @id = "text-input" })
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div id="preview"></div>
-            </div>
         </div>
         <div class="form-group">
             <label class="btn btn-default btn-file">
