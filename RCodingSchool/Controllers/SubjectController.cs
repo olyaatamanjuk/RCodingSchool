@@ -57,5 +57,15 @@ namespace RCodingSchool.Controllers
 			};
 			return RedirectToAction("Task", new { id = task.Id });
 		}
+
+		public ActionResult Download(int id)
+		{
+			Models.File file = _fileService.Get(id);
+			return new DownloadResult
+			{
+				VirtualPath = file.Location,
+				FileDownloadName = file.Name
+			};
+		}
 	}
 }

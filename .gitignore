@@ -5,6 +5,9 @@ packages/
 bin/
 obj/
 
+# Data folders
+**/App_Data/
+
 .vs/
 
 *.csproj.user

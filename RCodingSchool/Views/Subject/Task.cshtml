@@ -6,4 +6,14 @@
     @Html.HiddenFor(m => m.Id)
     <h2>@Model.Name</h2>
     <p>@Model.Text</p>
+@if (Model.Files.Count > 0)
+{
+    <label>Прикріплені файли:</label>
+        <div id="file-names">
+           @foreach (var x in Model.Files)
+           {
+            <a href="@Url.Action("Download", "Subject", new { id = x.Id })"><span class="label label-info" id="upload-file-info">@x.Name</span><br></a>
+            }
+        </div>
+}
 

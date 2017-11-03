@@ -300,6 +300,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\ChapterService.cs" />
+    <Compile Include="Services\DownloadResult.cs" />
     <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\SubjectService.cs" />
     <Compile Include="Services\TeacherService.cs" />

@@ -55,8 +55,6 @@ namespace RCodingSchool.Services
 				_taskRepository.SaveChanges();
 				return task;
 			}
-
-			throw new NotImplementedException();
 		}
 	}
 }

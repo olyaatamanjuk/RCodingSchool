@@ -101,5 +101,10 @@ namespace RCodingSchool.Services
 			}
 			_fileRepository.SaveChanges();
 		}
+
+		public Models.File Get(int id)
+		{
+			return _fileRepository.Get(id);
+		}
 	}
 }

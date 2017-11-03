@@ -16,7 +16,7 @@ namespace RCodingSchool.Models
 		public virtual Teacher Teacher { get; set; }
 		public int TeacherId { get; set; }
 
-		public ICollection<File> Files;
-		public ICollection<Group> Groups;
+		public virtual ICollection<File> Files { get; set; }
+		public virtual ICollection<Group> Groups { get; set; }
 	}
 }
