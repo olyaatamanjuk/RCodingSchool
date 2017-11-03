@@ -1,5 +1,8 @@
-﻿using RCodingSchool.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using RCodingSchool.Interfaces;
 using RCodingSchool.Models;
+using System.Linq;
 
 namespace RCodingSchool.Repositories
 {
@@ -8,6 +11,11 @@ namespace RCodingSchool.Repositories
 		public TaskRepository(RCodingSchoolContext context)
             : base(context)
         {
+		}
+
+		public IEnumerable<Task> GetTaskListBySubjectId(int id)
+		{
+			return dbContext.Tasks.Where(x => x.SubjectId == id);
 		}
 	}
 }

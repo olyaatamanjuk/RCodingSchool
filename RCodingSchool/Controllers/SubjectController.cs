@@ -3,6 +3,7 @@ using RCodingSchool.Models;
 using RCodingSchool.Services;
 using RCodingSchool.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -26,9 +27,17 @@ namespace RCodingSchool.Controllers
             return View(subjectsVM);
         }
 
-		public ActionResult Tasks()
+		public ActionResult Tasks(int? id)
 		{
-			List<Task> tasks = _subjectService.GetTaskList();
+			List<Task> tasks = new List<Models.Task>();
+			if(id == null)
+			{
+				tasks = _subjectService.GetTaskList();
+			}
+			else
+			{
+				tasks = _subjectService.GetTaskListBySubjectId((int)id);
+			}
 			List<TaskVM> tasksVM = Mapper.Map<List<Task>, List<TaskVM>>(tasks);
 			return View(tasksVM);
 		}
@@ -41,17 +50,20 @@ namespace RCodingSchool.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult CreateTask()
+		public ActionResult CreateTask(int id)
 		{
-			return View();
+			TaskVM taskVM = new TaskVM();
+			taskVM.SubjectId = id;
+			return View(taskVM);
 		}
 
 		[HttpPost]
 		public ActionResult CreateTask(IEnumerable<HttpPostedFileBase> files, TaskVM taskVM)
 		{
-			taskVM.SubjectId = 1;
 			Task task = _subjectService.TrySaveTask(taskVM);
-			if (!(task == null) )
+			int filesCount = files.Count(file => file != null && file.ContentLength > 0);
+
+			if (!(task == null)&& filesCount>0)
 			{
 				_fileService.SaveFilesFromTask(task.Id, files);
 			};

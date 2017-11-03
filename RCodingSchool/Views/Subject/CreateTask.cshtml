@@ -8,6 +8,7 @@
 @using (Html.BeginForm("CreateTask", "Subject", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.SubjectId)
     <label>Назва завдання:</label>
     @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
     <label>Опис:</label>

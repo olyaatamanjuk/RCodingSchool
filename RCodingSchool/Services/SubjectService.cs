@@ -38,6 +38,11 @@ namespace RCodingSchool.Services
 			return _taskRepository.Get(id);
 		}
 
+		public List<Task> GetTaskListBySubjectId(int id)
+		{
+			return _taskRepository.GetTaskListBySubjectId(id).ToList();
+		}
+
 		public Task TrySaveTask(TaskVM taskVM)
 		{
 			if(String.IsNullOrEmpty(taskVM.Name)|| String.IsNullOrEmpty(taskVM.Name))

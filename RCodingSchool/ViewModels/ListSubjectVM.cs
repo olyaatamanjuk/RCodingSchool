@@ -5,7 +5,9 @@ using System.Web;
 
 namespace RCodingSchool.ViewModels
 {
-    public class ListSubjectVM
+    public class ChaptersListVM
     {
+		public List<ChapterVM> Chapters { get; set; }
+		public int SubjectId { get; set; }
     }
 }

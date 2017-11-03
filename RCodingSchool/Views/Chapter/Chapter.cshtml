@@ -1,57 +1,65 @@
-﻿@model List<RCodingSchool.ViewModels.ChapterVM>
-
+﻿@model RCodingSchool.ViewModels.ChaptersListVM
 @{
     ViewBag.Title = "Subject";
 }
-
 <div class="container">
+    <div class="btn-group teacher-toolbar text-center">
+        <button class="btn btn-default" type="button"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Новий розділ</button>
+        <button class="btn btn-default" type="button" onclick="cleatInputFiles()" title="Очистити файли"><i class="fa fa-file-word-o" aria-hidden="true"></i> Нова тема</button>
+        <a href="@Url.Action("Tasks", "Subject", new { id = Model.SubjectId })">
+            <button class="btn btn-default" type="button"><i class="fa fa-files-o" aria-hidden="true"></i> Усі завдання</button>
+        </a>
+        <a href="@Url.Action("CreateTask", "Subject", new { id = Model.SubjectId })">
+            <button class="btn btn-default" type="button"><i class="fa fa-file-o" aria-hidden="true"></i> Нове завдання</button>
+        </a>
+    </div>
     <div class="row">
-            <div class="col-sm-4 col-md-4">
-                <div class="panel-group" id="accordion">
-
-               @foreach (var el in Model)
+        <div class="col-sm-4 col-md-4">
+            <div class="panel-group" id="accordion">
+                @foreach (var el in Model.Chapters)
                 {
-                      <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="@("#collapse" + el.Id)">@el.Name</a>
-                                    @if (this.User.IsInRole("Teacher"))
-                                    {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="@("#collapse" + el.Id)">@el.Name</a>
+                                @if (this.User.IsInRole("Teacher"))
+                                {
                                     <a href="@Url.Action("CreateTopic", "Chapter", new { id = el.Id })"><i class="fa fa-plus pull-right" aria-hidden="true"></i></a>
-                                    }
-                                </h4>
-                            </div>
-                            <div id="@("collapse" + el.Id)" class="panel-collapse collapse">
-                                <div class="panel-body list-group">
-                                    @foreach (var x in el.Topics)
-                                    {
-                                        <a href="#" onclick="d(@x.Id)" class="list-group-item list-group-item-action">@x.Name</a>
-                                    }
-                                </div>
+                                }
+                            </h4>
+                        </div>
+                        <div id="@("collapse" + el.Id)" class="panel-collapse collapse">
+                            <div class="panel-body list-group">
+                                @foreach (var x in el.Topics)
+                                {
+                                    <a href="#" onclick="d(@x.Id)" class="list-group-item list-group-item-action">@x.Name</a>
+                                }
                             </div>
                         </div>
-                  }
-                </div>
+                    </div>}
             </div>
+        </div>
+
+        @if (Model.Chapters.Count > 0 && Model.Chapters[0].Topics.Count > 0)
+        {
             <div class="col-sm-8 col-md-8">
                 <div class="well" id="currentTopic">
-                    @{
-                        Html.RenderAction("topic", Model[0].Topics.First());
+                    @{  Html.RenderAction("topic", Model.Chapters[0].Topics.FirstOrDefault());
                     }
                 </div>
             </div>
+        }
     </div>
 </div>
-
 @section Script
 {
-<script>
-    function d(id) {
-        var url = "/chapter/topic/";
-        $.post(url, { id: id })
-         .done(function (response) {
-             $("#currentTopic").html(response);
-         });
-    }
-</script>
+    <script>
+        function d(id) {
+            var url = "/chapter/topic/";
+            $.post(url, { id: id })
+             .done(function (response) {
+                 $("#currentTopic").html(response);
+             });
+        }
+    </script>
 }

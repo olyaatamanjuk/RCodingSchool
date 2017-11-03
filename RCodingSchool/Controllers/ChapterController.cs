@@ -21,9 +21,12 @@ namespace RCodingSchool.Controllers
         public ActionResult Chapter(int id)
         {
             List<Chapter> chapters = _chapterService.GetListChaptersBySubjectId(id);
-            List<ChapterVM> chaptersVM = Mapper.Map<List<Chapter>, List<ChapterVM>>(chapters);
-
-            return View(chaptersVM);
+			ChaptersListVM chapterListVM = new ChaptersListVM()
+			{
+				Chapters = Mapper.Map<List<Chapter>, List<ChapterVM>>(chapters),
+				SubjectId = id
+			};
+            return View(chapterListVM);
         }
 
         [HttpGet]
