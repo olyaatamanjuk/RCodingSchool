@@ -79,6 +79,13 @@ namespace RCodingSchool.Services
 
                 return true;
             }
+
+            internal void AddChapter(ChapterVM chapterVM)
+            {
+                Chapter chapter = Mapper.Map<Chapter>(chapterVM);
+                _chapterRepository.Add(chapter);
+                _chapterRepository.SaveChanges();
+            }
         }
     }
 }

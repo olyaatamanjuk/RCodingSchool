@@ -9,5 +9,6 @@ namespace RCodingSchool.ViewModels
     {
 		public List<ChapterVM> Chapters { get; set; }
 		public int SubjectId { get; set; }
-    }
+		public string NewChapterName { get; set; }
+	}
 }

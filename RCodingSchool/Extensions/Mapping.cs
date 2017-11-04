@@ -28,8 +28,10 @@ namespace RCodingSchool.Extensions
 
             CreateMap<Group, GroupVM>();
 
-            CreateMap<Chapter, ChapterVM>()
-                .ForMember(d => d.CurrentTopicId, o => o.Ignore());
+			CreateMap<ChapterVM, Chapter>();
+
+			CreateMap<Chapter, ChapterVM>()
+				.ForMember(d => d.CurrentTopicId, o=> o.Ignore());
 
             CreateMap<Topic, TopicVM>();
 
