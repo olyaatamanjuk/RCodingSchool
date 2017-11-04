@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using RCodingSchool.Interfaces;
+using AutoMapper;
 
 namespace RCodingSchool.Services
 {
@@ -85,8 +86,15 @@ namespace RCodingSchool.Services
             }
         }
 
-        // To Base service
-        public int UserId
+		internal void AddChapter(ChapterVM chapterVM)
+		{
+			Chapter chapter = Mapper.Map<Chapter>(chapterVM);
+			_chapterRepository.Add(chapter);
+			_chapterRepository.SaveChanges();
+		}
+
+		// To Base service
+		public int UserId
         {
             get
             {

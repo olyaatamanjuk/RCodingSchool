@@ -307,7 +307,7 @@
     <Compile Include="ViewModels\GroupsVM.cs" />
     <Compile Include="ViewModels\GroupVM.cs" />
     <Compile Include="ViewModels\FileVM.cs" />
-    <Compile Include="ViewModels\ListSubjectVM.cs" />
+    <Compile Include="ViewModels\ChapterListVM.cs" />
     <Compile Include="ViewModels\MessageVM.cs" />
     <Compile Include="ViewModels\NewsListVM.cs" />
     <Compile Include="ViewModels\NewsVM.cs" />
