@@ -297,7 +297,6 @@
     <Compile Include="Repositories\NewsRepository.cs" />
     <Compile Include="Repositories\SubjectRepository.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
-    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\ChapterService.cs" />
     <Compile Include="Services\NewsService.cs" />

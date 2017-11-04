@@ -3,26 +3,26 @@ using RCodingSchool.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Web;
 using RCodingSchool.Interfaces;
+using AutoMapper;
 
 namespace RCodingSchool.Services
 {
-    public class ChapterService
+    public class ChapterService : BaseService
     {
         private readonly IChapterRepository _chapterRepository;
         private readonly ITopicRepository _topicRepository;
         private readonly IUserRepository _userRepository;
-        private HttpContextBase _httpContext;
+        private readonly FileService _fileService;
 
         public ChapterService(IChapterRepository chapterRepository, ITopicRepository topicRepository, IUserRepository userRepository,
-            HttpContextBase httpContext)
+            FileService fileService, HttpContextBase httpContext) : base(httpContext)
         {
             _chapterRepository = chapterRepository;
             _topicRepository = topicRepository;
             _userRepository = userRepository;
-            _httpContext = httpContext;
+            _fileService = fileService;
         }
 
         public List<Chapter> GetList()
@@ -57,42 +57,28 @@ namespace RCodingSchool.Services
 
         public bool TrySaveTopic(TopicVM topicVM)
         {
-            // TODO: File save logic
-            //_httpContext.Request.Files;
             if (String.IsNullOrEmpty(topicVM.Name) || String.IsNullOrEmpty(topicVM.Text))
             {
                 return false;
             }
             else
             {
-                Topic topic = new Topic
-                {
-                    Name = topicVM.Name,
-                    Text = topicVM.Text,
-                    ChapterId = topicVM.ChapterId,
-                    AuthorId = _userRepository.GetActualUserById<Teacher>(UserId).Id
-                };
+                var topic = Mapper.Map<Topic>(topicVM);
 
-                if (!(topicVM.Files == null))
+                topic.AuthorId = _userRepository.GetActualUserById<Teacher>(UserId).Id;
+
+                topic = _topicRepository.Add(topic);
+                _topicRepository.SaveChanges();
+
+                var files = _fileService.SaveImages(_httpContext.Request.Files, topic);
+                foreach (var file in files)
                 {
-                    topic.Files = topicVM.Files;
+                    topic.Text = topic.Text.Replace(file.Temporary, $"/Download/{file.Id.ToString()}");
                 }
-
-                _topicRepository.Add(topic);
                 _topicRepository.SaveChanges();
 
                 return true;
             }
-        }
-
-        // To Base service
-        public int UserId
-        {
-            get
-            {
-                return int.Parse(((ClaimsIdentity)_httpContext.User.Identity).Claims.FirstOrDefault(x => x.Type == "id").Value);
-            }
-            private set { }
         }
     }
 }

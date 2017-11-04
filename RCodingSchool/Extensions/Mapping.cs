@@ -8,32 +8,36 @@ namespace RCodingSchool.Extensions
     {
         public AutoMapperProfile()
         {
-			CreateMap<User, UserVM>()
-				.ForMember(d => d.RememberMe, o => o.Ignore())
-				.ForMember(d => d.ConfirmPassword, o => o.Ignore())
-				.ForMember(d => d.GroupId, o => o.Ignore())
-				.ForMember(d => d.IsTeacher, o => o.Ignore())
-				.ForMember(d => d.Categories, o => o.Ignore());
+            // Model -> ViewModel
+            CreateMap<User, UserVM>()
+                .ForMember(d => d.RememberMe, o => o.Ignore())
+                .ForMember(d => d.ConfirmPassword, o => o.Ignore())
+                .ForMember(d => d.GroupId, o => o.Ignore())
+                .ForMember(d => d.IsTeacher, o => o.Ignore())
+                .ForMember(d => d.Categories, o => o.Ignore());
 
             CreateMap<Message, MessageVM>();
 
             CreateMap<Subject, SubjectVM>();
 
-			CreateMap<Student, StudentVM>();
+            CreateMap<Student, StudentVM>();
 
-			CreateMap<Task, TaskVM>();
+            CreateMap<Task, TaskVM>();
 
-			CreateMap<Teacher, TeacherVM>();
+            CreateMap<Teacher, TeacherVM>();
 
-			CreateMap<Group, GroupVM>();
+            CreateMap<Group, GroupVM>();
 
-			CreateMap<Chapter, ChapterVM>()
-				.ForMember(d => d.CurrentTopicId, o=> o.Ignore());
+            CreateMap<Chapter, ChapterVM>()
+                .ForMember(d => d.CurrentTopicId, o => o.Ignore());
 
-			CreateMap<Topic, TopicVM>();
+            CreateMap<Topic, TopicVM>();
 
-			CreateMap<News, NewsVM>()
-				.ForMember(d => d.CommentText, o => o.Ignore());
-		}
+            CreateMap<News, NewsVM>()
+                .ForMember(d => d.CommentText, o => o.Ignore());
+
+            // ViewModel -> Model 
+            CreateMap<TopicVM, Topic>();
+        }
     }
 }

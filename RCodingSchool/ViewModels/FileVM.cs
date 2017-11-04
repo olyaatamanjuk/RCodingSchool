@@ -13,6 +13,6 @@ namespace RCodingSchool.ViewModels
 		public virtual Task Task{ get; set; }
 		public int? TaskId { get; set; }
 
-		public string Templorary { get; set; }
+		public string Temporary { get; set; }
 	}
 }

@@ -5,10 +5,9 @@
 
         this.files = [];
         this.fileInput = $('.fileloader');
+        this.openFileBtn = $('.imgloader');
 
-        this.fileBtn.on('click', function () {
-            this.fileInput.click();
-        }.bind(this));
+        this.openFileBtn.on('click', function () { this.fileInput.click(); }.bind(this));
 
         this.fileInput.on('change', function (event) {
             this.fileChangeHandler(this.fileChange(event));
@@ -20,7 +19,7 @@
 
         var url = URL.createObjectURL(file);
 
-        var result = { url, file, key: 'file' + this.files.length };
+        var result = { url, file };
 
         this.files.push(result);
     }
@@ -112,6 +111,9 @@
             action: SimpleMDE.drawImage,
             className: "fa fa-picture-o",
             title: "Зображення",
+            action: function (editor) {
+                var html = '<img src=""';
+            }
         },
             "|",
         {
@@ -159,8 +161,8 @@
         var markdownText = fd.get('Text');
 
         for (var file of fileUploader.files) {
-            if (markdownText.indexOf(file.url)) {
-                fd.set(file.key, file.file);
+            if (markdownText.indexOf(file.url) >= 0) {
+                fd.set(file.url, file.file);
             }
         }
 

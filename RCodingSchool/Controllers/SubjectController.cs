@@ -29,7 +29,7 @@ namespace RCodingSchool.Controllers
 
 		public ActionResult Tasks(int? id)
 		{
-			List<Task> tasks = new List<Models.Task>();
+			List<Task> tasks = new List<Task>();
 			if(id == null)
 			{
 				tasks = _subjectService.GetTaskList();
@@ -65,7 +65,7 @@ namespace RCodingSchool.Controllers
 
 			if (!(task == null)&& filesCount>0)
 			{
-				_fileService.SaveFilesFromTask(task.Id, files);
+				_fileService.SaveTaskFiles(task.Id, files);
 			};
 			return RedirectToAction("Task", new { id = task.Id });
 		}
