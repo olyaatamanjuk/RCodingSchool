@@ -1,4 +1,4 @@
-﻿@model  RCodingSchool.ViewModels.UserVM
+﻿@model  List<RCodingSchool.ViewModels.MessageVM>
 
 <div class="container bootstrap ">
     <div class="row">
@@ -16,6 +16,19 @@
         <div class="col-md-8 bg-white col-xs-12 bg-white ">
             <div class="chat-message snippet">
                 <div class="media " id="discussion">
+                    <button class="btn btn-default" title="Більше" onclick="location.href='@Url.Action("Message", "Message", new { currentMessageCount = Model.Count })'"><i class="fa fa-history" aria-hidden="true"></i></button>
+                    @foreach (var x in Model)
+                    {
+                        <div class="media">
+                            <div class="media-left">
+                                <img src="../../Content/images/default_user.png" class="media-object" style="width:40px">
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">@x.User.FirstName @x.User.LastName<small> @x.TimeOfSending</small></h4>
+                                <p>@x.Text</p>
+                            </div>
+                        </div>
+                    <hr>}
                 </div>
                 <div class="chat-box bg-white">
                     <!-- /input-group -->
@@ -30,12 +43,12 @@
         </div>
         <div class="col-md-1 bg-white  bg-white "></div>
     </div>
-</div>
+    </div>
 
 
-@section Script
+    @section Script
 {
-    @Scripts.Render("~/bundles/signalrScripts")
-    <script src="~/signalr/hubs"></script>
-    @Scripts.Render("~/bundles/MessageScripts")
-}
+        @Scripts.Render("~/bundles/signalrScripts")
+        <script src="~/signalr/hubs"></script>
+        @Scripts.Render("~/bundles/MessageScripts")
+    }

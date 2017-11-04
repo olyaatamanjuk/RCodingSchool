@@ -17,7 +17,6 @@
             '<h4 class="media-heading">' + encodedName + '<small> ' + formatDate(now) + '</small></h4>' +
             '<p>' + encodedMsg + '</p>' +
             '</div>' +
-            '</div>' +
             '</div><hr>');
     };
     // Start the connection.

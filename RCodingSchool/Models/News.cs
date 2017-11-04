@@ -14,7 +14,7 @@ namespace RCodingSchool.Models
 		public DateTime Date { get; set; }
 
 		[ForeignKey("NewsAuthorId")]
-		public Teacher NewsAuthor { get; set; }
+		public virtual Teacher NewsAuthor { get; set; }
 		[ForeignKey("NewsAuthor")]
 		public int NewsAuthorId { get; set; }
 	}

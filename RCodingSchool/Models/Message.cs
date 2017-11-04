@@ -8,7 +8,7 @@ namespace RCodingSchool.Models
         public string Text { get; set; }
         public string GroupName { get; set; }
 
-        public User User { get; set; }
+		public virtual User User { get; set; }
 		public int UserId { get; set; }
 
 		public MessageGroup MessageGroup { get; set; }

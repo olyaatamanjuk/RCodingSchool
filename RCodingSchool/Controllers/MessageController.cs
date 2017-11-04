@@ -2,6 +2,7 @@
 using RCodingSchool.Models;
 using RCodingSchool.Services;
 using RCodingSchool.ViewModels;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace RCodingSchool.Controllers
@@ -9,18 +10,22 @@ namespace RCodingSchool.Controllers
 	[Authorize]
 	public class MessageController : Controller
     {
-		private readonly UserService _userService;
-		public MessageController(UserService userService)
+		private readonly MessageService _messageService;
+
+		public MessageController(MessageService messageService)
 		{
-			_userService = userService;
+			_messageService = messageService;
 		}
 		
 		[HttpGet]
-		public ActionResult Message()
+		public ActionResult Message(int currentMessageCount = 0)
         {
-			User user = _userService.GetUserByEmail(HttpContext.User.Identity.Name);
-			UserVM userVM = Mapper.Map<User, UserVM>(user);
-			return View(userVM);
+			int messageCount = currentMessageCount + 5; 
+			List<Message> messages = _messageService.GetLastMessages(messageCount);
+			List<MessageVM> messagesVM = Mapper.Map<List<Message>, List<MessageVM>>(messages);
+			
+			return View(messagesVM);
         }
+
     }
 }

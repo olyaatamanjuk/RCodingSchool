@@ -29,11 +29,11 @@ namespace RCodingSchool
                 new User { FirstName = "Ігор", LastName = "Панчук", Email = "panchuk@gmail.com", Password = "123456" },
                 new User { FirstName = "Вікторія", LastName = "Якозина", Email = "yakozina@gmail.com", Password = "123456" },
 				new User { FirstName = "Ірина", LastName = "Дорошенко", Email = "doroshenko@mail.com", Password = "123456", IsActive = true  },
-				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "admin", Password = "admin" },
-				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "malyk@gmail.com", Password = "123456", IsActive = true  },
-				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "yurchenko@gmail.com", Password = "123456", IsActive = true  },
-				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "antonjuk@gmail.com", Password = "123456" },
-				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "lukashiv@gmail.com", Password = "123456" }
+				new User { FirstName = "Адміністратор", LastName = "Адміністратор", Email = "admin", Password = "admin", IsActive = true },
+				new User { FirstName = "Ігор", LastName = "Малик", Email = "malyk@gmail.com", Password = "123456", IsActive = true  },
+				new User { FirstName = "Ігор", LastName = "Юрченко", Email = "yurchenko@gmail.com", Password = "123456", IsActive = true  },
+				new User { FirstName = "Світлана", LastName = "Антонюк", Email = "antonjuk@gmail.com", Password = "123456" },
+				new User { FirstName = "Тарас", LastName = "Лукашів", Email = "lukashiv@gmail.com", Password = "123456" }
 			};
 
             foreach (User item in userList)

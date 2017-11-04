@@ -14,7 +14,7 @@ namespace RCodingSchool.Models
         public Guid RegisterCode { get; set; }
 		public bool IsActive { get; set; }
 
-		public ICollection<Message> Messages { get; set; }
-		public ICollection<Comment> Comments { get; set; }
+		public virtual ICollection<Message> Messages { get; set; }
+		public virtual ICollection<Comment> Comments { get; set; }
 	}
 }

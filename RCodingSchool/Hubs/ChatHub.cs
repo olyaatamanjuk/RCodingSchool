@@ -57,7 +57,7 @@ namespace RCodingSchool.Hubs
             var newDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 .AddMilliseconds(long.Parse(date));
 
-            _messageService.SaveMessage(message, new MessageGroup { Name = "General" }, new User { Id = UserId }, newDate);
+            _messageService.SaveMessage(message, new MessageGroup { Name = "General" }, newDate);
 
             Clients.All.broadcastMessage(Context.User.Identity.Name, message, date);
         }

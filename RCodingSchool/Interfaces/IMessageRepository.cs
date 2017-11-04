@@ -1,9 +1,10 @@
 ﻿using RCodingSchool.Models;
+using System.Collections.Generic;
 
 namespace RCodingSchool.Interfaces
 {
     public interface IMessageRepository : IRepository<Message>
     {
-        //TODO: methods
-    }
+		List<Message> GetLastMessages(int count);
+	}
 }
