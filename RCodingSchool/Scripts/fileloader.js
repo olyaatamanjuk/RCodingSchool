@@ -5,9 +5,6 @@
 
         this.files = [];
         this.fileInput = $('.fileloader');
-        this.openFileBtn = $('.imgloader');
-
-        this.openFileBtn.on('click', function () { this.fileInput.click(); }.bind(this));
 
         this.fileInput.on('change', function (event) {
             this.fileChangeHandler(this.fileChange(event));
@@ -22,6 +19,12 @@
         var result = { url, file };
 
         this.files.push(result);
+
+        return result;
+    }
+
+    FileLoader.prototype.openFileDialog = function () {
+        this.fileInput.click();
     }
 
     return FileLoader;
@@ -30,6 +33,11 @@
 (function () {
     var fileUploader = new FileLoader();
     var canSubmit = false;
+    var modal = $('#myModal');
+    var rangeInput = $('#image-width');
+    $('#image-width').val(100);
+    var saveRangeBtn = $('#save-range-btn');
+    var imageWidth, fileUploadResult;
     var simplemde = new SimpleMDE({
         element: document.getElementById("text-input"),
         toolbar: [{
@@ -112,7 +120,12 @@
             className: "fa fa-picture-o",
             title: "Зображення",
             action: function (editor) {
-                var html = '<img src=""';
+                fileUploader.fileChangeHandler = function (result) {
+                    modal.modal('show');
+                    $('#image-width-indicator').html(rangeInput.val());
+                    fileUploadResult = result;
+                };
+                fileUploader.openFileDialog();
             }
         },
             "|",
@@ -143,13 +156,24 @@
             },
             className: "fa fa-bold",
             title: "Red text (Ctrl/Cmd-Alt-R)",
-        },
-        ]
+        }]
     });
 
-    fileUploader.fileChangeHandler = function (result) {
-        var url = result.url;
-    };
+    saveRangeBtn.on('click', function () {
+        imageWidth = rangeInput.val();
+        modal.modal('hide');
+    });
+
+    modal.on('hidden.bs.modal', function () {
+        var html = `<img src="${fileUploadResult.url}" width="${imageWidth}">`;
+        simplemde.codemirror.replaceSelection(html);
+        $('#image-width').val(100);
+    });
+
+    rangeInput.on('change', function () {
+        var _this = $(this);
+        $('#image-width-indicator').html(_this.val());
+    });
 
     var form = document.forms[0];
 
@@ -167,6 +191,10 @@
         }
 
         var xhr = new XMLHttpRequest();
+        xhr.onloadend = function () {
+            var chapterId = document.getElementsByName("ChapterId")[0].value;
+            location.replace(`/Chapter/Chapter/${chapterId}`);
+        };
         xhr.open('POST', form.action);
         xhr.send(fd);
     };
