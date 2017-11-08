@@ -38,6 +38,7 @@
     $('#image-width').val(100);
     var saveRangeBtn = $('#save-range-btn');
     var imageWidth, fileUploadResult;
+    var md = markdownit({ html: true }).use(texmath.use(katex));
     var simplemde = new SimpleMDE({
         element: document.getElementById("text-input"),
         toolbar: [{
@@ -156,7 +157,10 @@
             },
             className: "fa fa-bold",
             title: "Red text (Ctrl/Cmd-Alt-R)",
-        }]
+        }],
+        previewRender: function (plainText) {
+            return md.render(plainText);
+        }
     });
 
     saveRangeBtn.on('click', function () {
@@ -181,7 +185,7 @@
         event.preventDefault();
 
         var fd = new FormData(form);
-        fd.set('Text', encodeURI(simplemde.markdown(fd.get('Text'))));
+        fd.set('Text', encodeURI(md.render(fd.get('Text'))));
         var markdownText = fd.get('Text');
 
         for (var file of fileUploader.files) {

@@ -59,10 +59,7 @@
         @if (Model.Chapters.Count > 0 && Model.Chapters[0].Topics.Count > 0)
         {
             <div class="col-sm-8 col-md-8">
-                <div class="well" id="currentTopic">
-                    @{  Html.RenderAction("topic", Model.Chapters[0].Topics.FirstOrDefault());
-                    }
-                </div>
+                <div class="well" id="currentTopic"></div>
             </div>
          }
     </div>
@@ -78,5 +75,7 @@
                     $("#currentTopic").html(decodeURI(response));
                 });
         }
+
+        d(@Model.Chapters[0].Topics.FirstOrDefault().Id);
     </script>
 }

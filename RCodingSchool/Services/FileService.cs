@@ -86,19 +86,18 @@ namespace RCodingSchool.Services
         public void SaveTaskFiles(int taskId, IEnumerable<HttpPostedFileBase> files)
         {
             string folderPath = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/taskFiles"), taskId.ToString());
-            bool exists = Directory.Exists(folderPath);
-            if (!(exists))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
 
-            foreach (var file in files)
+            Directory.CreateDirectory(folderPath);
+
+            foreach (var file in files.Where(x => x != null))
             {
                 if (file.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(file.FileName);
                     var path = Path.Combine(folderPath, fileName);
+
                     file.SaveAs(path);
+
                     Models.File modelFile = new Models.File();
                     modelFile.Location = path;
                     modelFile.Name = fileName;
@@ -106,6 +105,7 @@ namespace RCodingSchool.Services
                     _fileRepository.Add(modelFile);
                 }
             }
+
             _fileRepository.SaveChanges();
         }
 
