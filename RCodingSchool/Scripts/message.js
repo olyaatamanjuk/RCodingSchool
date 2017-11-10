@@ -1,4 +1,5 @@
 ﻿$(function () {
+    var messagesList = document.getElementsByClassName('snippet')[0];
     // Declare a proxy to reference the hub.
     var chat = $.connection.chatHub;
     // Create a function that the hub can call to broadcast messages.
@@ -18,6 +19,8 @@
             '<p>' + encodedMsg + '</p>' +
             '</div>' +
             '</div><hr>');
+
+        scrollBottom(messagesList);
     };
     // Start the connection.
     console.log("Starting connection");
@@ -28,8 +31,20 @@
             $('#message').val('').focus();
         });
     }).fail(function () { console.log('Have no permissions on it'); });
-});
 
-function formatDate(date) {
-    return "" + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-}
+    $('#message').on('keypress', function (event) {
+        if (event.charCode == 13) {
+            $('#sendmessage').click();
+        }
+    });
+
+    function formatDate(date) {
+        return "" + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    }
+
+    function scrollBottom(element) {
+        element.scrollTop = element.scrollHeight;
+    }
+
+    scrollBottom(messagesList);
+});

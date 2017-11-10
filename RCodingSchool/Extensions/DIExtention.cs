@@ -27,31 +27,30 @@ namespace RCodingSchool.Extensions
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IUserRepository, UserRepository>();
             container.RegisterType<IMessageRepository, MessageRepository>();
-            container.RegisterType<IMessageGroupRepository, MessageGroupRepository>();
             container.RegisterType<ISubjectRepository, SubjectRepository>();
             container.RegisterType<IChapterRepository, ChapterRepository>();
             container.RegisterType<ITopicRepository, TopicRepository>();
             container.RegisterType<IStudentRepository, StudentRepository>();
             container.RegisterType<ITeacherRepository, TeacherRepository>();
             container.RegisterType<IGroupRepository, GroupRepository>();
-			container.RegisterType<INewsRepository, NewsRepository>();
-			container.RegisterType<ICommentRepository, CommentRepository>();
-			container.RegisterType<ITaskRepository, TaskRepository>();
+            container.RegisterType<INewsRepository, NewsRepository>();
+            container.RegisterType<ICommentRepository, CommentRepository>();
+            container.RegisterType<ITaskRepository, TaskRepository>();
 
-			// Services
-			container.RegisterType<MessageService>();
+            // Services
+            container.RegisterType<MessageService>();
             container.RegisterType<UserService>();
             container.RegisterType<SubjectService>();
             container.RegisterType<ChapterService>();
-			container.RegisterType<NewsService>();
-			container.RegisterType<TeacherService>();
+            container.RegisterType<NewsService>();
+            container.RegisterType<TeacherService>();
 
-			// Hubs
-			container.RegisterType<ChatHub>();
+            // Hubs
+            container.RegisterType<ChatHub>();
             container.RegisterType<Connections>();
 
             // Dark magic
-            container.RegisterType<HttpContextBase>(new InjectionFactory(x => new HttpContextWrapper(HttpContext.Current)));
+            container.RegisterType<HttpContextBase>(new InjectionFactory(x => HttpContext.Current != null ? new HttpContextWrapper(HttpContext.Current) : null));
 
             signalrResolver.Register(typeof(ChatHub), () => container.Resolve<ChatHub>());
 
