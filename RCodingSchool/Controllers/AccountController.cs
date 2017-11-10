@@ -38,8 +38,8 @@ namespace RCodingSchool.Controllers
         {
             if (!_userService.TryLogin(userVM, out User user))
             {
-				ModelState.AddModelError("credentials", "Невірний логін або пароль.");
-				return View();
+                ModelState.AddModelError("credentials", "Невірний логін або пароль.");
+                return View();
             }
 
             List<Claim> claims = new List<Claim>
@@ -49,10 +49,10 @@ namespace RCodingSchool.Controllers
                 //new Claim("fullname", user.Id.ToString())
             };
 
-			if (!(user.IsActive))
-			{
-				claims.Add(new Claim(ClaimTypes.Role, Roles.User));
-			}
+            if (!(user.IsActive))
+            {
+                claims.Add(new Claim(ClaimTypes.Role, Roles.User));
+            }
             else if (user.isAdmin)
             {
                 claims.Add(new Claim(ClaimTypes.Role, Roles.Admin));
@@ -62,9 +62,10 @@ namespace RCodingSchool.Controllers
                 claims.Add(new Claim(ClaimTypes.Role, Roles.Teacher));
             }
             else
-             {
+            {
                 claims.Add(new Claim(ClaimTypes.Role, Roles.Student));
-             }
+                claims.Add(new Claim("groupName", _userService.GetActualUserById<Student>(user.Id).Group.Name));
+            }
 
             var identity = new ClaimsIdentity(claims.ToArray<Claim>(), DefaultAuthenticationTypes.ApplicationCookie);
             HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { IsPersistent = userVM.RememberMe }, identity);
@@ -80,87 +81,87 @@ namespace RCodingSchool.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-		[HttpGet]
-		public ActionResult Register()
-		{
-			List<Group> groupList = _userService.GetGroups();
-			UserVM userVM = new UserVM();
-			userVM.Categories = groupList.Select(x => new SelectListItem
-			{
-				Value = x.Id.ToString(),
-				Text = x.Name
-			});
-			return View(userVM);
-		}
+        [HttpGet]
+        public ActionResult Register()
+        {
+            List<Group> groupList = _userService.GetGroups();
+            UserVM userVM = new UserVM();
+            userVM.Categories = groupList.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            });
+            return View(userVM);
+        }
 
-		[HttpPost]
-		public ActionResult Register(UserVM userVM)
-		{
-			if (_userService.CheckValidation(userVM))
-			{
-				User user = _userService.RegisterNew(userVM);
+        [HttpPost]
+        public ActionResult Register(UserVM userVM)
+        {
+            if (_userService.CheckValidation(userVM))
+            {
+                User user = _userService.RegisterNew(userVM);
                 //return RedirectToAction("Index", "Home"); // Change
                 return null;
-			}
-			else
-			{
-				ModelState.AddModelError("credentials", "Некоректно введені дані.");
-				return View();
-			}
-		}
+            }
+            else
+            {
+                ModelState.AddModelError("credentials", "Некоректно введені дані.");
+                return View();
+            }
+        }
 
         [HttpGet]
         public ActionResult RegisterConfirm(Guid registerCode)
         {
-           _userService.FinishRegister(registerCode);
+            _userService.FinishRegister(registerCode);
 
             return RedirectToAction("Login", "Account");
         }
-		[HttpGet]
-		public ActionResult Users()
-		{
-			UserListsVM userLists = new UserListsVM();
-			userLists.NoActiveStudents = Mapper.Map<List<Student>, List<StudentVM>>(_userService.GetStudents(false));
-			userLists.NoActiveTeachers = Mapper.Map<List<Teacher>, List<TeacherVM>>(_userService.GetTeachers(false));
-			userLists.Students = Mapper.Map<List<Student>, List<StudentVM>>(_userService.GetStudents(true));
-			userLists.Teachers = Mapper.Map<List<Teacher>, List<TeacherVM>>(_userService.GetTeachers(true));
+        [HttpGet]
+        public ActionResult Users()
+        {
+            UserListsVM userLists = new UserListsVM();
+            userLists.NoActiveStudents = Mapper.Map<List<Student>, List<StudentVM>>(_userService.GetStudents(false));
+            userLists.NoActiveTeachers = Mapper.Map<List<Teacher>, List<TeacherVM>>(_userService.GetTeachers(false));
+            userLists.Students = Mapper.Map<List<Student>, List<StudentVM>>(_userService.GetStudents(true));
+            userLists.Teachers = Mapper.Map<List<Teacher>, List<TeacherVM>>(_userService.GetTeachers(true));
 
-			List<Group> groupList = _userService.GetGroups();
+            List<Group> groupList = _userService.GetGroups();
 
-			userLists.Categories = groupList.Select(x => new SelectListItem
-			{
-				Value = x.Id.ToString(),
-				Text = x.Name
-			});
+            userLists.Categories = groupList.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            });
 
-			return View(userLists);
-		}
-		[HttpPost]
-		public ActionResult NoActiveStudents(UserListsVM userLists)
-		{
-			_userService.SaveStudentChanges(userLists.NoActiveStudents);
-			return RedirectToAction("Users", "Account"); ;
-		}
+            return View(userLists);
+        }
+        [HttpPost]
+        public ActionResult NoActiveStudents(UserListsVM userLists)
+        {
+            _userService.SaveStudentChanges(userLists.NoActiveStudents);
+            return RedirectToAction("Users", "Account"); ;
+        }
 
-		[HttpPost]
-		public ActionResult ActiveStudents(UserListsVM userLists)
-		{
-			_userService.SaveStudentChanges(userLists.Students);
-			return RedirectToAction("Users", "Account"); ;
-		}
+        [HttpPost]
+        public ActionResult ActiveStudents(UserListsVM userLists)
+        {
+            _userService.SaveStudentChanges(userLists.Students);
+            return RedirectToAction("Users", "Account"); ;
+        }
 
-		[HttpPost]
-		public ActionResult NoActiveTeachers(UserListsVM userLists)
-		{
-			_userService.SaveTeacherChanges(userLists.NoActiveTeachers);
-			return RedirectToAction("Users", "Account"); ;
-		}
+        [HttpPost]
+        public ActionResult NoActiveTeachers(UserListsVM userLists)
+        {
+            _userService.SaveTeacherChanges(userLists.NoActiveTeachers);
+            return RedirectToAction("Users", "Account"); ;
+        }
 
-		[HttpPost]
-		public ActionResult ActiveTeachers(UserListsVM userLists)
-		{
-			_userService.SaveTeacherChanges(userLists.Teachers);
-			return RedirectToAction("Users", "Account"); ;
-		}
-	}
+        [HttpPost]
+        public ActionResult ActiveTeachers(UserListsVM userLists)
+        {
+            _userService.SaveTeacherChanges(userLists.Teachers);
+            return RedirectToAction("Users", "Account"); ;
+        }
+    }
 }

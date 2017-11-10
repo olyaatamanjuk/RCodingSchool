@@ -1,13 +1,9 @@
-﻿using RCodingSchool.Models;
-using RCodingSchool.Services;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace RCodingSchool.Hubs
 {
-	public class Connections
+    public class Connections
 	{
 		public  Dictionary<string, HashSet<string>> _connections;
 		public int Count

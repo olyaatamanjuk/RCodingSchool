@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNet.SignalR;
-using RCodingSchool.Models;
 using RCodingSchool.Services;
 using System;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace RCodingSchool.Hubs
 {
-    //[Authorize(Roles = "User")]
+    [Authorize(Roles = "Student")]
     public class ChatHub : Hub
     {
         private readonly MessageService _messageService;
@@ -25,22 +25,27 @@ namespace RCodingSchool.Hubs
             _userService = userService;
         }
 
-        public override System.Threading.Tasks.Task OnConnected()
+        public override async Task OnConnected()
         {
+            await Groups.Add(Context.ConnectionId, GroupName);
+
             _connections.Add(Context.User.Identity.Name, Context.ConnectionId);
-            return base.OnConnected();
+
+            await base.OnConnected();
         }
 
-        public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
+        public override async Task OnDisconnected(bool stopCalled)
         {
             string name = Context.User.Identity.Name;
 
             _connections.Remove(name, Context.ConnectionId);
 
-            return base.OnDisconnected(stopCalled);
+            await Groups.Remove(Context.ConnectionId, GroupName);
+
+            await base.OnDisconnected(stopCalled);
         }
 
-        public override System.Threading.Tasks.Task OnReconnected()
+        public override Task OnReconnected()
         {
             string name = Context.User.Identity.Name;
 
@@ -54,12 +59,17 @@ namespace RCodingSchool.Hubs
 
         public void Send(string message, string date)
         {
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                return;
+            }
+
             var newDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 .AddMilliseconds(long.Parse(date));
 
-            _messageService.SaveMessage(message, new MessageGroup { Name = "General" }, newDate);
+            Clients.Group(GroupName).broadcastMessage(Context.User.Identity.Name, message, date);
 
-            Clients.All.broadcastMessage(Context.User.Identity.Name, message, date);
+            _messageService.SaveMessage(message, newDate);
         }
 
         public void SendPrivate(string name, string message, string connectionId)
@@ -67,13 +77,12 @@ namespace RCodingSchool.Hubs
             Clients.Client(Context.ConnectionId).send(message);
         }
 
-        public int UserId
+        public string GroupName
         {
             get
             {
-                return int.Parse((new ClaimsIdentity(Context.User.Identity)).Claims.FirstOrDefault(x => x.Type.Equals("id")).Value);
+                return (Context.User.Identity as ClaimsIdentity).Claims.First(x => x.Type == "groupName").Value;
             }
-            set { }
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace RCodingSchool.Controllers
 {
-	[Authorize]
+	[Authorize(Roles = "Student")]
 	public class MessageController : Controller
     {
 		private readonly MessageService _messageService;
@@ -21,11 +21,10 @@ namespace RCodingSchool.Controllers
 		public ActionResult Message(int currentMessageCount = 0)
         {
 			int messageCount = currentMessageCount + 5; 
-			List<Message> messages = _messageService.GetLastMessages(messageCount);
-			List<MessageVM> messagesVM = Mapper.Map<List<Message>, List<MessageVM>>(messages);
+			IEnumerable<Message> messages = _messageService.GetLastMessages(messageCount);
+			IEnumerable<MessageVM> messagesVM = Mapper.Map<IEnumerable<MessageVM>>(messages);
 			
 			return View(messagesVM);
         }
-
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Web;
 
@@ -23,5 +21,13 @@ namespace RCodingSchool.Services
 			}
 			private set { }
 		}
-	}
+
+        public string GroupName
+        {
+            get
+            {
+                return (_httpContext.User.Identity as ClaimsIdentity).Claims.First(x => x.Type == "groupName").Value;
+            }
+        }
+    }
 }

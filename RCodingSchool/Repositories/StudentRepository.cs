@@ -1,5 +1,6 @@
 ﻿using RCodingSchool.Models;
 using RCodingSchool.Interfaces;
+using System.Collections.Generic;
 
 namespace RCodingSchool.Repositories
 {
@@ -8,6 +9,11 @@ namespace RCodingSchool.Repositories
         public StudentRepository(RCodingSchoolContext context)
             : base(context)
         {
+        }
+
+        public override IEnumerable<Student> GetAll()
+        {
+            return dbContext.Students.Include("Group");
         }
     }
 }

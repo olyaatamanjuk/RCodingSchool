@@ -1,6 +1,5 @@
 ﻿using RCodingSchool.Models;
 using RCodingSchool.Interfaces;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace RCodingSchool.Repositories
@@ -12,9 +11,9 @@ namespace RCodingSchool.Repositories
         {
         }
 
-		public List<Message> GetLastMessages(int count)
-		{
-			return dbContext.Messages.Include("User").OrderByDescending(s => s.TimeOfSending).Take(count).ToList();
-		}
+        public IQueryable<Message> GetLastMessages(int count)
+        {
+            return dbContext.Messages.Include("User").OrderBy(s => s.ReceiveTime).Take(count);
+        }
     }
 }

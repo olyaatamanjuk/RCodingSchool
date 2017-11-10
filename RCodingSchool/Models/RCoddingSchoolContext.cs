@@ -13,7 +13,6 @@ namespace RCodingSchool.Models
 		public DbSet<Task> Tasks { get; set; }
 		public DbSet<Message> Messages { get; set; }
         public DbSet<Subject> Subjects { get; set; }
-        public DbSet<MessageGroup> MessagesGroups { get; set; }
 		public DbSet<News> News { get; set; }
 		public DbSet<Comment> Comments { get; set; }
 		public DbSet<TeacherGroup> TeacherGroup { get; set; }
@@ -33,12 +32,6 @@ namespace RCodingSchool.Models
 				.HasMany(t => t.Messages)
 				.WithRequired()
 				.HasForeignKey(c => c.UserId)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<User>()
-				.HasMany(t => t.Messages)
-				.WithOptional()
-				.HasForeignKey(c => c.ReceiverId)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<User>()

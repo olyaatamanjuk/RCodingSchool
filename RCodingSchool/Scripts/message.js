@@ -27,7 +27,7 @@
             // Clear text box and reset focus for next comment.
             $('#message').val('').focus();
         });
-    });
+    }).fail(function () { console.log('Have no permissions on it'); });
 });
 
 function formatDate(date) {

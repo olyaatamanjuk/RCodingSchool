@@ -11,9 +11,6 @@ namespace RCodingSchool.ViewModels
 		public virtual User User { get; set; }
 		public int UserId { get; set; }
 
-		public MessageGroup MessageGroup { get; set; }
-		public int MessageGroupId { get; set; }
-
-		public DateTime TimeOfSending { get; set; }
+		public DateTime ReceiveTime { get; set; }
     }
 }

@@ -28,7 +28,10 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Головна", "Index", "Home")</li>
                     <li>@Html.ActionLink("Новини", "News", "Home")</li>
-                    <li>@Html.ActionLink("Повідомлення", "Message", "Message")</li>
+                    @if (this.User.IsInRole("Student"))
+                    {
+                        <li>@Html.ActionLink("Повідомлення", "Message", "Message")</li>
+                    }
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Навчання <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -37,17 +40,20 @@
                             </li>
                             @if (this.User.IsInRole("Student"))
                             {
-                                <li class="dropdown-item"><a href="#"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Викладачі</a></li>}
+                                <li class="dropdown-item"><a href="#"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Викладачі</a></li>
+                            }
                             @if (this.User.IsInRole("Student") || this.User.IsInRole("Teacher"))
                             {
                                 <li class="dropdown-item">
                                     <a href="@Url.Action("Tasks", "Subject")" title="Tasks"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Завдання</a>
-                                </li>}
+                                </li>
+                            }
                             @if (this.User.IsInRole("Teacher"))
                             {
                                 <li class="dropdown-item">
                                     <a href="@Url.Action("Groups", "Group")" title="Groups"><i class="fa fa-users" aria-hidden="true"></i> Групи</a>
-                                </li>}
+                                </li>
+                            }
                         </ul>
                     </li>
 

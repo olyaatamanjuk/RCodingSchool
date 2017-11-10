@@ -2,77 +2,40 @@
 using System;
 using RCodingSchool.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
+using System.Linq;
 
 namespace RCodingSchool.Services
 {
-	public class MessageService : BaseService
-	{
-		private readonly IMessageRepository _messageRepository;
-		private readonly IMessageGroupRepository _messageGroupRepository;
+    public class MessageService : BaseService
+    {
+        private readonly IMessageRepository _messageRepository;
 
-		public MessageService(IMessageRepository messageRepository, IMessageGroupRepository messageGroupRepository, HttpContextBase httpContext)
-			:base(httpContext)
-		{
-			_messageRepository = messageRepository;
-			_messageGroupRepository = messageGroupRepository;
-		}
+        public MessageService(IMessageRepository messageRepository, HttpContextBase httpContext)
+            : base(httpContext)
+        {
+            _messageRepository = messageRepository;
+        }
 
-		//Private message
-		public void SaveMessage(string messageText, User userFrom, User userTo, DateTime date)
-		{
-			if (!(String.IsNullOrEmpty(messageText) || userFrom == null || userTo == null))
-			{
-				Message message = new Message();
-				message.User = userFrom;
-				message.Text = messageText;
-				_messageRepository.Add(message);
-			}
-		}
+        //Group message
+        public void SaveMessage(string messageText, DateTime date)
+        {
+            var message = new Message
+            {
+                Text = messageText,
+                UserId = UserId,
+                ReceiveTime = date,
+                GroupName = GroupName
+            };
 
-		//Group message
-		public void SaveMessage(string messageText, MessageGroup messageGroup, DateTime date)
-		{
-			if (!(String.IsNullOrEmpty(messageText) ))
-			{
-				Message message = new Message();
-				if (_messageGroupRepository.Get(messageGroup.Id) == null)
-				{
-					_messageGroupRepository.Add(messageGroup);
-					_messageGroupRepository.SaveChanges();
-				}
-				message.UserId = UserId;
-				message.Text = messageText;
-				message.MessageGroup = messageGroup;
-				message.MessageGroupId = messageGroup.Id;
-				message.TimeOfSending = date;
-				_messageRepository.Add(message);
-				_messageRepository.SaveChanges();
-			}
-		}
+            _messageRepository.Add(message);
+            _messageRepository.SaveChanges();
+        }
 
-		//To All message
-		public void SaveMessage(string messageText, User userFrom, DateTime date)
-		{
-			if (!(String.IsNullOrEmpty(messageText) || userFrom == null))
-			{
-				Message message = new Message();
-				//General group by default
-				message.User = userFrom;
-				message.Text = messageText;
-				_messageRepository.Add(message);
-			}
-		}
-
-		public List<Message> GetLastMessages(int count)
-		{
-			return _messageRepository.GetLastMessages(count).OrderBy(x => x.Id).ToList();
-		}
-
-		public List<Message> GetAll()
-		{
-			return _messageRepository.GetAll().ToList();
-		}
-	}
+        // Messages by group
+        public IEnumerable<Message> GetLastMessages(int count)
+        {
+            return _messageRepository.GetLastMessages(count).Where(x => x.GroupName == GroupName).ToList();
+        }
+    }
 }
