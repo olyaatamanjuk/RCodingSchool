@@ -109,7 +109,33 @@ namespace RCodingSchool.Services
             _fileRepository.SaveChanges();
         }
 
-        public Models.File Get(int id)
+		public void SaveDoneTaskFiles(int taskId, int doneTaskId, IEnumerable<HttpPostedFileBase> files)
+		{
+			string folderPath = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/taskFiles"), taskId.ToString(),"done", doneTaskId.ToString());
+
+			Directory.CreateDirectory(folderPath);
+
+			foreach (var file in files.Where(x => x != null))
+			{
+				if (file.ContentLength > 0)
+				{
+					var fileName = Path.GetFileName(file.FileName);
+					var path = Path.Combine(folderPath, fileName);
+
+					file.SaveAs(path);
+
+					Models.File modelFile = new Models.File();
+					modelFile.Location = path;
+					modelFile.Name = fileName;
+					modelFile.DoneTaskId = doneTaskId;
+					_fileRepository.Add(modelFile);
+				}
+			}
+
+			_fileRepository.SaveChanges();
+		}
+
+		public Models.File Get(int id)
         {
             return _fileRepository.Get(id);
         }

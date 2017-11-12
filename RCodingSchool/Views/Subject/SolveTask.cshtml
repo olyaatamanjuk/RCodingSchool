@@ -1,0 +1,44 @@
+﻿@model RCodingSchool.ViewModels.DoneTaskVM
+@{
+    ViewBag.Title = "SolveTask";
+}
+
+<h3>Вирішення завдання "@Model.Task.Name</h3>
+
+@using (Html.BeginForm("SolveTask", "Subject", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.TaskId)
+    @Html.HiddenFor(m => m.Id)
+    <label>Деталі вирішення:</label>
+    @Html.TextAreaFor(m => m.Text, new { @class = "form-control", @rows = "8" })
+    <label>Прикріплені файли:</label>
+    <div id="file-names">
+        Немає файлів
+    </div>
+    <div class="btn-group">
+        <label class="btn btn-default" for="my-file-selector" title="Додати файли">
+            <input id="my-file-selector" type="file" name="files" style="display:none"
+                   onchange=" showFileNames(this)" multiple>
+            <i class="fa fa-files-o" aria-hidden="true"></i>
+        </label>
+        <button class="btn btn-default" type="button" onclick="cleatInputFiles()" title="Очистити файли"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+        <button class="btn btn-primary" type="submit">Зберегти</button>
+    </div>
+}
+
+@section Script{
+    <script>
+        function showFileNames(elem) {
+            $('#file-names').empty();
+            $.each(elem.files, function () {
+                console.log(this.name);
+                $('#file-names').append('<span class="label label-info" id="upload-file-info">' + this.name + '</span><br>');
+            })
+        }
+
+        function cleatInputFiles() {
+            $("#my-file-selector").val("");
+            $('#file-names').empty();
+        }
+    </script>
+}

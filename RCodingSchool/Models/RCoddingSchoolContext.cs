@@ -11,6 +11,7 @@ namespace RCodingSchool.Models
 		public DbSet<Chapter> Chapters { get; set; }
 		public DbSet<Group> Groups { get; set; }
 		public DbSet<Task> Tasks { get; set; }
+		public DbSet<DoneTask> DoneTasks { get; set; }
 		public DbSet<Message> Messages { get; set; }
         public DbSet<Subject> Subjects { get; set; }
 		public DbSet<News> News { get; set; }
@@ -49,7 +50,12 @@ namespace RCodingSchool.Models
 				.HasRequired(x => x.NewsAuthor)
 				.WithMany(c => c.News)
 				.WillCascadeOnDelete(false);
-				
+
+			modelBuilder.Entity<DoneTask>()
+				.HasRequired(x => x.Task)
+				.WithMany(c => c.DoneTasks)
+				.WillCascadeOnDelete(false);
+
 
 			base.OnModelCreating(modelBuilder);
 		}

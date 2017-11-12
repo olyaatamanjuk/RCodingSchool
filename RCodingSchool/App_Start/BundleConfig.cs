@@ -47,6 +47,10 @@ namespace RCodingSchool.App_Start
 			bundles.Add(new StyleBundle("~/bundles/login").Include(
 				"~/Content/login.css"
 				));
+
+			bundles.Add(new StyleBundle("~/bundles/range").Include(
+				"~/Content/range.css"
+				));
 		}
 	}
 }

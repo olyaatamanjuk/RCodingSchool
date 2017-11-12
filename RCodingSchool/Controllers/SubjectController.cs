@@ -62,5 +62,36 @@ namespace RCodingSchool.Controllers
             
             return RedirectToAction("Task", new { id = task.Id });
         }
-    }
+
+		[HttpGet]
+		public ActionResult SolveTask(int taskId)
+		{
+			DoneTaskVM doneTaskVM = new DoneTaskVM();
+			doneTaskVM.TaskId = taskId;
+			Task task = _subjectService.GetTaskById(taskId);
+			doneTaskVM.Task = task;
+			return View(doneTaskVM);
+		}
+
+		[HttpPost]
+		public ActionResult SolveTask(IEnumerable<HttpPostedFileBase> files, DoneTaskVM doneTaskVM)
+		{
+			DoneTask task = _subjectService.GetDoneTask( _subjectService.TrySaveDoneTask(doneTaskVM, files).Id);
+			return RedirectToAction("Task", new { id = task.TaskId });
+		}
+
+		[HttpGet]
+		public ActionResult DoneTask(int doneTaskId)
+		{
+			DoneTaskVM doneTaskVM = Mapper.Map<DoneTaskVM>(_subjectService.GetDoneTask(doneTaskId));
+			return View(doneTaskVM);
+		}
+
+		[HttpPost]
+		public ActionResult DoneTask(DoneTaskVM doneTask)
+		{
+			_subjectService.EvaluateTask(doneTask.Id, doneTask.Mark);
+			return RedirectToAction("Task", new { id = doneTask.TaskId });
+		}
+	}
 }

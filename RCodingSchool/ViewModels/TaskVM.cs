@@ -19,5 +19,6 @@ namespace RCodingSchool.ViewModels
 
 		public ICollection<File> Files;
 		public ICollection<Group> Groups;
+		public virtual ICollection<DoneTask> DoneTasks { get; set; }
 	}
 }

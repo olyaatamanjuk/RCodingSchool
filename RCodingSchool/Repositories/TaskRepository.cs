@@ -17,5 +17,20 @@ namespace RCodingSchool.Repositories
 		{
 			return dbContext.Tasks.Where(x => x.SubjectId == id);
 		}
+
+		public IEnumerable<DoneTask> GetDoneTasks(int taskId)
+		{
+			return dbContext.DoneTasks.Where(x => x.TaskId == taskId);
+		}
+
+		public DoneTask AddDoneTask(DoneTask doneTask)
+		{
+			return dbContext.DoneTasks.Add(doneTask);
+		}
+
+		public DoneTask GetDoneTask(int id)
+		{
+			return dbContext.DoneTasks.Where(x => x.Id == id).FirstOrDefault();
+		}
 	}
 }

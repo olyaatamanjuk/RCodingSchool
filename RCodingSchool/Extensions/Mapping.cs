@@ -24,7 +24,9 @@ namespace RCodingSchool.Extensions
 
             CreateMap<Task, TaskVM>();
 
-            CreateMap<Teacher, TeacherVM>();
+			CreateMap<DoneTask, DoneTaskVM>();
+
+			CreateMap<Teacher, TeacherVM>();
 
             CreateMap<Group, GroupVM>();
 

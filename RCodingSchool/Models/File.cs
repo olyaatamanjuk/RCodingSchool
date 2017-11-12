@@ -10,5 +10,8 @@
 
 		public virtual Task Task{ get; set; }
 		public int? TaskId { get; set; }
+
+		public virtual DoneTask DoneTask { get; set; }
+		public int? DoneTaskId { get; set; }
 	}
 }

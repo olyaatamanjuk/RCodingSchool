@@ -1,0 +1,83 @@
+﻿@model RCodingSchool.ViewModels.DoneTaskVM
+@{
+    ViewBag.Title = "DoneTask";
+}
+
+@section Styles{
+    @Styles.Render("~/bundles/range")
+}
+
+@using (Html.BeginForm("DoneTask", "Subject", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    if (User.IsInRole("Teacher"))
+    {
+    <button class="btn btn-default" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+    }
+    <h3>Вирішення завдання "@Model.Task.Name"</h3>
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.TaskId)
+    <h4>@Model.Student.User.FirstName @Model.Student.User.LastName , @Model.Student.Group.Name група</h4>
+    <div class="well">
+        @if (!String.IsNullOrWhiteSpace(Model.Text))
+        {
+            <label>Деталі вирішення:</label>
+            <p>@Model.Text</p>
+        }
+        @if (Model.Files.Count > 0)
+        {
+            <label>Прикріплені файли:</label>
+            <div id="file-names">
+                @foreach (var x in Model.Files)
+                {
+                    <a href="@Url.Action("File", "Download", new { id = x.Id })"><span class="label label-info" id="upload-file-info">@x.Name</span><br></a>
+                }
+            </div>
+
+        }
+    </div>
+
+    <div class="col-xs-6">
+        @if (User.IsInRole("Teacher"))
+        {        
+            <label>Оцінити у відсотках:</label>
+        <div class="range range-primary">
+            @Html.TextBoxFor(m => m.Mark, new { @type = "range", @max = "100", @min = "0", @step = "10", @value = Model.Mark, @onchange = "rangeDanger.value=value" })
+            <output id="rangeDanger">@Model.Mark</output>
+        </div>
+        }
+        else if (User.IsInRole("Student"))
+        {
+            <label>Оцінка викладача:</label>
+            <div class="progress">
+                @if (Model.Mark <= 30)
+                {
+                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="@Model.Mark"
+                         aria-valuemin="0" aria-valuemax="100" style="width:@Model.Mark%">
+                        @Model.Mark %
+                    </div>
+                }
+                else if (Model.Mark > 30 && Model.Mark <= 60)
+                {
+                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="@Model.Mark"
+                         aria-valuemin="0" aria-valuemax="100" style="width:@Model.Mark%">
+                        @Model.Mark %
+                    </div>
+                }
+                else if (Model.Mark > 60 && Model.Mark < 90)
+                {
+                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="@Model.Mark"
+                         aria-valuemin="0" aria-valuemax="100" style="width:@Model.Mark%">
+                        @Model.Mark %
+                    </div>
+                    }
+                else if (Model.Mark >= 90)
+                {
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@Model.Mark"
+                         aria-valuemin="0" aria-valuemax="100" style="width:@Model.Mark%">
+                        @Model.Mark %
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}

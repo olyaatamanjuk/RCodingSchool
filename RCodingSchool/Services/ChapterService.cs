@@ -69,8 +69,7 @@ namespace RCodingSchool.Services
 
                 topic = _topicRepository.Add(topic);
                 _topicRepository.SaveChanges();
-
-                var files = _fileService.SaveImages(_httpContext.Request.Files, topic);
+				var files = _fileService.SaveImages(_httpContext.Request.Files, topic);
                 foreach (var file in files)
                 {
                     topic.Text = topic.Text.Replace(file.Temporary, $"/Download/File/{file.Id.ToString()}");

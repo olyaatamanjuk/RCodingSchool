@@ -100,3 +100,13 @@ a:hover {
 .teacher-toolbar{
     padding-bottom: 1em;
 }
+.chat-message .media-body{
+    border: 18px solid transparent;
+    border-bottom-width: 0;
+    position: relative;
+    padding: 1em;
+    left: -1em;
+    border-left-width: 2em;
+    border-left-color: #fff;
+    background-color: lavender;
+}

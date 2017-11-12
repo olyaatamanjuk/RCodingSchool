@@ -18,5 +18,6 @@ namespace RCodingSchool.Models
 
 		public virtual ICollection<File> Files { get; set; }
 		public virtual ICollection<Group> Groups { get; set; }
+		public virtual ICollection<DoneTask> DoneTasks { get; set; }
 	}
 }
