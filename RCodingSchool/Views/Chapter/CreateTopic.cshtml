@@ -21,20 +21,9 @@
         </div>
         <div class="form-group">
             <label for="">Вміст теми:</label>
-        </div>
-        <div class="form-group">
-            <div class="btn-group">
-                <button class="btn btn-default" type="button">Код</button>
-                <button class="btn btn-default imgloader" type="button">Зображення</button>
-                <button class="btn btn-default" type="button">Формула</button>
-            </div>
             @Html.TextAreaFor(m => m.Text, new { @class = "form-control", @rows = "12", @id = "text-input" })
         </div>
-        <div class="form-group">
-            <label class="btn btn-default btn-file">
-                Додати зображення <input type="file" style="display: none;">
-            </label>
-        </div>
+           
         @Html.ValidationMessage("credentials", new { HtmlAttributes = new { @class = "text-danger" } })
         <button type="submit" class="upload btn btn-primary">Зберегти</button>
     }

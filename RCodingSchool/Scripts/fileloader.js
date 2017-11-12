@@ -143,21 +143,7 @@
             className: "fa fa-table",
             title: "Додати таблицю",
         },
-            "|",
-        {
-            name: "tablvcde",
-            action: function customFunction(editor) {
-                var cm = editor.codemirror;
-                var output = '';
-                var selectedText = cm.getSelection();
-                var text = selectedText || 'placeholder';
-
-                output = '!!' + text + '!!';
-                cm.replaceSelection(output);
-            },
-            className: "fa fa-bold",
-            title: "Red text (Ctrl/Cmd-Alt-R)",
-        }],
+        ],
         previewRender: function (plainText) {
             return md.render(plainText);
         }
