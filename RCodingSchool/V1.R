@@ -1,4 +1,4 @@
-setwd('D:/temp-projects/RCodingSchool/RCodingSchool')
+setwd('D:/R')
 library(strucchange)
 library(fractal)
 library(fracdiff)
@@ -44,6 +44,8 @@ plot(clusters)
 clusterCut <- cutree(clusters, N)
 
 ## Plot data with color 
+png(file="D:/R/current_plot.png",
+   width=600, height=350)
 for (i in 1:(K*N)){
   if (i<K*N){
     data = Data[((i-1)*L+1):(i*L),2]
@@ -61,7 +63,6 @@ for (i in 1:(K*N)){
     lines(INT, data, col = clusterCut[i] , type = 'l')
    }
  }
-
 
 ## Estimation of the P
 P = matrix(0, ncol=N, nrow = N);
@@ -97,6 +98,8 @@ for (i in 1:N){
    H_DFA[i] = mean(unlist(FRAME$MFDFA[clusterCut == i]), na.rm = TRUE)
    H_GPH[i] = mean(unlist(FRAME$GPH[clusterCut == i]), na.rm = TRUE)
 }
+
+"RESULTS:"
 H_DFA 
 H_GPH 
 

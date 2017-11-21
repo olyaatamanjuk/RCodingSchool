@@ -65,5 +65,11 @@ namespace RCodingSchool.Controllers
 		{
 			return View();
 		}
+
+		public ActionResult HerstIndex()
+		{
+			HerstIndex herstIndex = new RService().AnalizeDataByRange();
+			return View(herstIndex);
+		}
 	}
 }

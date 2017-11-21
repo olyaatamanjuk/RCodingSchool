@@ -394,6 +394,7 @@
     <Content Include="Views\Subject\SolveTask.cshtml" />
     <Content Include="Views\Subject\DoneTask.cshtml" />
     <None Include="V1.R" />
+    <Content Include="Views\Home\HerstIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

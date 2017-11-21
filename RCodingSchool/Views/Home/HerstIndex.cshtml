@@ -1,0 +1,18 @@
+﻿@model RCodingSchool.Services.HerstIndex
+
+@{
+    ViewBag.Title = "HerstIndex";
+}
+
+<h2>HerstIndex</h2>
+
+@using (Html.BeginForm("HerstIndex", "Home", FormMethod.Post))
+{
+    <label>Загрузіть файл :</label>
+    <input id="fileSelect" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+    <label>N (число кластерів)</label>
+    @Html.EditorFor(m => m.N, new { htmlAttributes = new { @class = "form-control input-lg" } })
+    <label>K </label>
+    @Html.EditorFor(m => m.K, new { htmlAttributes = new { @class = "form-control input-lg"} })
+    <button class="btn btn-primary">Обчислити</button>
+}
