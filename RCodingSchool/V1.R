@@ -1,4 +1,4 @@
-setwd('D:/R')
+setwd('D:/PROJECT/RCodingSchool/RCodingSchool/App_Data/R/Calculate')
 library(strucchange)
 library(fractal)
 library(fracdiff)
@@ -9,11 +9,11 @@ open(f)
 input <- readLines(f, n = 1L)
 params <- unlist(strsplit(input, " "))
 
-Data = read.csv('data_Erste_Group.csv', header = TRUE, sep = ';')
+Data = read.csv('TestData.csv', header = TRUE, sep = ';')
 head(Data[,2])
 T = length(Data[,2])
-N = as.double(params[1])  #N = floor(log(T)) 
-K = as.double(params[2]) # K = 5  
+N = as.double(params[1]) 
+K = as.double(params[2]) 
 L = floor(T/(N*K))
 
 ## Calculate Hurst index for intervals by MFDFA and GPH
@@ -44,8 +44,7 @@ plot(clusters)
 clusterCut <- cutree(clusters, N)
 
 ## Plot data with color 
-png(file="D:/R/current_plot.png",
-   width=600, height=350)
+png(file="D:/PROJECT/RCodingSchool/RCodingSchool/Content/images/plots/current_plot.png", width=800, height=450)
 for (i in 1:(K*N)){
   if (i<K*N){
     data = Data[((i-1)*L+1):(i*L),2]
@@ -57,8 +56,8 @@ for (i in 1:(K*N)){
   if (i==1){
     plot(INT, data, col = clusterCut[i],xlim = c(1,T) , 
         ylim = c(min(Data[,2])-1,max(Data[,2])+1), type = 'l', 
-        main = 'Values of price of share of Erste Group Bank AG',
-     xlab = 'Time (number of observation)', ylab = 'Value of share')
+        main = 'Графічне зображення:',
+     xlab = 'Час (кількість спостережень)', ylab = 'Спостережувальні значення')
    } else {
     lines(INT, data, col = clusterCut[i] , type = 'l')
    }

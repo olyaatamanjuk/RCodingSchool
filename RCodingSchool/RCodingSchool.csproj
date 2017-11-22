@@ -219,6 +219,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\plots\current_plot.png" />
     <Content Include="Content\about.css" />
     <Content Include="Content\admin.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -403,6 +404,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\R\" />
     <Folder Include="App_Data\taskFiles\" />
     <Folder Include="TopicImagesFolder\" />
   </ItemGroup>

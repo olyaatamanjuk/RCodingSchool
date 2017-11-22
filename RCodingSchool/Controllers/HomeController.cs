@@ -3,29 +3,33 @@ using PagedList;
 using RCodingSchool.Models;
 using RCodingSchool.Services;
 using RCodingSchool.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace RCodingSchool.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
-    {
+	[Authorize]
+	public class HomeController : Controller
+	{
 		private readonly NewsService _newsService;
 		private readonly UserService _userService;
+		private readonly FileService _fileService;
 
-		public HomeController(NewsService newsService, UserService userService)
+		public HomeController(NewsService newsService, UserService userService, FileService fileService)
 		{
 			_newsService = newsService;
 			_userService = userService;
+			_fileService = fileService;
 		}
 
 		[HttpGet]
 		public ActionResult Index()
-        {
-            return View();
-        }
+		{
+			return View();
+		}
 
 		[HttpGet]
 		public ActionResult News(int page = 1, int pagsize = 4)
@@ -66,10 +70,30 @@ namespace RCodingSchool.Controllers
 			return View();
 		}
 
+		[HttpGet]
 		public ActionResult HerstIndex()
 		{
-			HerstIndex herstIndex = new RService().AnalizeDataByRange();
-			return View(herstIndex);
+			var model = TempData["Results"] as HerstIndex;
+			return View(model);
+		}
+
+		[HttpPost]
+		public ActionResult HerstIndex(HttpPostedFileBase file, HerstIndex herstIndex)
+		{
+			if (herstIndex.N == 0 || herstIndex.N == 0)
+			{
+				ModelState.AddModelError("validValues", "Ви ввели недопустимі значення параметрів");
+				return View();
+			}
+			string filePath = _fileService.TrySaveDataFile(file);
+			HerstIndex herstIndexResult = new HerstIndex();
+			if (!String.IsNullOrWhiteSpace(filePath))
+			{
+				herstIndexResult = new RService().AnalizeDataByRange(filePath, herstIndex.N.ToString(), herstIndex.K.ToString());
+				TempData["Results"] = herstIndexResult;
+			}
+
+			return RedirectToAction("HerstIndex");
 		}
 	}
 }

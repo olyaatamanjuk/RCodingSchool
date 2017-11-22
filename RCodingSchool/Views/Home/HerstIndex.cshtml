@@ -4,15 +4,38 @@
     ViewBag.Title = "HerstIndex";
 }
 
-<h2>HerstIndex</h2>
-
-@using (Html.BeginForm("HerstIndex", "Home", FormMethod.Post))
+@if (Model != null)
 {
-    <label>Загрузіть файл :</label>
-    <input id="fileSelect" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-    <label>N (число кластерів)</label>
-    @Html.EditorFor(m => m.N, new { htmlAttributes = new { @class = "form-control input-lg" } })
-    <label>K </label>
-    @Html.EditorFor(m => m.K, new { htmlAttributes = new { @class = "form-control input-lg"} })
-    <button class="btn btn-primary">Обчислити</button>
+    <h2 class="text-center">Результати обчислень :</h2>
+    <h5>H_MFDA = @Model.H[0]</h5>
+    <h5>H_GPH = @Model.H[1]</h5>
+    <img class="img-responsive center-block" src="../../Content/images/plots/current_plot.png" />
+
 }
+else
+{
+    <h2>Обчислення індекса Херста</h2>
+    <h4>Для обчислення завантажте файл в форматі .xls та заповніть значення N та K</h4>
+    using (Html.BeginForm("HerstIndex", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-3">
+                @Html.EditorFor(m => m.N, new { htmlAttributes = new { @class = "form-control input", @Placeholder="N" } })
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                @Html.EditorFor(m => m.K, new { htmlAttributes = new { @class = "form-control input", @Placeholder = "K" } })
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                <label class="btn btn-default" for="file" title="Додати файли">
+                    <input name="file" id="file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none" />
+                    <i class="fa fa-files-o" aria-hidden="true"> Завантежте файл</i>
+                </label>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                <button class="btn btn-primary">Обчислити</button>
+            </div>
+        </div>
+        @Html.ValidationMessage("validValues")
+    }
+}
+

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System;
 
 namespace RCodingSchool.Services
 {
@@ -74,7 +75,25 @@ namespace RCodingSchool.Services
             return newFiles;
         }
 
-        public FileStreamResult GetFile(Models.File file)
+		public string TrySaveDataFile(HttpPostedFileBase file)
+		{
+			string folderPath = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/R"), "Calculate");
+			string path = "";
+
+			Directory.CreateDirectory(folderPath);
+
+				if (file!= null && file.ContentLength > 0)
+				{
+					string fileNameWithEx = Path.GetFileName(file.FileName);
+					string fileName = Path.GetFileNameWithoutExtension(fileNameWithEx);
+					string resultName = fileNameWithEx.Replace(fileName, "TestData");
+					path = Path.Combine(folderPath, resultName);
+					file.SaveAs(path);
+				}
+			return path;
+		}
+
+		public FileStreamResult GetFile(Models.File file)
         {
             string path = Path.Combine("~/TopicImagesFolder/{0}/{1}", "Topic", file.Topic.Id.ToString(), file.Id.ToString() + file.Name);
             FileStream stream = new FileStream(path, FileMode.Open);
