@@ -65,6 +65,19 @@ namespace RCodingSchool.Controllers
 		}
 
 		[HttpGet]
+		public ActionResult CreateNews()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult CreateNews(NewsVM news)
+		{
+			//TODO : TrySaveNews
+			return View();
+		}
+
+		[HttpGet]
 		public ActionResult About()
 		{
 			return View();
