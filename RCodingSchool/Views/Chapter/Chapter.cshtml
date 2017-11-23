@@ -47,11 +47,11 @@
                                             <a href="#" onclick="d(@x.Id)" class="list-group-item list-group-item-action">@x.Name</a>
                                         </div>
                                         <div class="col-lg-2 col-md-2 col-sm-8 col-xs-2">
-                                            <a href="#"><i class="fa fa-pencil" aria-hidden="true" title="Редагувати"></i></a>
+                                            <a href="@Url.Action("EditTopic", "Chapter", new { id = x.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редагувати"></i></a>
                                             <a href="#"><i class="fa fa-trash-o" aria-hidden="true" title="Видалити"></i></a>
                                         </div>
                                     </div>
-                                 }
+                                }
                                 @if (this.User.IsInRole("Teacher"))
                                 {
                                     <div class="row">
@@ -76,7 +76,11 @@
 
 @section Script
 {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.3.1/markdown-it.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+    <script src="~/Scripts/texmath.js"></script>
     <script>
+        var md = markdownit({ html: true }).use(texmath.use(katex));
         function d(id) {
             var url = "/chapter/topic/";
             $.post(url, { id: id })
@@ -84,7 +88,7 @@
                     var htmlText = decodeURI(response);
                     var res = htmlText.replace("<img src", "img class=\"img-responsive\" src");
                     console.log(res);
-                    $("#currentTopic").html(decodeURI(response));
+                    $("#currentTopic").html(md.render(decodeURI(response)));
                 });
         }
 

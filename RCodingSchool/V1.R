@@ -1,13 +1,15 @@
-setwd('D:/PROJECT/RCodingSchool/RCodingSchool/App_Data/R/Calculate')
-library(strucchange)
+ï»¿library(strucchange)
 library(fractal)
 library(fracdiff)
 library(pracma)
+
+setwd("D:/temp-projects/RCodingSchool/RCodingSchool/App_Data/R/Calculate")
 
 f <- file("stdin")
 open(f)
 input <- readLines(f, n = 1L)
 params <- unlist(strsplit(input, " "))
+print(params)
 
 Data = read.csv('TestData.csv', header = TRUE, sep = ';')
 head(Data[,2])
@@ -44,7 +46,7 @@ plot(clusters)
 clusterCut <- cutree(clusters, N)
 
 ## Plot data with color 
-png(file="D:/PROJECT/RCodingSchool/RCodingSchool/Content/images/plots/current_plot.png", width=800, height=450)
+png(file="D:/temp-projects/RCodingSchool/RCodingSchool/Content/images/plots/current_plot.png", width=800, height=450)
 for (i in 1:(K*N)){
   if (i<K*N){
     data = Data[((i-1)*L+1):(i*L),2]
@@ -56,8 +58,8 @@ for (i in 1:(K*N)){
   if (i==1){
     plot(INT, data, col = clusterCut[i],xlim = c(1,T) , 
         ylim = c(min(Data[,2])-1,max(Data[,2])+1), type = 'l', 
-        main = 'Ãðàô³÷íå çîáðàæåííÿ:',
-     xlab = '×àñ (ê³ëüê³ñòü ñïîñòåðåæåíü)', ylab = 'Ñïîñòåðåæóâàëüí³ çíà÷åííÿ')
+        main = 'Ñ–Ð²Ð°Ð¿Ñ€Ð½Ð²Ð°Ð¿Ð²Ð°Ð¿Ñ€:',
+     xlab = 'ÐµÐºÑƒÑ†ÐµÐºÑƒÑ†ÐºÑƒÐµ:', ylab = 'Ñ–Ð²Ð°Ð¿Ñ–Ð²Ð°Ð¿Ñ–Ð²Ð°:')
    } else {
     lines(INT, data, col = clusterCut[i] , type = 'l')
    }

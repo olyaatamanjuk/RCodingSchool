@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 
 namespace RCodingSchool.Services
 {
@@ -11,9 +10,9 @@ namespace RCodingSchool.Services
         {
             var proc = new Process();
             string processLocation = @"C:\Program Files\R\R-3.4.2\bin\x64\Rscript.exe";
-            string scriptLocation = @"D:\PROJECT\RCodingSchool\RCodingSchool\V1.R";
+            string scriptLocation = @"D:\temp-projects\RCodingSchool\RCodingSchool\V1.R";
 
-            proc.StartInfo = new ProcessStartInfo(processLocation, scriptLocation);
+            proc.StartInfo = new ProcessStartInfo(processLocation, scriptLocation + " 5 20");
             proc.StartInfo.RedirectStandardOutput = true;
             proc.StartInfo.RedirectStandardInput = true;
             proc.StartInfo.RedirectStandardError = true;
@@ -21,7 +20,7 @@ namespace RCodingSchool.Services
             proc.Start();
             proc.StandardInput.WriteLine($"{N} {K} {filePath}");
             proc.StandardInput.Flush();
-            proc.WaitForExit(20000);
+            proc.WaitForExit(10000);
 
             var result = proc.StandardOutput.ReadToEnd();
             var error = proc.StandardError.ReadToEnd();

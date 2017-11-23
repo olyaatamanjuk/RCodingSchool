@@ -30,16 +30,39 @@
     return FileLoader;
 })();
 
+var simplemde;
+var fileUploader = new FileLoader();
+var form = document.forms[0];
+var onsubmit = function (event) {
+    event.preventDefault();
+
+    var fd = new FormData(form);
+    fd.set('Text', encodeURI(fd.get('Text')));
+    var markdownText = fd.get('Text');
+
+    for (var file of fileUploader.files) {
+        if (markdownText.indexOf(file.url) >= 0) {
+            fd.set(file.url, file.file);
+        }
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.onloadend = function () {
+        var chapterId = document.getElementsByName("ChapterId")[0].value;
+        location.replace(`/Chapter/Chapter/${chapterId}`);
+    };
+    xhr.open('POST', form.action);
+    xhr.send(fd);
+};
+
 (function () {
-    var fileUploader = new FileLoader();
-    var canSubmit = false;
     var modal = $('#myModal');
     var rangeInput = $('#image-width');
     $('#image-width').val(100);
     var saveRangeBtn = $('#save-range-btn');
     var imageWidth, fileUploadResult;
     var md = markdownit({ html: true }).use(texmath.use(katex));
-    var simplemde = new SimpleMDE({
+    simplemde = new SimpleMDE({
         element: document.getElementById("text-input"),
         toolbar: [{
             name: "bold",
@@ -165,31 +188,5 @@
         $('#image-width-indicator').html(_this.val());
     });
 
-    var form = document.forms[0];
-
-    form.onsubmit = function (event) {
-        event.preventDefault();
-
-        var fd = new FormData(form);
-        fd.set('Text', encodeURI(md.render(fd.get('Text'))));
-        var markdownText = fd.get('Text');
-
-        for (var file of fileUploader.files) {
-            if (markdownText.indexOf(file.url) >= 0) {
-                fd.set(file.url, file.file);
-            }
-        }
-
-        var xhr = new XMLHttpRequest();
-        xhr.onloadend = function () {
-            var chapterId = document.getElementsByName("ChapterId")[0].value;
-            location.replace(`/Chapter/Chapter/${chapterId}`);
-        };
-        xhr.open('POST', form.action);
-        xhr.send(fd);
-    };
-
-    function getInputValue(name) {
-        return document.getElementsByName(name)[0].value;
-    }
+    form.onsubmit = onsubmit;
 })();

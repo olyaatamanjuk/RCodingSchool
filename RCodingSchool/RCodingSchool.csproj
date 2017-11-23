@@ -397,6 +397,7 @@
     <None Include="V1.R" />
     <Content Include="Views\Home\HerstIndex.cshtml" />
     <Content Include="Views\Home\CreateNews.cshtml" />
+    <Content Include="Views\Chapter\EditTopic.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

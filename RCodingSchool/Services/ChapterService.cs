@@ -69,7 +69,7 @@ namespace RCodingSchool.Services
 
                 topic = _topicRepository.Add(topic);
                 _topicRepository.SaveChanges();
-				var files = _fileService.SaveImages(_httpContext.Request.Files, topic);
+                var files = _fileService.SaveImages(_httpContext.Request.Files, topic);
                 foreach (var file in files)
                 {
                     topic.Text = topic.Text.Replace(file.Temporary, $"/Download/File/{file.Id.ToString()}");
@@ -85,6 +85,20 @@ namespace RCodingSchool.Services
             Chapter chapter = Mapper.Map<Chapter>(chapterVM);
             _chapterRepository.Add(chapter);
             _chapterRepository.SaveChanges();
+        }
+
+        public bool TryEditTopic(TopicVM topicVM)
+        {
+            if (String.IsNullOrEmpty(topicVM.Name) || String.IsNullOrEmpty(topicVM.Text))
+            {
+                return false;
+            }
+            else
+            {
+                Topic topic = Mapper.Map<Topic>(topicVM);
+                _topicRepository.SaveChanges();
+                return true;
+            }
         }
     }
 }
