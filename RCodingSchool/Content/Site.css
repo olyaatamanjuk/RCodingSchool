@@ -113,3 +113,6 @@ a:hover {
 textarea.news{
     margin-bottom: 1em;
 }
+.field-validation-error {
+color: #912626;
+}
