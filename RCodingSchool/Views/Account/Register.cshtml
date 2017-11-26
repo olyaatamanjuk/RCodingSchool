@@ -39,10 +39,10 @@
                     </div>
                     <div class="form-group">
                         <label class="radio-inline">
-                           @Html.RadioButtonFor(m => m.IsTeacher, "teacher") Викладач
+                           @Html.RadioButtonFor(m => m.IsTeacher, true) Викладач
                         </label>
                         <label class="radio-inline">
-                        @Html.RadioButtonFor(m => m.IsTeacher,  "student") Студент
+                        @Html.RadioButtonFor(m => m.IsTeacher,  false) Студент
                         </label>
                     </div>
                             <div class="form-group" id="groupElements" hidden>
@@ -80,7 +80,7 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script>
         $('#RegForm input').on('change', function () {
-            if ($('input[name=IsTeacher]:checked', '#RegForm').val() == "student") {
+            if ($('input[name=IsTeacher]:checked', '#RegForm').val() == true) {
                 $('#groupElements').removeAttr('hidden');
                 $('#groupElements').show();
             }

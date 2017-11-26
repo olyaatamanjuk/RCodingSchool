@@ -1,0 +1,48 @@
+﻿@model  RCodingSchool.ViewModels.LoadUsersVM
+@{
+    ViewBag.Title = "LoadUsers";
+}
+
+<h2>Додайте нових користувачів</h2>
+<br />
+
+@using (Html.BeginForm("LoadUsers", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <h4>
+        1) Завантежтете<label class="btn btn-lg  btn-link lead" for="file" title="Завантажити файл">
+            <input name="file" id="file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none" />
+            файл Excel
+        </label>з даними, що містить наступні колонки :
+    </h4>
+        <div class="row">
+            <div class="col-md-4">
+                <ul class="list-group">
+                    <li class="list-group-item">"FirstName" - ім'я</li>
+                    <li class="list-group-item">"LastName" - прізвище</li>
+                    <li class="list-group-item bg-info">"Email" - емейл</li>
+                    <li class="list-group-item">"Group" - група (для студентів)</li>
+                </ul>
+            </div>
+        </div>
+
+        <br />
+
+        <h4> 2) Оберіть тип користувачів:</h4>
+        <div class="form-group">
+            <label class="radio-inline">
+                @Html.RadioButtonFor(m => m.isItTeachers, true) Викладачі
+            </label>
+            <label class="radio-inline">
+                @Html.RadioButtonFor(m => m.isItTeachers, false) Студенти
+            </label>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                <button class="btn btn-primary" type="submit">Зберегти</button>
+            </div>
+        </div>
+
+        @Html.ValidationMessage("validValues")
+}
+

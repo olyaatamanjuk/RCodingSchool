@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using RCodingSchool.Common;
 using System;
 using AutoMapper;
+using OfficeOpenXml;
 
 namespace RCodingSchool.Controllers
 {
@@ -140,7 +141,7 @@ namespace RCodingSchool.Controllers
         public ActionResult NoActiveStudents(UserListsVM userLists)
         {
             _userService.SaveStudentChanges(userLists.NoActiveStudents);
-            return RedirectToAction("Users", "Account"); ;
+            return RedirectToAction("Users", "Account"); 
         }
 
         [HttpPost]
@@ -154,14 +155,37 @@ namespace RCodingSchool.Controllers
         public ActionResult NoActiveTeachers(UserListsVM userLists)
         {
             _userService.SaveTeacherChanges(userLists.NoActiveTeachers);
-            return RedirectToAction("Users", "Account"); ;
+            return RedirectToAction("Users", "Account"); 
         }
 
         [HttpPost]
         public ActionResult ActiveTeachers(UserListsVM userLists)
         {
             _userService.SaveTeacherChanges(userLists.Teachers);
-            return RedirectToAction("Users", "Account"); ;
+            return RedirectToAction("Users", "Account"); 
         }
-    }
+
+		[HttpGet]
+		public ActionResult LoadUsers()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult LoadUsers(HttpPostedFileBase file, LoadUsersVM loadUsers)
+		{
+			if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+			{
+				if (_userService.TrySaveUsersFromFile(file, loadUsers.isItTeachers))
+				{
+
+				}
+				else
+				{
+					ModelState.AddModelError("validValues", "Некоректно введені дані.");
+				}
+			}
+		return RedirectToAction("Users", "Account"); 
+		}
+	}
 }
