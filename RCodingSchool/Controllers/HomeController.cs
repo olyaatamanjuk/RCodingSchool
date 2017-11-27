@@ -71,10 +71,50 @@ namespace RCodingSchool.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult CreateNews(NewsVM news)
+		public ActionResult CreateNews(NewsVM newsVM)
 		{
-			//TODO : TrySaveNews
-			return View();
+			if (_newsService.TrySaveNews(newsVM))
+			{
+				return RedirectToAction("News");
+			}
+			else
+			{
+				ModelState.AddModelError("validValues", "Перевірте на заповненість поля");
+				return View();
+			}
+		}
+
+		[HttpGet]
+		public ActionResult EditNews(int id)
+		{
+			NewsVM newsVM = Mapper.Map<NewsVM>(_newsService.Get(id));
+			return View(newsVM);
+		}
+
+		[HttpPost]
+		public ActionResult EditNews(NewsVM newsVM)
+		{
+			if (_newsService.TryEditNews(newsVM))
+			{
+				return RedirectToAction("News");
+			}
+			else
+			{
+				ModelState.AddModelError("validValues", "Перевірте на заповненість поля");
+				return View();
+			}
+		}
+
+		public ActionResult RemoveNews(int id)
+		{
+			_newsService.RemoveNews(id);
+			return RedirectToAction("News");
+		}
+
+		public ActionResult RemoveComment(int commentId, int newsId)
+		{
+			_newsService.RemoveComment(commentId);
+			return RedirectToAction("NewsDetail", new { id = newsId });
 		}
 
 		[HttpGet]

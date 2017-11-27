@@ -412,6 +412,7 @@
     <Content Include="Views\Home\CreateNews.cshtml" />
     <Content Include="Views\Chapter\EditTopic.cshtml" />
     <Content Include="Views\Account\LoadUsers.cshtml" />
+    <Content Include="Views\Home\EditNews.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

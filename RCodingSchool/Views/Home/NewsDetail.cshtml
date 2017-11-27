@@ -1,4 +1,5 @@
 ﻿@model RCodingSchool.ViewModels.NewsVM
+
 @{
     ViewBag.Title = "NewsDetail";
 }
@@ -28,6 +29,14 @@
                 <input type="hidden" name="Comment.Id" />
                     <div class="media">
                         <div class="media-body">
+                            @if (Model.Comments[i].User.Email == User.Identity.Name)
+                            {
+                                <a href="@Url.Action("RemoveComment", "Home", new {commentId =  @Model.Comments[i].Id, newsId = Model.Id })" title="Видалити коментар">
+                                    <span class="pull-right">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </span>
+                                </a>
+                            }
                             @Html.HiddenFor(m => m.Comments[i].User.Id)
                             <h5 class="media-heading text-info">@Model.Comments[i].User.LastName  @Model.Comments[i].User.FirstName</h5>
                             <p>@Model.Comments[i].Text</p>

@@ -42,6 +42,7 @@ namespace RCodingSchool.Extensions
 
             // ViewModel -> Model 
             CreateMap<TopicVM, Topic>();
-        }
+			CreateMap<NewsVM, News>();
+		}
     }
 }

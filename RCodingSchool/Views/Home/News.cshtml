@@ -7,29 +7,47 @@
 }
 <div class="row">
     <div class="col-sm-12 col-xs-12 col-lg-9 col-md-9 ">
-@foreach (var item in Model)
-{
-        <article class="post">
-            <header>
-                <h2>@item.Title</h2>
-                <small class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> @item.Date</small>
+        @foreach (var item in Model)
+        {
+            <article class="post">
+                <header>
+                    <h2>@item.Title </h2>
+                     @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
+                     {
+                        <div class="btn-toolbar pull-right " role="toolbar">
+                            <div class="btn-group">
+                                <button type="button" title="Створити новину" class="btn btn-default"  onclick="location.href='@Url.Action("CreateNews", "Home")'">
+                                    <span class="pull-right">
+                                        <span class="fa fa-newspaper-o fa-x2" aria-hidden="true"></span>
+                                    </span>
+                                </button>
+                                <button type="button" title="Редагувати новину" class="btn btn-default"  onclick="location.href='@Url.Action("EditNews", "Home", new {id = item.Id })'">
+                                    <span class="pull-right">
+                                      <span class="glyphicon glyphicon-pencil"></span>
+                                    </span>
+                                </button>
+                                <button type="button" title="Видалити новину" class="btn btn-default" onclick="location.href='@Url.Action("RemoveNews", "Home", new {id = item.Id })'">
+                                    <span class="pull-right">
+                                       <span class="glyphicon glyphicon-remove"></span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                    <small class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> @item.Date</small>
+                    <hr />
+                </header>
+                <div class="lead">@item.Description</div>
+                <br>
+                <a href="@Url.Action("NewsDetail", new { id = item.Id })" title="">
+                    <button class="btn btn-default">Деталі</button>
+                </a>
                 <hr />
-            </header>
-            <div class="lead">@item.Description</div>
-            <br>
-            <a href="@Url.Action("NewsDetail", new { id = item.Id })" title="">
-                <button class="btn btn-default">Деталі</button>
-            </a>
-            <hr />
-        </article>
-}
+            </article>
+        }
     </div>
     <aside class="col-lg-3 col-md-3">
-        <a href="@Url.Action("CreateNews")" title="">
-            <h4><i class="fa fa-newspaper-o fa-x2" aria-hidden="true"></i> Добавити</h4>
-        </a>
-        <hr />
-        <h4 ><i class="fa fa-calendar fa-x2" aria-hidden="true"></i> Архів новин</h4>
+        <h4><i class="fa fa-calendar fa-x2" aria-hidden="true"></i> Архів новин</h4>
         <ol class="list-unstyled">
             <li><a href="#" class="list-group-item">Листопад 2017</a></li>
             <li><a href="#" class="list-group-item">Жовтень 2017</a></li>

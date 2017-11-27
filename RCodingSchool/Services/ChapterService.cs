@@ -95,7 +95,9 @@ namespace RCodingSchool.Services
             }
             else
             {
-                Topic topic = Mapper.Map<Topic>(topicVM);
+                Topic topic = GetTopicById(topicVM.Id);
+				topic.Name = topicVM.Name;
+				topic.Text = topicVM.Text;
                 _topicRepository.SaveChanges();
                 return true;
             }

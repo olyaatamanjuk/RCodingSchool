@@ -3,16 +3,16 @@
     ViewBag.Title = "CreateNews";
 }
 
-<h2>Додайте новину</h2>
+<h2>Відредагуйте новину</h2>
 
-@using (Html.BeginForm("CreateNews", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditNews", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <label>Заголовок:</label>
     @Html.EditorFor(m => m.Title, new { htmlAttributes = new { @class = "form-control" } })
     <label>Деталі:</label>
     @Html.TextAreaFor(m => m.Description, new { @class = "form-control news", @rows = "8" })
     <button class="btn btn-primary" type="submit">Зберегти</button>
-    <br />
+    <br/>
     @Html.ValidationMessage("validValues")
 }
 
