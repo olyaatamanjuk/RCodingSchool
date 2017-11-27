@@ -11,34 +11,45 @@
 {
     using (Html.BeginForm("NoActiveStudents", "Account", FormMethod.Post))
     {
-        <h3>Студенти, чекаючі активації: </h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Ім'я</th>
-                    <th>Фамілія</th>
-                    <th>E-mail</th>
-                    <th>Група</th>
-                    <th class="checktool col-md-1">Активувати</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.NoActiveStudents.Count(); i++)
-                {
+            <h3>Студенти, чекаючі активації: </h3>
+
+            <table class="table media-middle">
+                <thead>
                     <tr>
-                        @Html.HiddenFor(m => m.NoActiveStudents[i].Id)
-                        @Html.HiddenFor(m => m.NoActiveStudents[i].GroupId)
-                        <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                        <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                        <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                        <td>@Html.DropDownListFor(m => m.NoActiveStudents[i].newGroupId, Model.Categories, Model.NoActiveStudents[i].Group.Name, new { @type = "text", @name = "group", @class = "form-control input" })</td>
-                        <td>@Html.CheckBoxFor(m => m.NoActiveStudents[i].User.IsActive)</td>
+                        <th>Ім'я</th>
+                        <th>Фамілія</th>
+                        <th>E-mail</th>
+                        <th>Група</th>
+                        <th class="checktool col-md-1">Активувати</th>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <th class="checktool col-md-1">Адміністратор</th>
+                            <th class="checktool col-md-1">Видалити</th>
+                        }
                     </tr>
-                  }
-            </tbody>
-        </table>
-        <button type="submit" class="btn btn-primary">Зберегти зміни</button>
-        <hr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.NoActiveStudents.Count(); i++)
+                    {
+                        <tr>
+                            @Html.HiddenFor(m => m.NoActiveStudents[i].Id)
+                            @Html.HiddenFor(m => m.NoActiveStudents[i].GroupId)
+                            <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                            <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                            <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                            <td>@Html.DropDownListFor(m => m.NoActiveStudents[i].newGroupId, Model.Categories, Model.NoActiveStudents[i].Group.Name, new { @type = "text", @name = "group", @class = "form-control input groups-input" })</td>
+                            <td>@Html.CheckBoxFor(m => m.NoActiveStudents[i].User.IsActive)</td>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <td>@Html.CheckBoxFor(m => m.NoActiveStudents[i].User.isAdmin)</td>
+                                <td>@Html.CheckBoxFor(m => m.NoActiveStudents[i].MarkForDelete)</td>
+}
+                        </tr>
+}
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary text-center">Зберегти зміни</button>
+            <hr>
     }
 }
 
@@ -47,30 +58,40 @@
     using (Html.BeginForm("NoActiveTeachers", "Account", FormMethod.Post))
     {
         <h3>Викладачі, чекаючі активації:</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Ім'я</th>
-                    <th>Фамілія</th>
-                    <th>E-mail</th>
-                    <th class="checktool col-md-1">Активувати</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.NoActiveTeachers.Count(); i++)
-                {
-                    <tr>
-                        @Html.HiddenFor(m => m.NoActiveTeachers[i].Id)
-                        <td>@Html.EditorFor(m => m.NoActiveTeachers[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                        <td>@Html.EditorFor(m => m.NoActiveTeachers[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                        <td>@Html.EditorFor(m => m.NoActiveTeachers[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                        <td>@Html.CheckBoxFor(m => m.NoActiveTeachers[i].User.IsActive)</td>
-                    </tr>
-                    }
-            </tbody>
-        </table>
-        <button type="submit" class="btn btn-primary">Зберегти зміни</button>
-        <hr>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ім'я</th>
+                                <th>Фамілія</th>
+                                <th>E-mail</th>
+                                <th class="checktool col-md-1">Активувати</th>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <th class="checktool col-md-1">Адміністратор</th>
+                                    <th class="checktool col-md-1">Видалити</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.NoActiveTeachers.Count(); i++)
+                            {
+                                <tr>
+                                    @Html.HiddenFor(m => m.NoActiveTeachers[i].Id)
+                                    <td>@Html.EditorFor(m => m.NoActiveTeachers[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                                    <td>@Html.EditorFor(m => m.NoActiveTeachers[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                                    <td>@Html.EditorFor(m => m.NoActiveTeachers[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                                    <td>@Html.CheckBoxFor(m => m.NoActiveTeachers[i].User.IsActive)</td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <td>@Html.CheckBoxFor(m => m.NoActiveTeachers[i].User.isAdmin)</td>
+                                        <td>@Html.CheckBoxFor(m => m.NoActiveTeachers[i].MarkForDelete)</td>
+}
+                                </tr>
+}
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+                    <hr>
     }
 }
 
@@ -79,33 +100,43 @@
     using (Html.BeginForm("ActiveStudents", "Account", FormMethod.Post))
     {
         <h3>Студенти: </h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Ім'я</th>
-                    <th>Фамілія</th>
-                    <th>E-mail</th>
-                    <th>Група</th>
-                    <th class="checktool col-md-1">Активний</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.Students.Count(); i++)
-                {
-                    <tr>
-                        @Html.HiddenFor(m => m.Students[i].Id)
-                        @Html.HiddenFor(m => m.Students[i].GroupId)
-                        <td>@Html.EditorFor(m => m.Students[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                        <td>@Html.EditorFor(m => m.Students[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                        <td>@Html.EditorFor(m => m.Students[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                        <td> @Html.DropDownListFor(m => m.Students[i].newGroupId, Model.Categories, Model.Students[i].Group.Name, new { @type = "text", @name = "group", @class = "form-control input" })</td>
-                        <td>@Html.CheckBoxFor(m => m.Students[i].User.IsActive)</td>
-                    </tr>
-                    }
-            </tbody>
-        </table>
-        <button type="submit" class="btn btn-primary">Зберегти зміни</button>
-        <hr>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ім'я</th>
+                                <th>Фамілія</th>
+                                <th>E-mail</th>
+                                <th>Група</th>
+                                <th class="checktool col-md-1">Активний</th>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <th class="checktool col-md-1">Адміністратор</th>
+                                    <th class="checktool col-md-1">Видалити</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Students.Count(); i++)
+                            {
+                                <tr>
+                                    @Html.HiddenFor(m => m.Students[i].Id)
+                                    @Html.HiddenFor(m => m.Students[i].GroupId)
+                                    <td>@Html.EditorFor(m => m.Students[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                                    <td>@Html.EditorFor(m => m.Students[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                                    <td>@Html.EditorFor(m => m.Students[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                                    <td> @Html.DropDownListFor(m => m.Students[i].newGroupId, Model.Categories, Model.Students[i].Group.Name, new { @type = "text", @name = "group", @class = "form-control input groups-input" })</td>
+                                    <td>@Html.CheckBoxFor(m => m.Students[i].User.IsActive)</td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <td>@Html.CheckBoxFor(m => m.Students[i].User.isAdmin)</td>
+                                        <td>@Html.CheckBoxFor(m => m.Students[i].MarkForDelete)</td>
+}
+                                </tr>
+}
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+                    <hr>
     }
 }
 
@@ -113,30 +144,40 @@
 {
     using (Html.BeginForm("ActiveTeachers", "Account", FormMethod.Post))
     {
-    <h3>Викладачі: </h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Ім'я</th>
-                <th>Фамілія</th>
-                <th>E-mail</th>
-                <th class="checktool col-md-1">Активний</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.Teachers.Count; i++)
-            {
-                <tr>
-                    @Html.HiddenFor(m => m.Teachers[i].Id)
-                    <td>@Html.EditorFor(m => m.Teachers[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                    <td>@Html.EditorFor(m => m.Teachers[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                    <td>@Html.EditorFor(m => m.Teachers[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                    <td>@Html.CheckBoxFor(m => m.Teachers[i].User.IsActive)</td>
-                </tr>
-                }
-        </tbody>
-    </table>
-    <button type="submit" class="btn btn-primary">Зберегти зміни</button>
-    <hr>
+        <h3>Викладачі: </h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ім'я</th>
+                                <th>Фамілія</th>
+                                <th>E-mail</th>
+                                <th class="checktool col-md-1">Активний</th>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <th class="checktool col-md-1">Адміністратор</th>
+                                    <th class="checktool col-md-1">Видалити</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Teachers.Count; i++)
+                            {
+                                <tr>
+                                    @Html.HiddenFor(m => m.Teachers[i].Id)
+                                    <td>@Html.EditorFor(m => m.Teachers[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                                    <td>@Html.EditorFor(m => m.Teachers[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                                    <td>@Html.EditorFor(m => m.Teachers[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
+                                    <td>@Html.CheckBoxFor(m => m.Teachers[i].User.IsActive)</td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <td>@Html.CheckBoxFor(m => m.Teachers[i].User.isAdmin)</td>
+                                        <td>@Html.CheckBoxFor(m => m.Teachers[i].MarkForDelete)</td>
+}
+                                </tr>
+}
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+                    <hr>
     }
 }

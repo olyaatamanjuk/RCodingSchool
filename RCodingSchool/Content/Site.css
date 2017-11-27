@@ -116,3 +116,6 @@ textarea.news{
 .field-validation-error {
 color: #912626;
 }
+.groups-input{
+    width: 5em;
+}

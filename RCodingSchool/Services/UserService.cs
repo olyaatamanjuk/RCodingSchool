@@ -13,7 +13,7 @@ using OfficeOpenXml;
 
 namespace RCodingSchool.Services
 {
-	public class UserService
+	public class UserService : BaseService
 	{
 		private readonly IUserRepository _userRepository;
 		private readonly IStudentRepository _studentRepository;
@@ -23,6 +23,7 @@ namespace RCodingSchool.Services
 
 		public UserService(IUserRepository userRepository, IStudentRepository studentRepository,
 			ITeacherRepository teacherRepository, IGroupRepository groupRepository, HttpContextBase httpContext)
+			:base (httpContext)
 		{
 			_userRepository = userRepository;
 			_studentRepository = studentRepository;
@@ -223,6 +224,19 @@ namespace RCodingSchool.Services
 			foreach (StudentVM x in listStudentVM)
 			{
 				Student student = _studentRepository.Get(x.Id);
+
+				if (_userRepository.Get(UserId).isAdmin)
+				{
+					if (x.MarkForDelete)
+					{
+						_studentRepository.Remove(student);
+					}
+					else
+					{
+						student.User.isAdmin = x.User.isAdmin;
+					}
+				}
+
 				student.User.IsActive = x.User.IsActive;
 				if (!(x.newGroupId == 0))
 				{
@@ -238,6 +252,18 @@ namespace RCodingSchool.Services
 			{
 				Teacher teacher = _teacherRepository.Get(x.Id);
 				teacher.User.IsActive = x.User.IsActive;
+
+				if (_userRepository.Get(UserId).isAdmin)
+				{
+					if (x.MarkForDelete)
+					{
+						_teacherRepository.Remove(teacher);
+					}
+					else
+					{
+						teacher.User.isAdmin = x.User.isAdmin;
+					}
+				}
 			}
 			_teacherRepository.SaveChanges();
 		}

@@ -16,5 +16,7 @@ namespace RCodingSchool.ViewModels
 
 		public bool MyGroups { get; set; }
 		public bool AllGroups { get; set; }
+
+		public bool MarkForDelete { get; set; }
 	}
 }
