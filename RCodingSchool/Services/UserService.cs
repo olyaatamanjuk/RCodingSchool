@@ -23,7 +23,7 @@ namespace RCodingSchool.Services
 
 		public UserService(IUserRepository userRepository, IStudentRepository studentRepository,
 			ITeacherRepository teacherRepository, IGroupRepository groupRepository, HttpContextBase httpContext)
-			:base (httpContext)
+			: base(httpContext)
 		{
 			_userRepository = userRepository;
 			_studentRepository = studentRepository;
@@ -120,7 +120,7 @@ namespace RCodingSchool.Services
 			_userRepository.SaveChanges();
 		}
 
-		public bool CheckValidation(UserVM userVM)
+		public bool CheckValidation(UserVM userVM, bool editing = false)
 		{
 			bool isValid = true;
 
@@ -133,13 +133,22 @@ namespace RCodingSchool.Services
 				isValid = false;
 			}
 
-			if (string.IsNullOrWhiteSpace(userVM.Password)
-				|| string.IsNullOrWhiteSpace(userVM.ConfirmPassword)
-				|| userVM.Password != userVM.ConfirmPassword)
+			if (editing)
 			{
-				isValid = false;
+				if (userVM.Password != userVM.ConfirmPassword)
+				{
+					isValid = false;
+				}
 			}
-
+			else
+			{
+				if (string.IsNullOrWhiteSpace(userVM.Password)
+					|| string.IsNullOrWhiteSpace(userVM.ConfirmPassword)
+					|| userVM.Password != userVM.ConfirmPassword)
+				{
+					isValid = false;
+				}
+			}
 			return isValid;
 		}
 
@@ -323,7 +332,7 @@ namespace RCodingSchool.Services
 						var user = new User();
 						user.FirstName = workSheet.Cells[rowIterator, noFirstNameCol].Value.ToString();
 						user.LastName = workSheet.Cells[rowIterator, noLastNameCol].Value.ToString();
-						user.Email = workSheet.Cells[rowIterator, noEmailCol].Value.ToString(); 
+						user.Email = workSheet.Cells[rowIterator, noEmailCol].Value.ToString();
 						if (String.IsNullOrWhiteSpace(user.Email))
 						{
 							continue;
@@ -390,6 +399,33 @@ namespace RCodingSchool.Services
 			_groupRepository.Add(group);
 			_groupRepository.SaveChanges();
 			return group;
+		}
+
+		public bool TryEditUser(UserVM userVM)
+		{
+			User user = _userRepository.Get(userVM.Id);
+			if (user == null)
+			{
+				return false;
+			}
+			else
+			{
+				user.FirstName = userVM.FirstName;
+				user.LastName = userVM.LastName;
+				user.Email = userVM.Email;
+				if (!String.IsNullOrWhiteSpace(userVM.ConfirmPassword))
+				{
+					user.Password = Crypto.SHA256(userVM.Password);
+				}
+				_userRepository.SaveChanges();
+
+				return true;
+			}
+		}
+
+		public User Get(int id)
+		{
+			return _userRepository.Get(id);
 		}
 	}
 }

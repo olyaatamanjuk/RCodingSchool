@@ -12,6 +12,8 @@ using RCodingSchool.Common;
 using System;
 using AutoMapper;
 using OfficeOpenXml;
+using System.Web.Helpers;
+using System.Security.Cryptography;
 
 namespace RCodingSchool.Controllers
 {
@@ -107,6 +109,37 @@ namespace RCodingSchool.Controllers
 			else
 			{
 				ModelState.AddModelError("credentials", "Некоректно введені дані.");
+				return View();
+			}
+		}
+
+		[HttpGet]
+		public ActionResult EditAccount()
+		{
+			User user = _userService.Get(_userService.UserId);
+			UserVM userVM =Mapper.Map<UserVM>(user);
+			userVM.Password = ""; 
+			return View(userVM);
+		}
+
+		[HttpPost]
+		public ActionResult EditAccount(UserVM userVM)
+		{
+			if (_userService.CheckValidation(userVM, true))
+			{
+				if (_userService.TryEditUser(userVM))
+				{
+					return RedirectToAction("EditAccount");
+				}
+				else
+				{
+					ModelState.AddModelError("validValues", "При збереженні відбулась помилка, спробуйте знову");
+					return View();
+				}
+			}
+			else
+			{
+				ModelState.AddModelError("validValues", "Некоректно введені дані.");
 				return View();
 			}
 		}

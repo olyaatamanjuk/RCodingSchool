@@ -1,0 +1,51 @@
+﻿@model  RCodingSchool.ViewModels.UserVM
+
+@{
+    ViewBag.Title = "EditAccount";
+}
+
+<div class="container body-content">
+    <div class="row register">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            @using (Html.BeginForm("EditAccount", "Account", FormMethod.Post, new { @class = "form joinus", role = "form", @id = "RegForm" }))
+            {
+                <h2>Відредагуйте дані профілю</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                @Html.HiddenFor(m => m.Id)
+                                @Html.EditorFor(m => m.FirstName, new { htmlAttributes = new { @type = "text", @name = "first_name", @class = "form-control input-lg", @placeholder = "Ім'я" } })
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                @Html.EditorFor(m => m.LastName, new { htmlAttributes = new { @type = "text", @name = "last_name", @class = "form-control input-lg", @placeholder = "Фамілія" } })
+                            </div>
+                        </div>
+                    </div>
+                            <div class="form-group">
+                                @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @type = "email", @id = "email", @class = "form-control input-lg", @placeholder = "Е-мейл" } })
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @type = "password", @id = "password", @class = "form-control input-lg", @placeholder = "Новий пароль" } })
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { @type = "password", @id = "confirm_password", @class = "form-control input-lg", @placeholder = "Підтвердіть пароль" } })
+                                    </div>
+                                </div>
+                            </div>
+                          @Html.ValidationMessage("validValues")
+                            <hr>
+                            <div class="row">
+                                <div class="col-xs-6 col-md-6"><input type="submit" value="Зберегти" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
+                                <div class="col-xs-6 col-md-6"><input type="button" onclick="location.href='@Url.Action("EditAccount", "Account")'" value="Скасувати" class="btn btn-danger btn-block btn-lg" tabindex="7"></div>
+                            </div>}
+        </div>
+    </div>
+</div>
+
