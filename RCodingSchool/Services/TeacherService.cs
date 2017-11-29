@@ -50,9 +50,14 @@ namespace RCodingSchool.Services
 			_teacherRepository.SaveChanges();
 		}
 
-		public void DeleteStudentGroup(int groupId, int studentId)
+		public void DeleteStudentGroup(int studentId)
 		{
-			_groupRepository.DeleteStudentFromGroup(groupId, studentId);
+			_groupRepository.DeleteStudentFromGroup(studentId);
+		}
+
+		public void DeleteGroup(int groupId)
+		{
+			_groupRepository.DeleteGroup(groupId);
 		}
 
 		public Teacher GetTeacherByUserId(int id)

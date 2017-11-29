@@ -20,7 +20,7 @@ namespace RCodingSchool.Repositories
 			SaveChanges();
 		}
 
-		public void DeleteStudentFromGroup(int studentId, int groupId)
+		public void DeleteStudentFromGroup(int studentId)
 		{
 			Student student = dbContext.Students.Where(x => x.Id == studentId).FirstOrDefault();
 			student.GroupId = null;
@@ -35,6 +35,25 @@ namespace RCodingSchool.Repositories
 		public List<Student> GetStudentsByGroupId(int groupId)
 		{
 			return dbContext.Students.Where(x => x.GroupId == groupId).ToList();
+		}
+
+		public void DeleteGroup(int groupId)
+		{
+			List<Student> students = dbContext.Students.Where(x => x.GroupId == groupId).ToList();
+			foreach (Student st in students)
+			{
+				st.GroupId = null;
+			}
+
+			List<TeacherGroup> teacherGroups = dbContext.TeacherGroup.Where(x => x.GroupId == groupId).ToList();
+			foreach(TeacherGroup tg in teacherGroups)
+			{
+				dbContext.TeacherGroup.Remove(tg);
+			}
+
+			Group group = dbContext.Groups.Where(x => x.Id == groupId).FirstOrDefault();
+			dbContext.Groups.Remove(group);
+			SaveChanges();
 		}
 	}
 }

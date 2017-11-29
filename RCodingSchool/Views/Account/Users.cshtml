@@ -37,7 +37,7 @@
                             <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
                             <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
                             <td>@Html.EditorFor(m => m.NoActiveStudents[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                            <td>@Html.DropDownListFor(m => m.NoActiveStudents[i].newGroupId, Model.Categories, Model.NoActiveStudents[i].Group.Name, new { @type = "text", @name = "group", @class = "form-control input groups-input" })</td>
+                            <td>@Html.DropDownListFor(m => m.NoActiveStudents[i].newGroupId, Model.Categories, (Model.NoActiveStudents[i].Group == null) ? "" : Model.NoActiveStudents[i].Group.Name, new { @type = "text", @name = "group", @class = "form-control input groups-input" })</td>
                             <td>@Html.CheckBoxFor(m => m.NoActiveStudents[i].User.IsActive)</td>
                             @if (User.IsInRole("Admin"))
                             {
@@ -95,7 +95,7 @@
     }
 }
 
-@if (Model.Teachers.Count > 0)
+@if (Model.Students.Count > 0)
 {
     using (Html.BeginForm("ActiveStudents", "Account", FormMethod.Post))
     {
@@ -124,7 +124,7 @@
                                     <td>@Html.EditorFor(m => m.Students[i].User.FirstName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
                                     <td>@Html.EditorFor(m => m.Students[i].User.LastName, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
                                     <td>@Html.EditorFor(m => m.Students[i].User.Email, new { htmlAttributes = new { @readonly = "readonly", @class = "tdread" } })</td>
-                                    <td> @Html.DropDownListFor(m => m.Students[i].newGroupId, Model.Categories, Model.Students[i].Group.Name, new { @type = "text", @name = "group", @class = "form-control input groups-input" })</td>
+                                    <td> @Html.DropDownListFor(m => m.Students[i].newGroupId, Model.Categories, (Model.Students[i].Group == null) ? "" : Model.Students[i].Group.Name, new { @type = "text", @name = "group", @class = "form-control input groups-input" })</td>
                                     <td>@Html.CheckBoxFor(m => m.Students[i].User.IsActive)</td>
                                     @if (User.IsInRole("Admin"))
                                     {

@@ -9,10 +9,10 @@ namespace RCodingSchool.Services
 		public HerstIndex AnalizeDataByRange(string filePath,string N = "3", string K = "20")
         {
             var proc = new Process();
-            string processLocation = @"C:\Program Files\R\R-3.4.2\bin\x64\Rscript.exe";
-            string scriptLocation = @"D:\temp-projects\RCodingSchool\RCodingSchool\V1.R";
+            string processLocation =  @"C:\Program Files\R\R-3.4.2\bin\Rscript.exe";
+            string scriptLocation = @"D:\PROJECT\RCodingSchool\RCodingSchool\V1.R";
 
-            proc.StartInfo = new ProcessStartInfo(processLocation, scriptLocation + " 5 20");
+			proc.StartInfo = new ProcessStartInfo(processLocation, scriptLocation + " 5 20");
             proc.StartInfo.RedirectStandardOutput = true;
             proc.StartInfo.RedirectStandardInput = true;
             proc.StartInfo.RedirectStandardError = true;

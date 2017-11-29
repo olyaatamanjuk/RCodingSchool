@@ -48,5 +48,11 @@ namespace RCodingSchool.Controllers
 				return View();
 			}
 		}
+
+		public ActionResult RemoveGroup (int id, bool myGroups)
+		{
+			_teacherService.DeleteGroup(id);
+			return RedirectToAction("Groups", myGroups);
+		}
 	}
 }

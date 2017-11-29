@@ -30,6 +30,7 @@
                 <tr>
                     <th>Група</th>
                     <th>Студенти</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +51,14 @@
 }
                                 </ol>
                            </td>}
-                       </tr>}
+                        <td>
+                            <a href="@Url.Action("RemoveGroup", "Group", new { id = x.Id, myGroups = Model.MyGroups})" title="Видалити групу">
+                                <span class="pull-right">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </span>
+                            </a>
+                            </td>
+</tr>}
                     </tbody>
                 </table>
                 <br />
@@ -59,6 +67,7 @@
                     <div>
                         <h4>Додайте нову групу</h4>
                         <div class="input-group">
+                            @Html.HiddenFor(m => m.MyGroups)
                             @Html.EditorFor(m => m.NewGroupName, new { htmlAttributes = new { @type = "text", @class = "form-control", @placeholder = "Назва групи" } })
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="submit">Зберегти</button>
