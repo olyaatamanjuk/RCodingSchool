@@ -33,27 +33,6 @@
 var simplemde;
 var fileUploader = new FileLoader();
 var form = document.forms[0];
-var onsubmit = function (event) {
-    event.preventDefault();
-
-    var fd = new FormData(form);
-    fd.set('Text', encodeURI(fd.get('Text')));
-    var markdownText = fd.get('Text');
-
-    for (var file of fileUploader.files) {
-        if (markdownText.indexOf(file.url) >= 0) {
-            fd.set(file.url, file.file);
-        }
-    }
-
-    var xhr = new XMLHttpRequest();
-    xhr.onloadend = function () {
-        var chapterId = document.getElementsByName("ChapterId")[0].value;
-        location.replace(`/Chapter/Chapter/${chapterId}`);
-    };
-    xhr.open('POST', form.action);
-    xhr.send(fd);
-};
 
 (function () {
     var modal = $('#myModal');
@@ -188,5 +167,25 @@ var onsubmit = function (event) {
         $('#image-width-indicator').html(_this.val());
     });
 
-    form.onsubmit = onsubmit;
+    $('.upload').on('click', function (event) {
+        event.stopPropagation();
+
+        var fd = new FormData(form);
+        fd.set('Text', encodeURI(fd.get('Text')));
+        var markdownText = fd.get('Text');
+
+        for (var file of fileUploader.files) {
+            if (markdownText.indexOf(file.url) >= 0) {
+                fd.set(file.url, file.file);
+            }
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.onloadend = function () {
+            var chapterId = document.getElementsByName("ChapterId")[0].value;
+            location.replace(`/Chapter/Chapter/${chapterId}`);
+        };
+        xhr.open('POST', form.action);
+        xhr.send(fd);
+    });
 })();
