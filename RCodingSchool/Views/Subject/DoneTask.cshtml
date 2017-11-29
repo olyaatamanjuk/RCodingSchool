@@ -11,7 +11,22 @@
 {
     if (User.IsInRole("Teacher"))
     {
-    <button class="btn btn-default" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+        @Html.HiddenFor(m => m.Id)
+
+    <div class="btn-toolbar pull-right " role="toolbar">
+        <div class="btn-group">
+            <button type="submit" title="Зберегти" class="btn btn-default" name="save" value="Save">
+                <span class="pull-right">
+                    <span class="fa fa-floppy-o" aria-hidden="true"></span>
+                </span>
+            </button>
+            <button type="submit" title="Зберегти з можливістю редагування" class="btn btn-default"  value="SaveEdit" name="saveEdit" >
+                <span class="pull-right">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </span>
+            </button>
+        </div>
+    </div>
     }
     <h3>Вирішення завдання "@Model.Task.Name"</h3>
     @Html.HiddenFor(m => m.Id)
@@ -23,7 +38,8 @@
             <label>Деталі вирішення:</label>
             <p>@Model.Text</p>
         }
-        @if (Model.Files.Count > 0)
+    </div>
+        if (Model.Files.Count > 0)
         {
             <label>Прикріплені файли:</label>
             <div id="file-names">
@@ -34,7 +50,6 @@
             </div>
 
         }
-    </div>
 
     <div class="col-xs-6">
         @if (User.IsInRole("Teacher"))
@@ -44,6 +59,11 @@
             @Html.TextBoxFor(m => m.Mark, new { @type = "range", @max = "100", @min = "0", @step = "10", @value = Model.Mark, @onchange = "rangeDanger.value=value" })
             <output id="rangeDanger">@Model.Mark</output>
         </div>
+        <div class="teacher-comment">
+            <label>Коментар:</label>
+            @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", @rows = "5" })
+        </div>
+            @Html.ValidationMessage("validValues")
         }
         else if (User.IsInRole("Student"))
         {
@@ -77,6 +97,10 @@
                         @Model.Mark %
                     </div>
                 }
+            </div>
+            <div class="teacher-comment">
+                <label>Коментар:</label>
+                <p class="bg-success">@Model.Comment</p>
             </div>
         }
     </div>

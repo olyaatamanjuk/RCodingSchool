@@ -2,6 +2,7 @@
 using RCodingSchool.Models;
 using RCodingSchool.Services;
 using RCodingSchool.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
@@ -66,11 +67,24 @@ namespace RCodingSchool.Controllers
 		[HttpGet]
 		public ActionResult SolveTask(int taskId)
 		{
-			DoneTaskVM doneTaskVM = new DoneTaskVM();
-			doneTaskVM.TaskId = taskId;
-			Task task = _subjectService.GetTaskById(taskId);
-			doneTaskVM.Task = task;
-			return View(doneTaskVM);
+			DoneTask doneTask = _subjectService.GetDoneTaskByTaskId(taskId);
+			if (doneTask != null && (!doneTask.Finished))
+			{
+				DoneTaskVM doneTaskVM = Mapper.Map<DoneTaskVM>(doneTask);
+				return View(doneTaskVM);
+			}
+			else if (doneTask != null && (doneTask.Finished))
+			{
+				return RedirectToAction("DoneTask", new { doneTaskId = doneTask.Id });
+			}
+			else
+			{ 
+				DoneTaskVM doneTaskVM = new DoneTaskVM();
+				doneTaskVM.TaskId = taskId;
+				Task task = _subjectService.GetTaskById(taskId);
+				doneTaskVM.Task = task;
+				return View(doneTaskVM);
+			}
 		}
 
 		[HttpPost]
@@ -87,11 +101,34 @@ namespace RCodingSchool.Controllers
 			return View(doneTaskVM);
 		}
 
+		//[HttpPost]
+		//public ActionResult DoneTask(DoneTaskVM doneTask)
+		//{
+		//	_subjectService.EvaluateTask(doneTask.Id, doneTask.Mark);
+		//	return RedirectToAction("Task", new { id = doneTask.TaskId });
+		//}
+
 		[HttpPost]
-		public ActionResult DoneTask(DoneTaskVM doneTask)
+		public ActionResult DoneTask(DoneTaskVM doneTaskVM, string save, string saveEdit)
 		{
-			_subjectService.EvaluateTask(doneTask.Id, doneTask.Mark);
-			return RedirectToAction("Task", new { id = doneTask.TaskId });
+			if (!String.IsNullOrWhiteSpace(save))
+			{
+				doneTaskVM.Finished = true;
+			}
+			else
+			{
+				doneTaskVM.Finished = false;
+			}
+			if (_subjectService.TryChangeDoneTask(doneTaskVM))
+			{
+				return RedirectToAction("Task", new { id = doneTaskVM.TaskId });
+			}
+			else
+			{
+				doneTaskVM = Mapper.Map<DoneTaskVM>(_subjectService.GetDoneTask(doneTaskVM.Id));
+				ModelState.AddModelError("validValues", "Прокоментуйте, будь ласка");
+				return View(doneTaskVM);
+			}
 		}
 	}
 }

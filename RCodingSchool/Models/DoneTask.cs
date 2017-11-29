@@ -13,6 +13,9 @@ namespace RCodingSchool.Models
 		public int TaskId { get; set; }
 		public virtual Task Task { get; set; }
 
+		public bool Finished { get; set; }
+		public string Comment { get; set; }
+
 		public virtual ICollection<File> Files { get; set; }
 	}
 }

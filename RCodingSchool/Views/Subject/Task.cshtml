@@ -4,7 +4,15 @@
 }
 
 @Html.HiddenFor(m => m.Id)
-<button class="btn btn-default" onclick="location.href='@Url.Action("SolveTask", "Subject", new { taskId = Model.Id })'"><i class="fa fa-reply" aria-hidden="true">  Вирішення</i></button>
+
+@if (User.IsInRole("Student"))
+{
+    <div class="btn-toolbar pull-right " role="toolbar">
+        <div class="btn-group">
+            <button class="btn btn-default" title="Вирішення" onclick="location.href='@Url.Action("SolveTask", "Subject", new { taskId = Model.Id })'"><i class="fa fa-bookmark" aria-hidden="true"></i></button>
+        </div>
+    </div>
+}
 <h2>@Model.Name</h2>
 <p>@Model.Text</p>
 @if (Model.Files.Count > 0)
@@ -17,26 +25,31 @@
         }
     </div>
 }
-<hr />
-<h4>Прислали вирішення:</h4>
-<div class="table-responsive">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Студент</th>
-                <th>Група</th>
-                <th>Оцінка (%)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var i in Model.DoneTasks)
-            {
-                <tr onclick="location.href='@Url.Action("DoneTask", "Subject", new { doneTaskId = @i.Id})'">
-                    <td>@i.Student.User.FirstName @i.Student.User.LastName</td>
-                    <td>@i.Student.Group.Name</td>
-                    <td>@i.Mark</td>
-                </tr>}
-        </tbody>
-    </table>
-</div>
+
+@if (User.IsInRole("Teacher"))
+{
+    <hr />
+    <h4>Прислали вирішення:</h4>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Студент</th>
+                    <th>Група</th>
+                    <th>Оцінка (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.DoneTasks)
+                {
+                    <tr onclick="location.href='@Url.Action("DoneTask", "Subject", new { doneTaskId = @i.Id})'">
+                        <td>@i.Student.User.FirstName @i.Student.User.LastName</td>
+                        <td>@i.Student.Group.Name</td>
+                        <td>@i.Mark</td>
+                    </tr>}
+            </tbody>
+        </table>
+    </div>
+}
+
 

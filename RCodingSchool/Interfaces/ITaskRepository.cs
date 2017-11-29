@@ -9,5 +9,6 @@ namespace RCodingSchool.Interfaces
 		IEnumerable<DoneTask> GetDoneTasks(int taskId);
 		DoneTask AddDoneTask(DoneTask doneTask);
 		DoneTask GetDoneTask(int id);
+		DoneTask GetDoneTaskByTaskId(int taskId, int userId);
 	}
 }

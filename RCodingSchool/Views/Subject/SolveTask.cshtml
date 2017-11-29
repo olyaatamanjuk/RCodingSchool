@@ -3,7 +3,7 @@
     ViewBag.Title = "SolveTask";
 }
 
-<h3>Вирішення завдання "@Model.Task.Name</h3>
+<h3>Вирішення завдання "@Model.Task.Name"</h3>
 
 @using (Html.BeginForm("SolveTask", "Subject", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -24,6 +24,13 @@
         <button class="btn btn-default" type="button" onclick="cleatInputFiles()" title="Очистити файли"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         <button class="btn btn-primary" type="submit">Зберегти</button>
     </div>
+    if (!(String.IsNullOrWhiteSpace(Model.Comment)))
+    {
+        <div class="teacher-comment">
+            <label>Коментар:</label>
+            <p class="bg-danger">@Model.Comment</p>
+        </div>
+    }
 }
 
 @section Script{
