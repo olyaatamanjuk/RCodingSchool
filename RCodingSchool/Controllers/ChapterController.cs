@@ -2,7 +2,6 @@
 using RCodingSchool.Models;
 using RCodingSchool.Services;
 using RCodingSchool.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -106,9 +105,8 @@ namespace RCodingSchool.Controllers
             }
             else
             {
-                return RedirectToAction("Chapter", new { id = topicVM.SubjectId });
+                return RedirectToAction("Chapter", new { id = topicVM.ChapterId });
             }
         }
-
     }
 }
