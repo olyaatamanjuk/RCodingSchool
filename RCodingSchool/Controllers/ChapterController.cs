@@ -108,5 +108,11 @@ namespace RCodingSchool.Controllers
                 return RedirectToAction("Chapter", new { id = topicVM.ChapterId });
             }
         }
+
+        [HttpGet]
+        public void RemoveTopic(int id)
+        {
+            _chapterService.RemoveTopic(id);
+        }
     }
 }

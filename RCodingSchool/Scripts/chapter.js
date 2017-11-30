@@ -1,7 +1,12 @@
 ﻿$(document).ready(function () {
-    var firstTopicId = $('first-topic-id').val();
+    var firstTopicId = $('.first-topic-id').val();
     var md = markdownit({ html: true }).use(texmath.use(katex));
-    var modal = $('#myModal');
+    var modal = $('#delete-modal');
+    var topicIdToDelete;
+    $('.topic').on('click', function (event) {
+        var topicId = event.target.getAttribute('topic-id');
+        loadTopicDetailes(topicId);
+    });
     function loadTopicDetailes(id) {
         var url = "/chapter/topic/";
         if (id)
@@ -13,12 +18,25 @@
                 });
     }
 
-    $('delete-topic').on('click', function (event) {
+    $('.delete-topic').on('click', function (event) {
         event.preventDefault();
 
-        var topicId = event.target.topicId;
-        $('')
-    })
+        topicIdToDelete = event.target.getAttribute('topic-id');
+
+        modal.modal('show');
+    });
+
+    $('.btn-yes').on('click', function () {
+        $.get(`/Chapter/RemoveTopic/${topicIdToDelete}`)
+            .done(function () {
+                modal.modal('hide');
+                location.reload();
+            });
+    });
+
+    $('.btn-no').on('click', function () {
+        modal.modal('hide');
+    });
 
     loadTopicDetailes(firstTopicId);
 });

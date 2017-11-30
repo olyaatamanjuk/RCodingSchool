@@ -61,9 +61,10 @@ namespace RCodingSchool.Services
                 if (!topic.Text.Contains("Download/File/" + file.Id))
                 {
                     _fileRepository.Remove(file);
-                    _fileRepository.SaveChanges();
                 }
             }
+
+            _fileRepository.SaveChanges();
         }
 
         public string TrySaveDataFile(HttpPostedFileBase file)
@@ -140,6 +141,15 @@ namespace RCodingSchool.Services
         public Models.File Get(int id)
         {
             return _fileRepository.Get(id);
+        }
+
+        public void RemoveImages(int topicId)
+        {
+            foreach (var file in _fileRepository.GetByTopicId(topicId))
+            {
+                _fileRepository.Remove(file);
+            }
+            _fileRepository.SaveChanges();
         }
     }
 }

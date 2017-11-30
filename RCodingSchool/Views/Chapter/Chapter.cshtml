@@ -1,7 +1,7 @@
 ﻿@model RCodingSchool.ViewModels.ChaptersListVM
 @{
     ViewBag.Title = "Subject";
-    string firstTopicId = Model.Chapters.Count > 0 ? 
+    string firstTopicId = Model.Chapters.Count > 0 ?
         firstTopicId = Model.Chapters[0].Topics.FirstOrDefault().Id.ToString() : string.Empty;
 }
 <input class="first-topic-id" hidden value="@firstTopicId" />
@@ -10,25 +10,6 @@
         <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Новий розділ</button>
         <button class="btn btn-default" type="button" onclick="location.href='@Url.Action("Tasks", "Subject", new { id = Model.SubjectId })'"><i class="fa fa-files-o" aria-hidden="true"></i> Усі завдання</button>
         <button class="btn btn-default" type="button" onclick="location.href='@Url.Action("CreateTask", "Subject", new { id = Model.SubjectId })'"><i class="fa fa-file-o" aria-hidden="true"></i> Нове завдання</button>
-    </div>
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                @using (Html.BeginForm("CreateChapter", "Chapter", FormMethod.Post))
-                {
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Введіть назву розділу</h4>
-                    </div>
-                    <div class="modal-body">
-                        @Html.HiddenFor(m => m.SubjectId)
-                        @Html.TextBox("Name", null, new { @type = "text", @class = "form-control input" })
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-default">Зберегти</button>
-                    </div>}
-            </div>
-        </div>
     </div>
     <div class="row">
         <div class="col-sm-4 col-md-4">
@@ -47,7 +28,7 @@
                                 {
                                     <div class="row">
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                            <a href="#" onclick="d(@topic.Id)" class="list-group-item list-group-item-action">@topic.Name</a>
+                                            <a href="#" topic-id="@topic.Id" class="list-group-item list-group-item-action topic">@topic.Name</a>
                                         </div>
                                         <div class="col-lg-2 col-md-2 col-sm-8 col-xs-2">
                                             <a href="@Url.Action("EditTopic", "Chapter", new { id = topic.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редагувати"></i></a>
@@ -78,23 +59,45 @@
     </div>
 </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Відрегулюйте розмір зображення:</h4>
+                <h4 class="modal-title">Видалення</h4>
             </div>
             <div class="modal-body">
-                <input type="range" max="1000" min="100" step="10" id="image-width" />
-                <p>Ширина: <span id="image-width-indicator"></span></p>
+                <p>Ви дійсно хочете видалити елемент?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="save-range-btn">Зберегти</button>
+                <button type="button" class="btn btn-primary btn-yes" id="save-range-btn">Так</button>
+                <button type="button" class="btn btn-primary btn-no" id="save-range-btn">Ні</button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("CreateChapter", "Chapter", FormMethod.Post))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Введіть назву розділу</h4>
+                </div>
+                    <div class="modal-body">
+                        @Html.HiddenFor(m => m.SubjectId)
+                        @Html.TextBox("Name", null, new { @type = "text", @class = "form-control input" })
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default">Зберегти</button>
+                    </div>}
+        </div>
+    </div>
+</div>
+
+
 
 @section Script
 {

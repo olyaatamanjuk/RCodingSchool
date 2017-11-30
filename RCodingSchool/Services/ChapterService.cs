@@ -110,5 +110,13 @@ namespace RCodingSchool.Services
                 return true;
             }
         }
+
+        public void RemoveTopic(int id)
+        {
+            var topic = _topicRepository.Get(id);
+            _fileService.RemoveImages(id);
+            _topicRepository.Remove(topic);
+            _topicRepository.SaveChanges();
+        }
     }
 }
