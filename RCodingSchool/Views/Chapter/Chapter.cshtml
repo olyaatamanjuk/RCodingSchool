@@ -1,6 +1,8 @@
 ﻿@model RCodingSchool.ViewModels.ChaptersListVM
 @{
     ViewBag.Title = "Subject";
+    string firstTopicId = Model.Chapters.Count > 0 ? 
+        firstTopicId = Model.Chapters[0].Topics.FirstOrDefault().Id.ToString() : string.Empty;
 }
 <div class="container">
     <div class="btn-group teacher-toolbar text-center">
@@ -52,13 +54,14 @@
                                         </div>
                                     </div>
                                 }
-                                @if (this.User.IsInRole("Teacher"))
+                                @if (this.User.IsInRole("Teacher") || this.User.IsInRole("Admin"))
                                 {
                                     <div class="row">
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                             <a class="list-group-item list-group-item-action info" href="@Url.Action("CreateTopic", "Chapter", new { id = el.Id })">Нова тема</a>
                                         </div>
-                                    </div> }
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>}
@@ -83,15 +86,15 @@
         var md = markdownit({ html: true }).use(texmath.use(katex));
         function d(id) {
             var url = "/chapter/topic/";
-            $.post(url, { id: id })
-                .done(function (response) {
-                    var htmlText = decodeURI(response);
-                    var res = htmlText.replace("<img src", "img class=\"img-responsive\" src");
-                    console.log(res);
-                    $("#currentTopic").html(md.render(decodeURI(response)));
-                });
+            if(id)
+                $.post(url, { id: id })
+                    .done(function (response) {
+                        var htmlText = decodeURI(response);
+                        var res = htmlText.replace("<img src", "img class=\"img-responsive\" src");
+                        $("#currentTopic").html(md.render(decodeURI(response)));
+                    });
         }
 
-        d(@Model.Chapters[0].Topics.FirstOrDefault().Id);
+        d(@firstTopicId);
     </script>
 }

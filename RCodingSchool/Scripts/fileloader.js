@@ -13,6 +13,11 @@
 
     FileLoader.prototype.fileChange = function (event) {
         var file = event.target.files[0];
+        event.target.value = '';
+
+        if (file.type.indexOf('image/') != null) {
+            return null;
+        }
 
         var url = URL.createObjectURL(file);
 
@@ -124,9 +129,11 @@ var form = document.forms[0];
             title: "Зображення",
             action: function (editor) {
                 fileUploader.fileChangeHandler = function (result) {
-                    modal.modal('show');
-                    $('#image-width-indicator').html(rangeInput.val());
-                    fileUploadResult = result;
+                    if (result) {
+                        modal.modal('show');
+                        $('#image-width-indicator').html(rangeInput.val());
+                        fileUploadResult = result;
+                    }
                 };
                 fileUploader.openFileDialog();
             }

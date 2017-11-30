@@ -11,7 +11,7 @@
     <h2>Додайте нову тему</h2>
     @using (Html.BeginForm("CreateTopic", "Chapter", FormMethod.Post, new { @name = "topic-form" }))
     {
-        <input type="file" class="fileloader hidden" />
+        <input type="file" class="fileloader hidden" accept="image/*" />
         <div class="form-group">
             @Html.HiddenFor(m => m.ChapterId)
             @Html.HiddenFor(m => m.Id)
