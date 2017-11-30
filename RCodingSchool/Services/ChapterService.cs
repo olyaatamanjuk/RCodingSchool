@@ -69,7 +69,7 @@ namespace RCodingSchool.Services
 
                 topic = _topicRepository.Add(topic);
                 _topicRepository.SaveChanges();
-                var files = _fileService.SaveImages(_httpContext.Request.Files, topic);
+                var files = _fileService.SaveImages(_httpContext.Request.Files, topic.Id);
                 foreach (var file in files)
                 {
                     topic.Text = topic.Text.Replace(file.Temporary, $"/Download/File/{file.Id.ToString()}");
@@ -87,17 +87,25 @@ namespace RCodingSchool.Services
             _chapterRepository.SaveChanges();
         }
 
-        public bool TryEditTopic(TopicVM topicVM)
+        public bool TryEditTopic(TopicVM topic)
         {
-            if (String.IsNullOrEmpty(topicVM.Name) || String.IsNullOrEmpty(topicVM.Text))
+            if (String.IsNullOrEmpty(topic.Name) || String.IsNullOrEmpty(topic.Text))
             {
                 return false;
             }
             else
             {
-                Topic topic = GetTopicById(topicVM.Id);
-				topic.Name = topicVM.Name;
-				topic.Text = topicVM.Text;
+                _fileService.DeleteImages(topic);
+
+                var newFiles = _fileService.SaveImages(_httpContext.Request.Files, topic.Id);
+                foreach(var file in newFiles)
+                {
+                    topic.Text.Replace(file.Temporary, $"/Download/File/{file.Id}");
+                }
+
+                Topic originalTopic = GetTopicById(topic.Id);
+                originalTopic.Name = topic.Name;
+                originalTopic.Text = topic.Text;
                 _topicRepository.SaveChanges();
                 return true;
             }

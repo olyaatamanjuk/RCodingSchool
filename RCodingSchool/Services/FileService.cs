@@ -5,9 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Configuration;
-using System.Web.Mvc;
-using System;
 
 namespace RCodingSchool.Services
 {
@@ -21,32 +18,12 @@ namespace RCodingSchool.Services
             _fileRepository = fileRepository;
         }
 
-        public void SaveImage(Models.File file, HttpPostedFileBase postedFile)
-        {
-            var allowedExtensions = new[] { ".Jpg", ".png", ".jpg", "jpeg" };
-            var ext = Path.GetExtension(postedFile.FileName);
-
-            if (allowedExtensions.Contains(ext))
-            {
-                string fullName = file.Id.ToString() + "_" + postedFile.FileName;
-                var generalFolderPath = WebConfigurationManager.AppSettings.Get("TopicImagesFolder");
-                var folderPath = Path.Combine(generalFolderPath, file.TopicId.ToString());
-                if (!(Directory.Exists(folderPath)))
-                {
-                    DirectoryInfo directory = Directory.CreateDirectory(folderPath);
-                }
-
-                var path = Path.Combine(folderPath, file.TopicId.ToString(), fullName);
-                postedFile.SaveAs(path);
-            }
-        }
-
-        public IEnumerable<FileVM> SaveImages(HttpFileCollectionBase files, Topic topic)
+        public IEnumerable<FileVM> SaveImages(HttpFileCollectionBase files, int topicId)
         {
             var newFiles = new List<FileVM>();
             if (files.Count > 0)
             {
-                var path = Path.Combine(_httpContext.Server.MapPath("~/App_Data/Topics"), topic.Id.ToString());
+                var path = Path.Combine(_httpContext.Server.MapPath("~/App_Data/Topics"), topicId.ToString());
 
                 Directory.CreateDirectory(path);
 
@@ -60,7 +37,7 @@ namespace RCodingSchool.Services
                     {
                         Name = file.FileName,
                         Location = location,
-                        TopicId = topic.Id
+                        TopicId = topicId
                     });
                     _fileRepository.SaveChanges();
 
@@ -75,31 +52,37 @@ namespace RCodingSchool.Services
             return newFiles;
         }
 
-		public string TrySaveDataFile(HttpPostedFileBase file)
-		{
-			string folderPath = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/R"), "Calculate");
-			string path = "";
-
-			Directory.CreateDirectory(folderPath);
-
-				if (file!= null && file.ContentLength > 0)
-				{
-					string fileNameWithEx = Path.GetFileName(file.FileName);
-					string fileName = Path.GetFileNameWithoutExtension(fileNameWithEx);
-					string resultName = fileNameWithEx.Replace(fileName, "TestData");
-					path = Path.Combine(folderPath, resultName);
-					file.SaveAs(path);
-				}
-			return path;
-		}
-
-		public FileStreamResult GetFile(Models.File file)
+        public void DeleteImages(TopicVM topic)
         {
-            string path = Path.Combine("~/TopicImagesFolder/{0}/{1}", "Topic", file.Topic.Id.ToString(), file.Id.ToString() + file.Name);
-            FileStream stream = new FileStream(path, FileMode.Open);
-            FileStreamResult result = new FileStreamResult(stream, string.Format(path, Path.GetExtension(file.Id.ToString() + file.Name)));
-            result.FileDownloadName = file.Name;
-            return result;
+            var oldFiles = _fileRepository.GetByTopicId(topic.Id);
+
+            foreach (var file in oldFiles)
+            {
+                if (!topic.Text.Contains("Download/File/" + file.Id))
+                {
+                    _fileRepository.Remove(file);
+                    _fileRepository.SaveChanges();
+                }
+            }
+        }
+
+        public string TrySaveDataFile(HttpPostedFileBase file)
+        {
+            string folderPath = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/R"), "Calculate");
+            string path = "";
+
+            Directory.CreateDirectory(folderPath);
+
+            if (file != null && file.ContentLength > 0)
+            {
+                string fileNameWithEx = Path.GetFileName(file.FileName);
+                string fileName = Path.GetFileNameWithoutExtension(fileNameWithEx);
+                string resultName = fileNameWithEx.Replace(fileName, "TestData");
+                path = Path.Combine(folderPath, resultName);
+                file.SaveAs(path);
+            }
+
+            return path;
         }
 
         public void SaveTaskFiles(int taskId, IEnumerable<HttpPostedFileBase> files)
@@ -128,33 +111,33 @@ namespace RCodingSchool.Services
             _fileRepository.SaveChanges();
         }
 
-		public void SaveDoneTaskFiles(int taskId, int doneTaskId, IEnumerable<HttpPostedFileBase> files)
-		{
-			string folderPath = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/taskFiles"), taskId.ToString(),"done", doneTaskId.ToString());
+        public void SaveDoneTaskFiles(int taskId, int doneTaskId, IEnumerable<HttpPostedFileBase> files)
+        {
+            string folderPath = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data/taskFiles"), taskId.ToString(), "done", doneTaskId.ToString());
 
-			Directory.CreateDirectory(folderPath);
+            Directory.CreateDirectory(folderPath);
 
-			foreach (var file in files.Where(x => x != null))
-			{
-				if (file.ContentLength > 0)
-				{
-					var fileName = Path.GetFileName(file.FileName);
-					var path = Path.Combine(folderPath, fileName);
+            foreach (var file in files.Where(x => x != null))
+            {
+                if (file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(folderPath, fileName);
 
-					file.SaveAs(path);
+                    file.SaveAs(path);
 
-					Models.File modelFile = new Models.File();
-					modelFile.Location = path;
-					modelFile.Name = fileName;
-					modelFile.DoneTaskId = doneTaskId;
-					_fileRepository.Add(modelFile);
-				}
-			}
+                    Models.File modelFile = new Models.File();
+                    modelFile.Location = path;
+                    modelFile.Name = fileName;
+                    modelFile.DoneTaskId = doneTaskId;
+                    _fileRepository.Add(modelFile);
+                }
+            }
 
-			_fileRepository.SaveChanges();
-		}
+            _fileRepository.SaveChanges();
+        }
 
-		public Models.File Get(int id)
+        public Models.File Get(int id)
         {
             return _fileRepository.Get(id);
         }
