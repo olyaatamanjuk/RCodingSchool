@@ -189,8 +189,8 @@ var form = document.forms[0];
 
         var xhr = new XMLHttpRequest();
         xhr.onloadend = function () {
-            var chapterId = document.getElementsByName("ChapterId")[0].value;
-            location.replace(`/Chapter/Chapter/${chapterId}`);
+            var subjectId = document.getElementsByName("SubjectId")[0].value;
+            location.replace(`/Chapter/Chapter/${subjectId}`);
         };
         xhr.open('POST', form.action);
         xhr.send(fd);

@@ -2,18 +2,6 @@
 
 <div class="container bootstrap ">
     <div class="row">
-        <div class="col-md-3 bg-white  bg-white ">
-            <div class="panel panel-default">
-                <div class="panel-heading">Повідомлення</div>
-                <div class="list-group">
-                    <a href="#" class="list-group-item">Загальна бесіда <span class="badge badge-info">22</span></a>
-                    <a href="#" class="list-group-item">507м <span class="badge badge-info">24</span></a>
-                    <a href="#" class="list-group-item">Ігор Панчук <span class="badge badge-info">17</span></a>
-                    <a href="#" class="list-group-item">Степан Миронюк <span class="badge badge-info">1</span></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8 bg-white col-xs-12 bg-white ">
             <div class="chat-message snippet">
                 <div class="media " id="discussion">
                     <button class="btn btn-default" title="Більше" onclick="location.href='@Url.Action("Message", "Message", new { currentMessageCount = Model.Count })'"><i class="fa fa-history" aria-hidden="true"></i></button>
@@ -41,9 +29,8 @@
                 </span>
             </div>
         </div>
-        <div class="col-md-1 bg-white  bg-white "></div>
     </div>
-    </div>
+
 
 
     @section Script

@@ -93,6 +93,7 @@ namespace RCodingSchool.Controllers
         public ActionResult EditTopic(int id)
         {
             TopicVM topicVM = Mapper.Map<TopicVM>(_chapterService.GetTopicById(id));
+			topicVM.SubjectId = topicVM.Chapter.SubjectId;
             return View(topicVM);
         }
 
@@ -105,7 +106,7 @@ namespace RCodingSchool.Controllers
             }
             else
             {
-                return RedirectToAction("Chapter", new { id = topicVM.ChapterId });
+                return RedirectToAction("Chapter", new { id = topicVM.SubjectId });
             }
         }
 

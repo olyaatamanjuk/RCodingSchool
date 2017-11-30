@@ -11,7 +11,8 @@ namespace RCodingSchool.ViewModels
         public Teacher Author { get; set; }
         public int AuthorId { get; set; }
 
-        public int ChapterId { get; set; }
+		public Chapter Chapter { get; set; }
+		public int ChapterId { get; set; }
 
         public int SubjectId { get; set; }
 

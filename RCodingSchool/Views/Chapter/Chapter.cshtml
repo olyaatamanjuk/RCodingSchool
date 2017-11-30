@@ -1,8 +1,15 @@
 ﻿@model RCodingSchool.ViewModels.ChaptersListVM
 @{
-    ViewBag.Title = "Subject";
-    string firstTopicId = Model.Chapters.Count > 0 ?
-        firstTopicId = Model.Chapters[0].Topics.FirstOrDefault().Id.ToString() : string.Empty;
+     ViewBag.Title = "Subject";
+    string firstTopicId = string.Empty;
+    if (Model.Chapters.Count > 0 && Model.Chapters[0].Topics.Count > 0)
+    {
+        firstTopicId = Model.Chapters[0].Topics.FirstOrDefault().Id.ToString();
+    }
+    else
+    {
+        firstTopicId = string.Empty;
+    }
 }
 <input class="first-topic-id" hidden value="@firstTopicId" />
 <div class="container">
