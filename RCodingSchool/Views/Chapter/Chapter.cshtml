@@ -4,6 +4,7 @@
     string firstTopicId = Model.Chapters.Count > 0 ? 
         firstTopicId = Model.Chapters[0].Topics.FirstOrDefault().Id.ToString() : string.Empty;
 }
+<input class="first-topic-id" hidden value="@firstTopicId" />
 <div class="container">
     <div class="btn-group teacher-toolbar text-center">
         <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Новий розділ</button>
@@ -42,15 +43,15 @@
                         </div>
                         <div id="@("collapse" + el.Id)" class="panel-collapse collapse">
                             <div class="panel-body list-group">
-                                @foreach (var x in el.Topics)
+                                @foreach (var topic in el.Topics)
                                 {
                                     <div class="row">
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                            <a href="#" onclick="d(@x.Id)" class="list-group-item list-group-item-action">@x.Name</a>
+                                            <a href="#" onclick="d(@topic.Id)" class="list-group-item list-group-item-action">@topic.Name</a>
                                         </div>
                                         <div class="col-lg-2 col-md-2 col-sm-8 col-xs-2">
-                                            <a href="@Url.Action("EditTopic", "Chapter", new { id = x.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редагувати"></i></a>
-                                            <a href="#"><i class="fa fa-trash-o" aria-hidden="true" title="Видалити"></i></a>
+                                            <a href="@Url.Action("EditTopic", "Chapter", new { id = topic.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редагувати"></i></a>
+                                            <a href="#"><i class="fa fa-trash-o delete-topic" topic-id="@topic.Id" aria-hidden="true" title="Видалити"></i></a>
                                         </div>
                                     </div>
                                 }
@@ -77,24 +78,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Відрегулюйте розмір зображення:</h4>
+            </div>
+            <div class="modal-body">
+                <input type="range" max="1000" min="100" step="10" id="image-width" />
+                <p>Ширина: <span id="image-width-indicator"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="save-range-btn">Зберегти</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Script
 {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.3.1/markdown-it.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
     <script src="~/Scripts/texmath.js"></script>
-    <script>
-        var md = markdownit({ html: true }).use(texmath.use(katex));
-        function d(id) {
-            var url = "/chapter/topic/";
-            if(id)
-                $.post(url, { id: id })
-                    .done(function (response) {
-                        var htmlText = decodeURI(response);
-                        var res = htmlText.replace("<img src", "img class=\"img-responsive\" src");
-                        $("#currentTopic").html(md.render(decodeURI(response)));
-                    });
-        }
-
-        d(@firstTopicId);
-    </script>
+    <script src="~/Scripts/chapter.js"></script>
 }

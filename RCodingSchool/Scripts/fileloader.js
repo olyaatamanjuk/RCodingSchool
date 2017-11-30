@@ -174,8 +174,8 @@ var form = document.forms[0];
         $('#image-width-indicator').html(_this.val());
     });
 
-    $('.upload').on('click', function (event) {
-        event.stopPropagation();
+    form.onsubmit = function (event) {
+        event.preventDefault();
 
         var fd = new FormData(form);
         fd.set('Text', encodeURI(fd.get('Text')));
@@ -194,5 +194,5 @@ var form = document.forms[0];
         };
         xhr.open('POST', form.action);
         xhr.send(fd);
-    });
+    };
 })();
