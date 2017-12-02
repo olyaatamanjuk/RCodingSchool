@@ -102,19 +102,19 @@ namespace RCodingSchool.Services
 			return _taskRepository.GetDoneTask(id);
 		}
 
-		public bool TryChangeDoneTask(DoneTaskVM donetaskVM)
+		public bool TryChangeDoneTask(DoneTaskVM doneTaskVM)
 		{
-			DoneTask doneTask = _taskRepository.GetDoneTask(donetaskVM.Id);
+			DoneTask doneTask = _taskRepository.GetDoneTask(doneTaskVM.Id);
 
-			if (!doneTask.Finished && String.IsNullOrWhiteSpace(donetaskVM.Comment))
+			if (!doneTaskVM.Finished && String.IsNullOrWhiteSpace(doneTaskVM.Comment))
 			{
 				return false;
 			}
 			else
 			{
-				doneTask.Mark = donetaskVM.Mark;
-				doneTask.Finished = donetaskVM.Finished;
-				doneTask.Comment = donetaskVM.Comment;
+				doneTask.Mark = doneTaskVM.Mark;
+				doneTask.Finished = doneTaskVM.Finished;
+				doneTask.Comment = doneTaskVM.Comment;
 				_taskRepository.SaveChanges();
 				return true;
 			}
