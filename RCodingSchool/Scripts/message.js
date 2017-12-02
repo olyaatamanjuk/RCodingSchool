@@ -18,7 +18,7 @@
                                         '<div class="media-right">' +
                                             '<img src="../../Content/images/default_user.png" class="media-object" style="width:40px">' +
                                         '</div>' +
-                                   '</div><hr>');
+                                   '</div>');
 
         scrollBottom(messagesList);
     };

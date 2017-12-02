@@ -234,6 +234,12 @@ namespace RCodingSchool.Services
 			{
 				Student student = _studentRepository.Get(x.Id);
 
+				student.User.IsActive = x.User.IsActive;
+				if (!(x.newGroupId == 0))
+				{
+					student.GroupId = x.newGroupId;
+				}
+
 				if (_userRepository.Get(UserId).isAdmin)
 				{
 					if (x.MarkForDelete)
@@ -244,12 +250,6 @@ namespace RCodingSchool.Services
 					{
 						student.User.isAdmin = x.User.isAdmin;
 					}
-				}
-
-				student.User.IsActive = x.User.IsActive;
-				if (!(x.newGroupId == 0))
-				{
-					student.GroupId = x.newGroupId;
 				}
 			}
 			_studentRepository.SaveChanges();

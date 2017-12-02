@@ -69,7 +69,7 @@
                                 <li class="dropdown-item">
                                     <a href="@Url.Action("EditAccount", "Account")" title="Change profile"><span class="glyphicon glyphicon-user"></span> Редагувати профіль</a>
                                 </li>
-                                @if (User.IsInRole("Teacher"))
+                                @if (User.IsInRole("Teacher")|| User.IsInRole("Admin"))
                                 {
                                     <li class="dropdown-item">
                                         <a href="@Url.Action("Groups", "Group")" title="Groups"><span class="glyphicon glyphicon-list-alt"></span>Групи</a>
