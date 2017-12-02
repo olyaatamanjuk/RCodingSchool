@@ -33,9 +33,9 @@ namespace RCodingSchool.Services
         }
 
         // Messages by group
-        public IEnumerable<Message> GetLastMessages(int count)
+        public IEnumerable<Message> GetLastMessages(int count, string groupName)
         {
-            return _messageRepository.GetLastMessages(count).Where(x => x.GroupName == GroupName).ToList();
+            return _messageRepository.GetLastMessages(count, groupName).OrderBy(x => x.ReceiveTime).ToList();
         }
     }
 }

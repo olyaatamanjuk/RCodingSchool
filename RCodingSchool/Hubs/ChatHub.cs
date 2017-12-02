@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.SignalR;
+using RCodingSchool.Extensions;
 using RCodingSchool.Services;
 using System;
 using System.Linq;
@@ -67,7 +68,7 @@ namespace RCodingSchool.Hubs
             var newDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 .AddMilliseconds(long.Parse(date));
 
-            Clients.Group(GroupName).broadcastMessage(Context.User.Identity.Name, message, date);
+            Clients.Group(GroupName).broadcastMessage(Context.User.Identity.GetFullName(), message, date);
 
             _messageService.SaveMessage(message, newDate);
         }

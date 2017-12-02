@@ -15,7 +15,7 @@
         var file = event.target.files[0];
         event.target.value = '';
 
-        if (file.type.indexOf('image/') != null) {
+        if (file.type.indexOf('image/') != 0) {
             return null;
         }
 

@@ -303,6 +303,7 @@
     <Compile Include="Controllers\SubjectController.cs" />
     <Compile Include="Extensions\DIExtention.cs" />
     <Compile Include="App_Start\MyContextInitializer.cs" />
+    <Compile Include="Extensions\IdentityExtension.cs" />
     <Compile Include="Hubs\Connections.cs" />
     <Compile Include="Interfaces\ITaskRepository.cs" />
     <Compile Include="Models\Comment.cs" />

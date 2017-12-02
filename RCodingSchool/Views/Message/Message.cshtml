@@ -8,13 +8,27 @@
                     @foreach (var x in Model)
                     {
                         <div class="media">
-                            <div class="media-left">
-                                <img src="../../Content/images/default_user.png" class="media-object" style="width:40px">
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">@x.User.FirstName @x.User.LastName<small> @x.ReceiveTime.ToString("dd/MM/yyyy hh:mm:ss")</small></h4>
-                                <p>@x.Text</p>
-                            </div>
+                            @if (User.Identity.Name != x.User.Email)
+                                 {
+                                <div class="media-left">
+                                    <img src="../../Content/images/default_user.png" class="media-object" style="width:40px">
+                                </div>
+                                <div class="media-body message-left">
+                                    <h4 class="media-heading">@x.User.FirstName @x.User.LastName<small> @x.ReceiveTime.ToString("dd/MM/yyyy hh:mm:ss")</small></h4>
+                                    <p>@x.Text</p>
+                                </div>
+                                    }
+                            else
+                            {
+                                <div class="media-body message-right">
+                                    <h4 class="media-heading">@x.User.FirstName @x.User.LastName<small> @x.ReceiveTime.ToString("dd/MM/yyyy hh:mm:ss")</small></h4>
+                                    <p>@x.Text</p>
+                                </div>
+                                <div class="media-right">
+                                    <img src="../../Content/images/default_user.png" class="media-object" style="width:40px">
+                                </div>
+                            }
+
                         </div>
                     <hr>}
                 </div>

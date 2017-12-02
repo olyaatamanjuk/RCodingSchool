@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using RCodingSchool.Extensions;
 using RCodingSchool.Models;
 using RCodingSchool.Services;
 using RCodingSchool.ViewModels;
@@ -20,8 +21,9 @@ namespace RCodingSchool.Controllers
 		[HttpGet]
 		public ActionResult Message(int currentMessageCount = 0)
         {
+			string groupName = User.Identity.GetGroupName();
 			int messageCount = currentMessageCount + 5; 
-			IEnumerable<Message> messages = _messageService.GetLastMessages(messageCount);
+			IEnumerable<Message> messages = _messageService.GetLastMessages(messageCount, groupName);
 			IEnumerable<MessageVM> messagesVM = Mapper.Map<IEnumerable<MessageVM>>(messages);
 			
 			return View(messagesVM);

@@ -1,4 +1,4 @@
-﻿library(strucchange)
+library(strucchange)
 library(fractal)
 library(fracdiff)
 library(pracma)
@@ -58,8 +58,8 @@ for (i in 1:(K*N)){
   if (i==1){
     plot(INT, data, col = clusterCut[i],xlim = c(1,T) , 
         ylim = c(min(Data[,2])-1,max(Data[,2])+1), type = 'l', 
-        main = 'івапрнвапвапр:',
-     xlab = 'екуцекуцкуе:', ylab = 'івапівапіва:')
+        main = 'Your time series:',
+     xlab = 'Time', ylab = 'Values')
    } else {
     lines(INT, data, col = clusterCut[i] , type = 'l')
    }

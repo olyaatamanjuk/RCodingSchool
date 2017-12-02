@@ -11,9 +11,6 @@ using Microsoft.Owin.Security;
 using RCodingSchool.Common;
 using System;
 using AutoMapper;
-using OfficeOpenXml;
-using System.Web.Helpers;
-using System.Security.Cryptography;
 
 namespace RCodingSchool.Controllers
 {
@@ -48,8 +45,8 @@ namespace RCodingSchool.Controllers
 			List<Claim> claims = new List<Claim>
 			{
 				new Claim(ClaimTypes.Name, user.Email),
-				new Claim("id", user.Id.ToString())
-                //new Claim("fullname", user.Id.ToString())
+				new Claim("id", user.Id.ToString()),
+                new Claim("fullName", user.FirstName + " "+ user.LastName)
             };
 
 			if (!(user.IsActive))
@@ -80,7 +77,6 @@ namespace RCodingSchool.Controllers
 		public ActionResult Logout()
 		{
 			HttpContext.GetOwinContext().Authentication.SignOut();
-
 			return RedirectToAction("Login", "Account");
 		}
 

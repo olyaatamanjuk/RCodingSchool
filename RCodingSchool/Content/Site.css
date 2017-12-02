@@ -100,7 +100,7 @@ a:hover {
 .teacher-toolbar{
     padding-bottom: 1em;
 }
-.chat-message .media-body {
+.message-left {
     border: 18px solid transparent;
     border-bottom-width: 0;
     position: relative;
@@ -122,4 +122,16 @@ color: #912626;
 .teacher-comment{
     padding-bottom: 1em;
     padding-top: 1em;
+}
+.message-right{
+    border: 18px solid transparent;
+    border-bottom-width: 0;
+    right: -1em;
+    border-right-width: 2em;
+    border-right-color: #fff;
+    background-color: lavender;
+    padding: 1em;
+}
+.media{
+    padding: 1em;
 }

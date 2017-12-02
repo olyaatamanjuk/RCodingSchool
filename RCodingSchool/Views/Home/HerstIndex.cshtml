@@ -6,9 +6,42 @@
 
 @if (Model != null)
 {
+    string resultMFDA = "";
+    string resultGPH = "";
     <h2 class="text-center">Результати обчислень :</h2>
-    <h5>H_MFDA = @Model.H[0]</h5>
-    <h5>H_GPH = @Model.H[1]</h5>
+    <h5>
+        H_MFDA = @Model.H[0], отже часовий ряд
+        @if (Model.H[0] - 0.5 > 0)
+        {
+            resultMFDA = "володіє довготривалою ";
+        }
+        else if (Model.H[0] - 0.5 < 0)
+        {
+            resultMFDA = "володіє короткотривалою ";
+        }
+        else
+        {
+            resultMFDA = "не володіє ";
+        }
+        @resultMFDA пам'яттю
+    </h5>
+
+    <h5>
+        H_GPH = @Model.H[1], отже часовий ряд
+        @if (Model.H[1] - 0.5 > 0)
+        {
+            resultGPH = "володіє довготривалою ";
+        }
+        else if (Model.H[1] - 0.5 < 0)
+        {
+            resultGPH = "володіє короткотривалою ";
+        }
+        else
+        {
+            resultGPH = "не володіє ";
+        }
+        @resultGPH пам'яттю
+    </h5>
     <img class="img-responsive center-block" src="../../Content/images/plots/current_plot.png" />
 
 }
@@ -19,17 +52,23 @@ else
     using (Html.BeginForm("HerstIndex", "Home", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
         <div class="row">
+            Завантежтете<label class="btn btn-lg  btn-link lead" for="file" title="Завантажити файл">
+                <input name="file" id="file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none" />
+                файл Excel
+            </label>з даними, що містить наступні колонки :
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <li class="list-group-item">Час</li>
+                        <li class="list-group-item">Значення спостереження за цей час</li>
+                    </ul>
+                </div>
+            </div>
             <div class="col-md-3 col-lg-3 col-sm-6 col-xs-3">
-                @Html.EditorFor(m => m.N, new { htmlAttributes = new { @class = "form-control input", @Placeholder="N" } })
+                @Html.EditorFor(m => m.N, new { htmlAttributes = new { @class = "form-control input", @Placeholder = "N" } })
             </div>
             <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
                 @Html.EditorFor(m => m.K, new { htmlAttributes = new { @class = "form-control input", @Placeholder = "K" } })
-            </div>
-            <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
-                <label class="btn btn-default" for="file" title="Додати файли">
-                    <input name="file" id="file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display:none" />
-                    <i class="fa fa-files-o" aria-hidden="true"> Завантежте файл</i>
-                </label>
             </div>
             <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
                 <button class="btn btn-primary">Обчислити</button>

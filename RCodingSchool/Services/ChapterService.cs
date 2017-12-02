@@ -100,7 +100,7 @@ namespace RCodingSchool.Services
                 var newFiles = _fileService.SaveImages(_httpContext.Request.Files, topic.Id);
                 foreach(var file in newFiles)
                 {
-                    topic.Text.Replace(file.Temporary, $"/Download/File/{file.Id}");
+                    topic.Text = topic.Text.Replace(file.Temporary, $"/Download/File/{file.Id}");
                 }
 
                 Topic originalTopic = GetTopicById(topic.Id);

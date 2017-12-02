@@ -11,9 +11,9 @@ namespace RCodingSchool.Repositories
         {
         }
 
-        public IQueryable<Message> GetLastMessages(int count)
+        public IQueryable<Message> GetLastMessages(int count, string groupName)
         {
-            return dbContext.Messages.Include("User").OrderBy(s => s.ReceiveTime).Take(count);
+            return dbContext.Messages.Include("User").Where(x => x.GroupName == groupName ).OrderByDescending(s => s.ReceiveTime).Take(count);
         }
     }
 }

@@ -11,14 +11,14 @@
         var encodeNow = $('<div />').text(now).html();
         // Add the message to the page.
         $('#discussion').append('  <div class="media">' +
-            '<div class="media-left">' +
-            '<img src="../../Content/images/default_user.png" class="media-object" style="width:40px">' +
-            '</div>' +
-            '<div class="media-body">' +
-            '<h4 class="media-heading">' + encodedName + '<small> ' + formatDate(now) + '</small></h4>' +
-            '<p>' + encodedMsg + '</p>' +
-            '</div>' +
-            '</div><hr>');
+                                      '<div class="media-body message-right">' +
+                                            '<h4 class="media-heading">' + encodedName + '<small> ' + formatDate(now) + '</small></h4>' +
+                                            '<p>' + encodedMsg + '</p>' +
+                                       '</div>' +
+                                        '<div class="media-right">' +
+                                            '<img src="../../Content/images/default_user.png" class="media-object" style="width:40px">' +
+                                        '</div>' +
+                                   '</div><hr>');
 
         scrollBottom(messagesList);
     };

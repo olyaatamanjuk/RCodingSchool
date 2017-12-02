@@ -5,6 +5,6 @@ namespace RCodingSchool.Interfaces
 {
     public interface IMessageRepository : IRepository<Message>
     {
-		IQueryable<Message> GetLastMessages(int count);
+		IQueryable<Message> GetLastMessages(int count, string groupName);
 	}
 }
