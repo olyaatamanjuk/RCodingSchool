@@ -33,9 +33,7 @@ namespace RCodingSchool.Services
 	public class HerstIndex
 	{
 		public double[] H { get; set; }
-		public double[] H_MFDFA { get; set; }
-		public double[] H_GPH { get; set; }
-		public string FilePath { get; set; }
+
 		public int N { get; set; }
 		public int K { get; set; }
 
@@ -46,31 +44,17 @@ namespace RCodingSchool.Services
 				this.N = Convert.ToInt32(N);
 				this.K = Convert.ToInt32(K);
 				int indexOfChar = text.IndexOf("RESULTS:");
+
+
 				text = text.Substring(indexOfChar + 10).Replace("[1] ", "").Trim();
 
-				string[] mas = text.Split(new char[] { '\n' });
-
-
-				string[] h_mdfa = mas[0].Split(new char[] { ' ' });
-				H_MFDFA = new double[h_mdfa.Length];
-				for (int i = 0; i < h_mdfa.Length; i++)
+				string[] mas = text.Split(new char[] { ' ' });
+				H = new double[mas.Length];
+				for (int i = 0; i < mas.Length; i++)
 				{
-					H_MFDFA[i] = double.Parse(h_mdfa[i], CultureInfo.InvariantCulture);
+					H[i] = double.Parse(mas[i], CultureInfo.InvariantCulture);
 				}
 
-				string[] h_gph = mas[1].Split(new char[] { ' ' });
-				H_GPH = new double[h_gph.Length];
-				for (int i = 0; i < h_gph.Length; i++)
-				{
-					H_GPH[i] = double.Parse(h_gph[i], CultureInfo.InvariantCulture);
-				}
-
-				string[] h = mas[2].Split(new char[] { ' ' });
-				H = new double[h.Length];
-				for (int i = 0; i < h.Length; i++)
-				{
-					H[i] = double.Parse(h[i], CultureInfo.InvariantCulture);
-				}
 			}
 			catch (Exception e)
 			{

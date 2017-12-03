@@ -100,13 +100,9 @@ for (i in 1:N){
    H_GPH[i] = mean(unlist(FRAME$GPH[clusterCut == i]), na.rm = TRUE)
 }
 
-"RESULTS:"
-H_DFA 
+H_DFA
 H_GPH 
-
-## Calculation average of H
-
 DFA = sum(pi*H_DFA)
 GPH = sum(pi*H_GPH)
-
+"RESULTS:"
 c(DFA, GPH)
