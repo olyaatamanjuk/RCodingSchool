@@ -17,14 +17,14 @@ namespace RCodingSchool.Repositories
 		{
 			Student student = dbContext.Students.Where(x => x.Id == studentId).FirstOrDefault();
 			student.GroupId = groupId;
-			SaveChanges();
+			dbContext.SaveChanges();
 		}
 
 		public void DeleteStudentFromGroup(int studentId)
 		{
 			Student student = dbContext.Students.Where(x => x.Id == studentId).FirstOrDefault();
 			student.GroupId = null;
-			SaveChanges();
+            dbContext.SaveChanges();
 		}
 
 		public Group GetByName( string groupName)
@@ -53,7 +53,7 @@ namespace RCodingSchool.Repositories
 
 			Group group = dbContext.Groups.Where(x => x.Id == groupId).FirstOrDefault();
 			dbContext.Groups.Remove(group);
-			SaveChanges();
+            dbContext.SaveChanges();
 		}
 	}
 }

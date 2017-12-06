@@ -1,5 +1,4 @@
-﻿using RCodingSchool.Models;
-using RCodingSchool.Repositories;
+﻿using RCodingSchool.UnitOW;
 using RCodingSchool.ViewModels;
 using System.Collections.Generic;
 using System.IO;
@@ -10,12 +9,12 @@ namespace RCodingSchool.Services
 {
     public class FileService : BaseService
     {
-        private readonly FileRepository _fileRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public FileService(FileRepository fileRepository, HttpContextBase httpContext)
+        public FileService(IUnitOfWork unitOfWork, HttpContextBase httpContext)
             : base(httpContext)
         {
-            _fileRepository = fileRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public IEnumerable<FileVM> SaveImages(HttpFileCollectionBase files, int topicId)
@@ -33,13 +32,13 @@ namespace RCodingSchool.Services
                     var location = Path.Combine(path, file.FileName);
                     file.SaveAs(location);
 
-                    var newFile = _fileRepository.Add(new Models.File
+                    var newFile = _unitOfWork.FileRepository.Add(new Models.File
                     {
                         Name = file.FileName,
                         Location = location,
                         TopicId = topicId
                     });
-                    _fileRepository.SaveChanges();
+                    _unitOfWork.SaveChanges();
 
                     newFiles.Add(new FileVM
                     {
@@ -54,17 +53,17 @@ namespace RCodingSchool.Services
 
         public void DeleteImages(TopicVM topic)
         {
-            var oldFiles = _fileRepository.GetByTopicId(topic.Id);
+            var oldFiles = _unitOfWork.FileRepository.GetByTopicId(topic.Id);
 
             foreach (var file in oldFiles)
             {
                 if (!topic.Text.Contains("Download/File/" + file.Id))
                 {
-                    _fileRepository.Remove(file);
+                    _unitOfWork.FileRepository.Remove(file);
                 }
             }
 
-            _fileRepository.SaveChanges();
+            _unitOfWork.SaveChanges();
         }
 
         public string TrySaveDataFile(HttpPostedFileBase file)
@@ -105,11 +104,11 @@ namespace RCodingSchool.Services
                     modelFile.Location = path;
                     modelFile.Name = fileName;
                     modelFile.TaskId = taskId;
-                    _fileRepository.Add(modelFile);
+                    _unitOfWork.FileRepository.Add(modelFile);
                 }
             }
 
-            _fileRepository.SaveChanges();
+            _unitOfWork.SaveChanges();
         }
 
         public void SaveDoneTaskFiles(int taskId, int doneTaskId, IEnumerable<HttpPostedFileBase> files)
@@ -131,25 +130,25 @@ namespace RCodingSchool.Services
                     modelFile.Location = path;
                     modelFile.Name = fileName;
                     modelFile.DoneTaskId = doneTaskId;
-                    _fileRepository.Add(modelFile);
+                    _unitOfWork.FileRepository.Add(modelFile);
                 }
             }
 
-            _fileRepository.SaveChanges();
+            _unitOfWork.SaveChanges();
         }
 
         public Models.File Get(int id)
         {
-            return _fileRepository.Get(id);
+            return _unitOfWork.FileRepository.Get(id);
         }
 
         public void RemoveImages(int topicId)
         {
-            foreach (var file in _fileRepository.GetByTopicId(topicId))
+            foreach (var file in _unitOfWork.FileRepository.GetByTopicId(topicId))
             {
-                _fileRepository.Remove(file);
+                _unitOfWork.FileRepository.Remove(file);
             }
-            _fileRepository.SaveChanges();
+            _unitOfWork.SaveChanges();
         }
     }
 }

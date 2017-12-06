@@ -1,20 +1,20 @@
 ﻿using RCodingSchool.Models;
 using System;
-using RCodingSchool.Interfaces;
 using System.Collections.Generic;
 using System.Web;
 using System.Linq;
+using RCodingSchool.UnitOW;
 
 namespace RCodingSchool.Services
 {
     public class MessageService : BaseService
     {
-        private readonly IMessageRepository _messageRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public MessageService(IMessageRepository messageRepository, HttpContextBase httpContext)
+        public MessageService(IUnitOfWork unitOfWork, HttpContextBase httpContext)
             : base(httpContext)
         {
-            _messageRepository = messageRepository;
+            _unitOfWork = unitOfWork;
         }
 
         //Group message
@@ -28,14 +28,14 @@ namespace RCodingSchool.Services
                 GroupName = GroupName
             };
 
-            _messageRepository.Add(message);
-            _messageRepository.SaveChanges();
+            _unitOfWork.MessageRepository.Add(message);
+            _unitOfWork.SaveChanges();
         }
 
         // Messages by group
         public IEnumerable<Message> GetLastMessages(int count, string groupName)
         {
-            return _messageRepository.GetLastMessages(count, groupName).OrderBy(x => x.ReceiveTime).ToList();
+            return _unitOfWork.MessageRepository.GetLastMessages(count, groupName).OrderBy(x => x.ReceiveTime).ToList();
         }
     }
 }

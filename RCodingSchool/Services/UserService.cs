@@ -1,40 +1,30 @@
-﻿using RCodingSchool.Models;
-using RCodingSchool.Interfaces;
+﻿using OfficeOpenXml;
+using RCodingSchool.Models;
+using RCodingSchool.UnitOW;
 using RCodingSchool.ViewModels;
-using System.Web.Helpers;
 using System;
-using System.Net.Mail;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
-using AutoMapper;
-using OfficeOpenXml;
+using System.Web.Helpers;
 
 namespace RCodingSchool.Services
 {
-	public class UserService : BaseService
+    public class UserService : BaseService
 	{
-		private readonly IUserRepository _userRepository;
-		private readonly IStudentRepository _studentRepository;
-		private readonly ITeacherRepository _teacherRepository;
-		private readonly IGroupRepository _groupRepository;
-		private readonly HttpContextBase _httpContext;
+        private readonly IUnitOfWork _unitOfWork;
 
-		public UserService(IUserRepository userRepository, IStudentRepository studentRepository,
-			ITeacherRepository teacherRepository, IGroupRepository groupRepository, HttpContextBase httpContext)
+        public UserService(IUnitOfWork unitOfWork, HttpContextBase httpContext)
 			: base(httpContext)
 		{
-			_userRepository = userRepository;
-			_studentRepository = studentRepository;
-			_teacherRepository = teacherRepository;
-			_groupRepository = groupRepository;
-			_httpContext = httpContext;
-		}
+            _unitOfWork = unitOfWork;
+        }
 
 		public bool TryLogin(UserVM loginCreds, out User user)
 		{
-			user = _userRepository.GetByEmail(loginCreds.Email);
+			user =  _unitOfWork.UserRepository.GetByEmail(loginCreds.Email);
 
 			if (user == null)
 			{
@@ -61,7 +51,7 @@ namespace RCodingSchool.Services
 
 		public User GetUserByEmail(string email)
 		{
-			return _userRepository.GetByEmail(email);
+			return _unitOfWork.UserRepository.GetByEmail(email);
 		}
 
 		public User RegisterNew(UserVM userVM)
@@ -81,7 +71,7 @@ namespace RCodingSchool.Services
 				return null;
 			}
 
-			_userRepository.Add(user);
+            _unitOfWork.UserRepository.Add(user);
 
 			if (userVM.IsTeacher)
 			{
@@ -89,18 +79,18 @@ namespace RCodingSchool.Services
 				{
 					User = user
 				};
-				_teacherRepository.Add(teacher);
-				_teacherRepository.SaveChanges();
+                _unitOfWork.TeacherRepository.Add(teacher);
+                _unitOfWork.SaveChanges();
 			}
 			else
 			{
 				Student student = new Student
 				{
-					Group = _groupRepository.Get(userVM.GroupId),
+					Group = _unitOfWork.GroupRepository.Get(userVM.GroupId),
 					User = user
 				};
-				_studentRepository.Add(student);
-				_studentRepository.SaveChanges();
+                _unitOfWork.StudentRepository.Add(student);
+                _unitOfWork.SaveChanges();
 			}
 
 			return null;
@@ -108,7 +98,7 @@ namespace RCodingSchool.Services
 
 		public void FinishRegister(Guid registerCode)
 		{
-			var user = _userRepository.GetByRegisterCode(registerCode);
+			var user = _unitOfWork.UserRepository.GetByRegisterCode(registerCode);
 
 			if (user == null)
 			{
@@ -117,7 +107,7 @@ namespace RCodingSchool.Services
 
 			user.RegisterCode = Guid.Empty;
 
-			_userRepository.SaveChanges();
+            _unitOfWork.SaveChanges();
 		}
 
 		public bool CheckValidation(UserVM userVM, bool editing = false)
@@ -154,12 +144,12 @@ namespace RCodingSchool.Services
 
 		public List<Group> GetGroups()
 		{
-			return _groupRepository.GetAll().ToList();
+			return _unitOfWork.GroupRepository.GetAll().ToList();
 		}
 
 		public T GetActualUserById<T>(int id)
 		{
-			return _userRepository.GetActualUserById<T>(id);
+			return _unitOfWork.UserRepository.GetActualUserById<T>(id);
 		}
 
 		private bool SendEmail(string email, Guid registerCode)
@@ -190,16 +180,16 @@ namespace RCodingSchool.Services
 
 		public bool IsTeacher(int id)
 		{
-			return _userRepository.IsTeacher(id);
+			return _unitOfWork.UserRepository.IsTeacher(id);
 		}
 
 		public List<Teacher> GetTeachers(bool active)
 		{
-			List<User> usersList = _userRepository.GetUsersByActivity(active).ToList();
+			List<User> usersList = _unitOfWork.UserRepository.GetUsersByActivity(active).ToList();
 			List<Teacher> teacherList = new List<Teacher>();
 			foreach (var x in usersList)
 			{
-				var user = _userRepository.GetActualUserById<Teacher>(x.Id);
+				var user = _unitOfWork.UserRepository.GetActualUserById<Teacher>(x.Id);
 				if (!(user == null))
 				{
 					teacherList.Add(user);
@@ -210,11 +200,11 @@ namespace RCodingSchool.Services
 
 		public List<Student> GetStudents(bool active)
 		{
-			List<User> usersList = _userRepository.GetUsersByActivity(active).ToList();
+			List<User> usersList = _unitOfWork.UserRepository.GetUsersByActivity(active).ToList();
 			List<Student> studentList = new List<Student>();
 			foreach (var x in usersList)
 			{
-				var user = _userRepository.GetActualUserById<Student>(x.Id);
+				var user = _unitOfWork.UserRepository.GetActualUserById<Student>(x.Id);
 				if (!(user == null))
 				{
 					studentList.Add(user);
@@ -225,14 +215,14 @@ namespace RCodingSchool.Services
 
 		public List<User> GetUsersByActivity(bool active)
 		{
-			return _userRepository.GetUsersByActivity(active).ToList();
+			return _unitOfWork.UserRepository.GetUsersByActivity(active).ToList();
 		}
 
 		public void SaveStudentChanges(List<StudentVM> listStudentVM)
 		{
 			foreach (StudentVM x in listStudentVM)
 			{
-				Student student = _studentRepository.Get(x.Id);
+				Student student = _unitOfWork.StudentRepository.Get(x.Id);
 
 				student.User.IsActive = x.User.IsActive;
 				if (!(x.newGroupId == 0))
@@ -240,11 +230,11 @@ namespace RCodingSchool.Services
 					student.GroupId = x.newGroupId;
 				}
 
-				if (_userRepository.Get(UserId).isAdmin)
+				if (_unitOfWork.UserRepository.Get(UserId).isAdmin)
 				{
 					if (x.MarkForDelete)
 					{
-						_studentRepository.Remove(student);
+                        _unitOfWork.StudentRepository.Remove(student);
 					}
 					else
 					{
@@ -252,21 +242,21 @@ namespace RCodingSchool.Services
 					}
 				}
 			}
-			_studentRepository.SaveChanges();
+            _unitOfWork.SaveChanges();
 		}
 
 		public void SaveTeacherChanges(List<TeacherVM> listTeacherVM)
 		{
 			foreach (TeacherVM x in listTeacherVM)
 			{
-				Teacher teacher = _teacherRepository.Get(x.Id);
+				Teacher teacher = _unitOfWork.TeacherRepository.Get(x.Id);
 				teacher.User.IsActive = x.User.IsActive;
 
-				if (_userRepository.Get(UserId).isAdmin)
+				if (_unitOfWork.UserRepository.Get(UserId).isAdmin)
 				{
 					if (x.MarkForDelete)
 					{
-						_teacherRepository.Remove(teacher);
+                        _unitOfWork.TeacherRepository.Remove(teacher);
 					}
 					else
 					{
@@ -274,7 +264,7 @@ namespace RCodingSchool.Services
 					}
 				}
 			}
-			_teacherRepository.SaveChanges();
+            _unitOfWork.SaveChanges();
 		}
 
 		public bool TrySaveUsersFromFile(HttpPostedFileBase file, bool isItTeachers)
@@ -340,8 +330,8 @@ namespace RCodingSchool.Services
 
 						user.Password = Crypto.SHA256(System.Web.Security.Membership.GeneratePassword(10, 0));
 						user.IsActive = true;
-						_userRepository.Add(user);
-						_userRepository.SaveChanges();
+                        _unitOfWork.UserRepository.Add(user);
+                        _unitOfWork.SaveChanges();
 
 						if (isItTeachers)
 						{
@@ -358,7 +348,7 @@ namespace RCodingSchool.Services
 							Group group = new Group();
 							if (!String.IsNullOrWhiteSpace(groupName))
 							{
-								group = _groupRepository.GetByName(groupName);
+								group = _unitOfWork.GroupRepository.GetByName(groupName);
 								if (group == null)
 								{
 									group = AddGroup(groupName);
@@ -377,10 +367,10 @@ namespace RCodingSchool.Services
 							studentsList.Add(student);
 						}
 					}
-					_studentRepository.AddRange(studentsList);
-					_studentRepository.SaveChanges();
-					_teacherRepository.AddRange(teachersList);
-					_teacherRepository.SaveChanges();
+                    _unitOfWork.StudentRepository.AddRange(studentsList);
+                    _unitOfWork.SaveChanges();
+                    _unitOfWork.TeacherRepository.AddRange(teachersList);
+                    _unitOfWork.SaveChanges();
 				}
 				return true;
 			}
@@ -396,14 +386,14 @@ namespace RCodingSchool.Services
 			{
 				Name = name
 			};
-			_groupRepository.Add(group);
-			_groupRepository.SaveChanges();
+            _unitOfWork.GroupRepository.Add(group);
+            _unitOfWork.SaveChanges();
 			return group;
 		}
 
 		public bool TryEditUser(UserVM userVM)
 		{
-			User user = _userRepository.Get(userVM.Id);
+			User user = _unitOfWork.UserRepository.Get(userVM.Id);
 			if (user == null)
 			{
 				return false;
@@ -417,7 +407,7 @@ namespace RCodingSchool.Services
 				{
 					user.Password = Crypto.SHA256(userVM.Password);
 				}
-				_userRepository.SaveChanges();
+                _unitOfWork.SaveChanges();
 
 				return true;
 			}
@@ -425,7 +415,7 @@ namespace RCodingSchool.Services
 
 		public User Get(int id)
 		{
-			return _userRepository.Get(id);
+			return _unitOfWork.UserRepository.Get(id);
 		}
 	}
 }

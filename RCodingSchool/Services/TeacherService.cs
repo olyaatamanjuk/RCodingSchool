@@ -1,6 +1,5 @@
-﻿using RCodingSchool.Interfaces;
-using RCodingSchool.Models;
-using System;
+﻿using RCodingSchool.Models;
+using RCodingSchool.UnitOW;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,70 +8,68 @@ namespace RCodingSchool.Services
 {
 	public class TeacherService : BaseService
 	{
-		private readonly ITeacherRepository _teacherRepository;
-		private readonly IGroupRepository _groupRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-		public TeacherService(ITeacherRepository teacherRepository, IGroupRepository groupRepository, HttpContextBase httpContext)
+        public TeacherService(IUnitOfWork unitOfWork, HttpContextBase httpContext)
 			:base(httpContext)
 		{
-			_teacherRepository = teacherRepository;
-			_groupRepository = groupRepository;
-		}
+            _unitOfWork = unitOfWork;
+        }
 
 		public void DeleteGroup(int teacherId, int groupId)
 		{
-			_teacherRepository.DeleteGroup(teacherId, groupId);
+            _unitOfWork.TeacherRepository.DeleteGroup(teacherId, groupId);
 		}
 
 		public void AddGroup(int teacherId, int groupId)
 		{
-			_teacherRepository.AddGroup(teacherId, groupId);
+            _unitOfWork.TeacherRepository.AddGroup(teacherId, groupId);
 		}
 
 		public List<Group> GetTeacherGroups()
 		{
 			int teacherId = GetTeacherByUserId(UserId).Id;
-			return _teacherRepository.GetTeacherGroups(teacherId);
+			return _unitOfWork.TeacherRepository.GetTeacherGroups(teacherId);
 		}
 
 		public void AddStudentToGroup(int groupId, int studentId)
 		{
-			_groupRepository.AddStudentToGroup(groupId, studentId);
+			_unitOfWork.GroupRepository.AddStudentToGroup(groupId, studentId);
 		}
 
 		public void CreateGroup(string newGroupName)
 		{
 			Group group = new Group() { Name = newGroupName };
-			_groupRepository.Add(group);
-			_groupRepository.SaveChanges();
+            _unitOfWork.GroupRepository.Add(group);
+            _unitOfWork.SaveChanges();
 			int teacherId = GetTeacherByUserId(UserId).Id;
-			_teacherRepository.AddGroup(teacherId, group.Id);
-			_teacherRepository.SaveChanges();
+            _unitOfWork.TeacherRepository.AddGroup(teacherId, group.Id);
+            _unitOfWork.SaveChanges();
 		}
 
 		public void DeleteStudentGroup(int studentId)
 		{
-			_groupRepository.DeleteStudentFromGroup(studentId);
+            _unitOfWork.GroupRepository.DeleteStudentFromGroup(studentId);
 		}
 
 		public void DeleteGroup(int groupId)
 		{
-			_groupRepository.DeleteGroup(groupId);
+            _unitOfWork.GroupRepository.DeleteGroup(groupId);
 		}
 
 		public Teacher GetTeacherByUserId(int id)
 		{
-			return _teacherRepository.GetTeacherByUserId(id);
+			return _unitOfWork.TeacherRepository.GetTeacherByUserId(id);
 		}
 
 		public List<Student> GetStudentsByGroupId(int groupId)
 		{
-			return _groupRepository.GetStudentsByGroupId(groupId);
+			return _unitOfWork.GroupRepository.GetStudentsByGroupId(groupId);
 		}
 
 		public List<Group> GetAllGroups()
 		{
-			return _groupRepository.GetAll().ToList();
+			return _unitOfWork.GroupRepository.GetAll().ToList();
 		}
 	}
 }

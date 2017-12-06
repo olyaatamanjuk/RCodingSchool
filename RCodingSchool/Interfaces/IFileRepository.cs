@@ -1,13 +1,10 @@
 ﻿using RCodingSchool.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RCodingSchool.Interfaces
 {
-    interface IFileRepository : IRepository<File>
+    public interface IFileRepository : IRepository<File>
     {
+        IQueryable<File> GetByTopicId(int topicId);
     }
 }

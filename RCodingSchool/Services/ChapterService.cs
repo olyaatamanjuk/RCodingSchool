@@ -4,55 +4,51 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using RCodingSchool.Interfaces;
 using AutoMapper;
+using RCodingSchool.UnitOW;
 
 namespace RCodingSchool.Services
 {
     public class ChapterService : BaseService
     {
-        private readonly IChapterRepository _chapterRepository;
-        private readonly ITopicRepository _topicRepository;
-        private readonly IUserRepository _userRepository;
+        public IUnitOfWork _unitOfWork;
         private readonly FileService _fileService;
 
-        public ChapterService(IChapterRepository chapterRepository, ITopicRepository topicRepository, IUserRepository userRepository,
-            FileService fileService, HttpContextBase httpContext) : base(httpContext)
+        public ChapterService(IUnitOfWork unitOfWork, FileService fileService, HttpContextBase httpContext)
+            : base(httpContext)
         {
-            _chapterRepository = chapterRepository;
-            _topicRepository = topicRepository;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
             _fileService = fileService;
         }
 
         public List<Chapter> GetList()
         {
-            return _chapterRepository.GetAll().ToList();
+            return _unitOfWork.ChapterRepository.GetAll().ToList();
         }
 
         public Topic GetTopicById(int id)
         {
-            return _topicRepository.Get(id);
+            return _unitOfWork.TopicRepository.Get(id);
         }
 
         public Topic GetFirstTopicFromChaper(int id)
         {
-            return _topicRepository.GetFirstFromChapter(id);
+            return _unitOfWork.TopicRepository.GetFirstFromChapter(id);
         }
 
         public Chapter GetFirstChapter()
         {
-            return _chapterRepository.GetFirst();
+            return _unitOfWork.ChapterRepository.GetFirst();
         }
 
         public Chapter GetById(int id)
         {
-            return _chapterRepository.Get(id);
+            return _unitOfWork.ChapterRepository.Get(id);
         }
 
         public List<Chapter> GetListChaptersBySubjectId(int id)
         {
-            return _chapterRepository.GetListChaptersBySubjectId(id).ToList();
+            return _unitOfWork.ChapterRepository.GetListChaptersBySubjectId(id).ToList();
         }
 
         public bool TrySaveTopic(TopicVM topicVM)
@@ -65,16 +61,16 @@ namespace RCodingSchool.Services
             {
                 var topic = Mapper.Map<Topic>(topicVM);
 
-                topic.AuthorId = _userRepository.GetActualUserById<Teacher>(UserId).Id;
+                topic.AuthorId = _unitOfWork.UserRepository.GetActualUserById<Teacher>(UserId).Id;
 
-                topic = _topicRepository.Add(topic);
-                _topicRepository.SaveChanges();
+                topic = _unitOfWork.TopicRepository.Add(topic);
+                _unitOfWork.SaveChanges();
                 var files = _fileService.SaveImages(_httpContext.Request.Files, topic.Id);
                 foreach (var file in files)
                 {
                     topic.Text = topic.Text.Replace(file.Temporary, $"/Download/File/{file.Id.ToString()}");
                 }
-                _topicRepository.SaveChanges();
+                _unitOfWork.SaveChanges();
 
                 return true;
             }
@@ -83,8 +79,8 @@ namespace RCodingSchool.Services
         public void AddChapter(ChapterVM chapterVM)
         {
             Chapter chapter = Mapper.Map<Chapter>(chapterVM);
-            _chapterRepository.Add(chapter);
-            _chapterRepository.SaveChanges();
+            _unitOfWork.ChapterRepository.Add(chapter);
+            _unitOfWork.SaveChanges();
         }
 
         public bool TryEditTopic(TopicVM topic)
@@ -98,7 +94,7 @@ namespace RCodingSchool.Services
                 _fileService.DeleteImages(topic);
 
                 var newFiles = _fileService.SaveImages(_httpContext.Request.Files, topic.Id);
-                foreach(var file in newFiles)
+                foreach (var file in newFiles)
                 {
                     topic.Text = topic.Text.Replace(file.Temporary, $"/Download/File/{file.Id}");
                 }
@@ -106,17 +102,17 @@ namespace RCodingSchool.Services
                 Topic originalTopic = GetTopicById(topic.Id);
                 originalTopic.Name = topic.Name;
                 originalTopic.Text = topic.Text;
-                _topicRepository.SaveChanges();
+                _unitOfWork.SaveChanges();
                 return true;
             }
         }
 
         public void RemoveTopic(int id)
         {
-            var topic = _topicRepository.Get(id);
+            var topic = _unitOfWork.TopicRepository.Get(id);
             _fileService.RemoveImages(id);
-            _topicRepository.Remove(topic);
-            _topicRepository.SaveChanges();
+            _unitOfWork.TopicRepository.Remove(topic);
+            _unitOfWork.SaveChanges();
         }
     }
 }
