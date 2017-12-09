@@ -142,7 +142,7 @@ namespace RCodingSchool.Controllers
 			HerstIndex herstIndexResult = new HerstIndex();
 			if (!String.IsNullOrWhiteSpace(filePath))
 			{
-				herstIndexResult = new RService().AnalizeDataByRange(filePath, herstIndex.N.ToString(), herstIndex.K.ToString());
+				herstIndexResult = new RService().AnalizeDataByRange(herstIndex.N.ToString(), herstIndex.K.ToString());
 				TempData["Results"] = herstIndexResult;
 			}
 
