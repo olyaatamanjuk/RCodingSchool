@@ -25,7 +25,12 @@ namespace RCodingSchool.Services
             return _unitOfWork.SubjectRepository.GetAll().ToList<Subject>();
         }
 
-        public List<Task> GetTaskList()
+		public Subject Get(int id)
+		{
+			return _unitOfWork.SubjectRepository.Get(id);
+		}
+
+		public List<Task> GetTaskList()
         {
             return _unitOfWork.TaskRepository.GetAll().ToList<Task>();
         }
@@ -117,5 +122,25 @@ namespace RCodingSchool.Services
         {
             return _unitOfWork.TaskRepository.GetDoneTaskByTaskId(taskId, UserId);
         }
-    }
+
+		public bool TrySaveCalendar(SubjectVM subjectVM)
+		{
+			if (String.IsNullOrWhiteSpace(subjectVM.Calendar))
+			{
+				return false;
+			}
+			else if (!(subjectVM.Calendar.Contains(".calendar.google.com")))
+			{
+				return false;
+			}
+			else
+			{
+				Subject subject = Get(subjectVM.Id);
+				subject.Calendar = subjectVM.Calendar;
+				_unitOfWork.SaveChanges();
+				return true;
+			}
+		}
+
+	}
 }

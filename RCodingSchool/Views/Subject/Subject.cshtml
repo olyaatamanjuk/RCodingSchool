@@ -9,6 +9,7 @@
                 <tr onclick="location.href='link.com'">
                     <th>Назва предмету</th>
                     <th>Вид контролю</th>
+                    <th>Календар подій</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +24,13 @@
                         else
                         {
                             <td>Залік</td>
+                        }
+                        @if (!(String.IsNullOrWhiteSpace(x.Calendar)) || (User.IsInRole("Admin") || User.IsInRole("Teacher"))){
+                        <td onclick="location.href='@Url.Action("Calendar", "Subject", new { id = @x.Id })'"><i class="fa fa-calendar fa-x2" aria-hidden="true"></i></td>
+                        }
+                        else
+                        {
+                            <td></td>
                         }
                     </tr>
                 }

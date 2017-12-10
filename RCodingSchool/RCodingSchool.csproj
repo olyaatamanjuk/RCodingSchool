@@ -417,6 +417,7 @@
     <Content Include="Views\Account\LoadUsers.cshtml" />
     <Content Include="Views\Home\EditNews.cshtml" />
     <Content Include="Views\Account\EditAccount.cshtml" />
+    <Content Include="Views\Subject\Calendar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

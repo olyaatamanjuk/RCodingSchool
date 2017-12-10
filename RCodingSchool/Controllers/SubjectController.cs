@@ -130,5 +130,25 @@ namespace RCodingSchool.Controllers
 				return View(doneTaskVM);
 			}
 		}
+
+		[HttpGet]
+		public ActionResult Calendar(int id)
+		{
+			SubjectVM subjectVM = Mapper.Map<SubjectVM>(_subjectService.Get(id));
+			return View(subjectVM);
+		}
+
+		[HttpPost]
+		public ActionResult Calendar(SubjectVM subjectVM)
+		{
+			if (_subjectService.TrySaveCalendar(subjectVM))
+			{
+				return RedirectToAction("Calendar", new { id = subjectVM.Id });
+			}
+			else
+			{
+				return View(subjectVM);
+			}
+		}
 	}
 }
