@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace RCodingSchool.Models
 {
@@ -10,11 +9,8 @@ namespace RCodingSchool.Models
 		public string LastName { get; set; }
 		public string Password { get; set; }
         public string RoleName { get; set; }
-		public bool isAdmin { get; set; }
+		public bool IsAdmin { get; set; }
         public Guid RegisterCode { get; set; }
 		public bool IsActive { get; set; }
-
-		public virtual ICollection<Message> Messages { get; set; }
-		public virtual ICollection<Comment> Comments { get; set; }
 	}
 }

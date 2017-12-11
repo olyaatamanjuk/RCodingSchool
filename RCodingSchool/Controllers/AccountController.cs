@@ -53,7 +53,7 @@ namespace RCodingSchool.Controllers
 			{
 				claims.Add(new Claim(ClaimTypes.Role, Roles.User));
 			}
-			else if (user.isAdmin)
+			else if (user.IsAdmin)
 			{
 				claims.Add(new Claim(ClaimTypes.Role, Roles.Admin));
 			}

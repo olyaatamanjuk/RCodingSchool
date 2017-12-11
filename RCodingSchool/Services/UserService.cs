@@ -230,7 +230,7 @@ namespace RCodingSchool.Services
 					student.GroupId = x.newGroupId;
 				}
 
-				if (_unitOfWork.UserRepository.Get(UserId).isAdmin)
+				if (_unitOfWork.UserRepository.Get(UserId).IsAdmin)
 				{
 					if (x.MarkForDelete)
 					{
@@ -238,7 +238,7 @@ namespace RCodingSchool.Services
 					}
 					else
 					{
-						student.User.isAdmin = x.User.isAdmin;
+						student.User.IsAdmin = x.User.IsAdmin;
 					}
 				}
 			}
@@ -252,7 +252,7 @@ namespace RCodingSchool.Services
 				Teacher teacher = _unitOfWork.TeacherRepository.Get(x.Id);
 				teacher.User.IsActive = x.User.IsActive;
 
-				if (_unitOfWork.UserRepository.Get(UserId).isAdmin)
+				if (_unitOfWork.UserRepository.Get(UserId).IsAdmin)
 				{
 					if (x.MarkForDelete)
 					{
@@ -260,7 +260,7 @@ namespace RCodingSchool.Services
 					}
 					else
 					{
-						teacher.User.isAdmin = x.User.isAdmin;
+						teacher.User.IsAdmin = x.User.IsAdmin;
 					}
 				}
 			}

@@ -18,7 +18,8 @@ namespace RCodingSchool.Models
 		public DbSet<Comment> Comments { get; set; }
 		public DbSet<TeacherGroup> TeacherGroup { get; set; }
 
-		public RCodingSchoolContext() : base("RCoddingSchoolContext")
+		public RCodingSchoolContext()
+            : base("RCoddingSchoolContext")
         {
 		}
 
@@ -32,18 +33,6 @@ namespace RCodingSchool.Models
 
 			modelBuilder.Entity<TeacherSubject>()
 				 .HasKey(x => new { x.TeacherId, x.SubjectId });
-
-			modelBuilder.Entity<User>()
-				.HasMany(t => t.Messages)
-				.WithRequired()
-				.HasForeignKey(c => c.UserId)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<User>()
-				.HasMany(t => t.Comments)
-				.WithOptional()
-				.HasForeignKey(c => c.UserId)
-				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Teacher>()
 				.HasMany(t => t.News)
