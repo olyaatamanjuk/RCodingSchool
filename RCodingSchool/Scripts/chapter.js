@@ -12,9 +12,11 @@
         if (id)
             $.post(url, { id: id })
                 .done(function (response) {
-                    var htmlText = decodeURI(response);
-                    var res = htmlText.replace("<img src", "img class=\"img-responsive\" src");
-                    $("#currentTopic").html(md.render(decodeURI(response)));
+                    var htmlText = decodeURI(response.text);
+                    var html = `<div><h3>${response.name}</h3><div>${md.render(htmlText)}</div></div>`
+
+                    html = html.replace("<img src", "<img class=\"img-responsive\" src");
+                    $("#currentTopic").html(html);
                 });
     }
 

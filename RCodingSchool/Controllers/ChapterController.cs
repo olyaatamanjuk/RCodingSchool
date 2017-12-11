@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using RCodingSchool.Models;
 using RCodingSchool.Services;
 using RCodingSchool.ViewModels;
@@ -49,7 +51,13 @@ namespace RCodingSchool.Controllers
             Topic topic = _chapterService.GetTopicById(id);
             TopicVM topicVM = Mapper.Map<Topic, TopicVM>(topic);
 
-            return PartialView(topicVM);
+            var res = JsonConvert.SerializeObject(topic, new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+            return Content(res, "application/json");
         }
 
         [HttpGet]
@@ -93,7 +101,7 @@ namespace RCodingSchool.Controllers
         public ActionResult EditTopic(int id)
         {
             TopicVM topicVM = Mapper.Map<TopicVM>(_chapterService.GetTopicById(id));
-			topicVM.SubjectId = topicVM.Chapter.SubjectId;
+            topicVM.SubjectId = topicVM.Chapter.SubjectId;
             return View(topicVM);
         }
 
