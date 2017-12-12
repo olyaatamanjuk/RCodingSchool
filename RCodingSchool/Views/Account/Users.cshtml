@@ -41,7 +41,7 @@
                             <td>@Html.CheckBoxFor(m => m.NoActiveStudents[i].User.IsActive)</td>
                             @if (User.IsInRole("Admin"))
                             {
-                                <td>@Html.CheckBoxFor(m => m.NoActiveStudents[i].User.isAdmin)</td>
+                                <td>@Html.CheckBoxFor(m => m.NoActiveStudents[i].User.IsAdmin)</td>
                                 <td>@Html.CheckBoxFor(m => m.NoActiveStudents[i].MarkForDelete)</td>
 }
                         </tr>
@@ -83,7 +83,7 @@
                                     <td>@Html.CheckBoxFor(m => m.NoActiveTeachers[i].User.IsActive)</td>
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <td>@Html.CheckBoxFor(m => m.NoActiveTeachers[i].User.isAdmin)</td>
+                                        <td>@Html.CheckBoxFor(m => m.NoActiveTeachers[i].User.IsAdmin)</td>
                                         <td>@Html.CheckBoxFor(m => m.NoActiveTeachers[i].MarkForDelete)</td>
 }
                                 </tr>
@@ -128,7 +128,7 @@
                                     <td>@Html.CheckBoxFor(m => m.Students[i].User.IsActive)</td>
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <td>@Html.CheckBoxFor(m => m.Students[i].User.isAdmin)</td>
+                                        <td>@Html.CheckBoxFor(m => m.Students[i].User.IsAdmin)</td>
                                         <td>@Html.CheckBoxFor(m => m.Students[i].MarkForDelete)</td>
 }
                                 </tr>
@@ -170,7 +170,7 @@
                                     <td>@Html.CheckBoxFor(m => m.Teachers[i].User.IsActive)</td>
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <td>@Html.CheckBoxFor(m => m.Teachers[i].User.isAdmin)</td>
+                                        <td>@Html.CheckBoxFor(m => m.Teachers[i].User.IsAdmin)</td>
                                         <td>@Html.CheckBoxFor(m => m.Teachers[i].MarkForDelete)</td>
 }
                                 </tr>

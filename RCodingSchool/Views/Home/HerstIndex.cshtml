@@ -10,7 +10,7 @@
     string resultGPH = "";
     <h2 class="text-center">Результати обчислень :</h2>
     <h5>
-        H_MFDA = @Model.H[0], отже часовий ряд
+        <strong>H(MDFA) = @Model.H[0] </strong>, отже часовий ряд
         @if (Model.H[0] - 0.5 > 0)
         {
             resultMFDA = "володіє довготривалою ";
@@ -27,7 +27,7 @@
     </h5>
 
     <h5>
-        H_GPH = @Model.H[1], отже часовий ряд
+        <strong>H(GPH) = @Model.H[1]</strong>, отже часовий ряд
         @if (Model.H[1] - 0.5 > 0)
         {
             resultGPH = "володіє довготривалою ";

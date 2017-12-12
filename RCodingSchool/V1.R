@@ -59,7 +59,7 @@ for (i in 1:(K*N)){
     plot(INT, data, col = clusterCut[i],xlim = c(1,T) , 
         ylim = c(min(Data[,2])-1,max(Data[,2])+1), type = 'l', 
         main = 'Your time series:',
-     xlab = 'Time', ylab = 'Values')
+     xlab = 'Observation', ylab = 'Values')
    } else {
     lines(INT, data, col = clusterCut[i] , type = 'l')
    }

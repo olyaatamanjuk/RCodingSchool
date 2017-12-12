@@ -72,11 +72,11 @@ namespace RCodingSchool
 
             context.Subjects.AddRange(new List<Subject>()
             {
-                new Subject { Name = "Системний аналіз" , IsExam = true },
+                new Subject { Name = "Кластерний аналіз" , IsExam = true },
                 new Subject { Name = "Випадкові процеси" , IsExam = false },
-                new Subject { Name = "Охорона праці",IsExam = true },
-                new Subject { Name = "Алгоритми",IsExam = false },
-                new Subject { Name = "Алгебра", IsExam = true }
+                new Subject { Name = "Математичний аналіз", IsExam = true },
+                new Subject { Name = "Методи оптимізації",IsExam = false },
+                new Subject { Name = "Економетрія", IsExam = true }
             });
             context.SaveChanges();
 
@@ -93,17 +93,17 @@ namespace RCodingSchool
 
             var chaptertList = new List<Chapter>()
             {
-                new Chapter { Name = "Початок" , SubjectId = subject.Id },
-                new Chapter { Name = "Типи даних і робота з нимим" , SubjectId = subject.Id },
-                new Chapter { Name = "Цикли" , SubjectId = subject.Id },
-                new Chapter { Name = "Масиви"  , SubjectId = subject.Id },
-                new Chapter { Name = "Опрацювання даних" , SubjectId = subject.Id },
-                new Chapter { Name = "Графіки"  , SubjectId = subject.Id },
-                new Chapter { Name = "Кінець" , SubjectId = subject.Id },
+                new Chapter { Name = "Метод GPH" , SubjectId = subject.Id },
+                new Chapter { Name = "Метод MDFA" , SubjectId = subject.Id },
+                new Chapter { Name = "Модель ARFIMA" , SubjectId = subject.Id },
+                new Chapter { Name = "Модель AR(I)MA"  , SubjectId = subject.Id },
+                new Chapter { Name = "Модель AR" , SubjectId = subject.Id },
+                new Chapter { Name = "Модель MA"  , SubjectId = subject.Id },
+                new Chapter { Name = "Часові ряди" , SubjectId = subject.Id },
                 new Chapter
                 {
                     SubjectId = subject.Id,
-                    Name = "Кінець",
+                    Name = "Індекс Херста",
                     Topics = new List<Topic>()
                     {
                         new Topic { Name = "Тема 1", AuthorId = 1, Text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." },
