@@ -1,13 +1,13 @@
-﻿using RCodingSchool.Models;
-using RCodingSchool.ViewModels;
+﻿using StudLine.Models;
+using StudLine.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-using RCodingSchool.UnitOW;
+using StudLine.UnitOW;
 
-namespace RCodingSchool.Services
+namespace StudLine.Services
 {
     public class ChapterService : BaseService
     {
@@ -114,5 +114,30 @@ namespace RCodingSchool.Services
             _unitOfWork.TopicRepository.Remove(topic);
             _unitOfWork.SaveChanges();
         }
-    }
+
+		public void RemoveChapter(int id)
+		{
+			var chapter = _unitOfWork.ChapterRepository.Get(id);
+			if (chapter != null && chapter.Topics.Count> 0)
+			{
+				List< Topic>topics = chapter.Topics.ToList();
+				for (int i = 0; i< topics.Count; i++)
+				{
+					RemoveTopic(topics[i].Id);
+				}
+			}
+			_unitOfWork.ChapterRepository.Remove(chapter);
+			_unitOfWork.SaveChanges();
+		}
+
+		public void EditChapter(int id, string newName)
+		{
+			var chapter = _unitOfWork.ChapterRepository.Get(id);
+			if (!(String.IsNullOrWhiteSpace(newName)))
+			{
+				chapter.Name = newName;
+			}
+			_unitOfWork.SaveChanges();
+		}
+	}
 }

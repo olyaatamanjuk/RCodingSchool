@@ -1,12 +1,12 @@
-﻿using RCodingSchool.Models;
-using RCodingSchool.Interfaces;
+﻿using StudLine.Models;
+using StudLine.Interfaces;
 using System.Linq;
 
-namespace RCodingSchool.Repositories
+namespace StudLine.Repositories
 {
     public class MessageRepository : Repository<Message>, IMessageRepository
     {
-        public MessageRepository(RCodingSchoolContext context)
+        public MessageRepository(StudLineContext context)
             : base(context)
         {
         }

@@ -1,17 +1,17 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using RCodingSchool.Interfaces;
+using StudLine.Interfaces;
 
-namespace RCodingSchool.Repositories
+namespace StudLine.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 	{
-        protected readonly RCodingSchoolContext dbContext;
+        protected readonly StudLineContext dbContext;
 		private bool disposedValue = false;
 
-		public Repository(RCodingSchoolContext context)
+		public Repository(StudLineContext context)
         {
             dbContext = context;
         }

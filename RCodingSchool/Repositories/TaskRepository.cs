@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using RCodingSchool.Interfaces;
-using RCodingSchool.Models;
+using StudLine.Interfaces;
+using StudLine.Models;
 using System.Linq;
 
-namespace RCodingSchool.Repositories
+namespace StudLine.Repositories
 {
 	public class TaskRepository : Repository<Task>, ITaskRepository
 	{
-		public TaskRepository(RCodingSchoolContext context)
+		public TaskRepository(StudLineContext context)
             : base(context)
         {
 		}

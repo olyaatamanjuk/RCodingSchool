@@ -1,6 +1,6 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 
-namespace RCodingSchool.ViewModels
+namespace StudLine.ViewModels
 {
 	public class TeacherVM: Entity
 	{

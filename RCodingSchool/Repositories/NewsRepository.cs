@@ -1,12 +1,12 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System.Linq;
-using RCodingSchool.Interfaces;
+using StudLine.Interfaces;
 
-namespace RCodingSchool.Repositories
+namespace StudLine.Repositories
 {
     public class NewsRepository : Repository<News>, INewsRepository
     {
-        public NewsRepository(RCodingSchoolContext context)
+        public NewsRepository(StudLineContext context)
             : base(context)
         {
         }

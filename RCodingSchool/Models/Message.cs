@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RCodingSchool.Models
+namespace StudLine.Models
 {
 	public class Message: Entity
 	{

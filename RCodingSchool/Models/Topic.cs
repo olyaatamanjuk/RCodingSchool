@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RCodingSchool.Models
+namespace StudLine.Models
 {
     public class Topic : Entity
     {

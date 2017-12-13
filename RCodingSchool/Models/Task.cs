@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RCodingSchool.Models
+namespace StudLine.Models
 {
 	public class Task: Entity
 	{

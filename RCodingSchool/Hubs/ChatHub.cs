@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNet.SignalR;
-using RCodingSchool.Extensions;
-using RCodingSchool.Services;
+using StudLine.Extensions;
+using StudLine.Services;
 using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace RCodingSchool.Hubs
+namespace StudLine.Hubs
 {
     [Authorize(Roles = "Student")]
     public class ChatHub : Hub

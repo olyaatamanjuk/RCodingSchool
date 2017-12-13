@@ -1,14 +1,14 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System.Linq;
-using RCodingSchool.Interfaces;
+using StudLine.Interfaces;
 using System;
 using System.Collections.Generic;
 
-namespace RCodingSchool.Repositories
+namespace StudLine.Repositories
 {
 	public class GroupRepository: Repository<Group>, IGroupRepository
 	{
-		public GroupRepository(RCodingSchoolContext context)
+		public GroupRepository(StudLineContext context)
             : base(context)
         {
 		}

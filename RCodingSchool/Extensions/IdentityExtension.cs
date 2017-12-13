@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Web;
 
-namespace RCodingSchool.Extensions
+namespace StudLine.Extensions
 {
 	public static class IdentityExtensions
 	{

@@ -2,11 +2,11 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using RCodingSchool.Extensions;
+using StudLine.Extensions;
 using System;
 
-[assembly: OwinStartup(typeof(RCodingSchool.App_Start.Startup))]
-namespace RCodingSchool.App_Start
+[assembly: OwinStartup(typeof(StudLine.App_Start.Startup))]
+namespace StudLine.App_Start
 {
     public class Startup
     {

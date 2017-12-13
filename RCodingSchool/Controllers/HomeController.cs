@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using PagedList;
-using RCodingSchool.Models;
-using RCodingSchool.Services;
-using RCodingSchool.ViewModels;
+using StudLine.Models;
+using StudLine.Services;
+using StudLine.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace RCodingSchool.Controllers
+namespace StudLine.Controllers
 {
 	[Authorize]
 	public class HomeController : Controller

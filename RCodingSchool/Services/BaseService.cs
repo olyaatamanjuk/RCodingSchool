@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Web;
 
-namespace RCodingSchool.Services
+namespace StudLine.Services
 {
 	public abstract class BaseService
 	{

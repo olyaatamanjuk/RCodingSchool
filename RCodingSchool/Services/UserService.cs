@@ -1,7 +1,7 @@
 ﻿using OfficeOpenXml;
-using RCodingSchool.Models;
-using RCodingSchool.UnitOW;
-using RCodingSchool.ViewModels;
+using StudLine.Models;
+using StudLine.UnitOW;
+using StudLine.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Helpers;
 
-namespace RCodingSchool.Services
+namespace StudLine.Services
 {
     public class UserService : BaseService
 	{

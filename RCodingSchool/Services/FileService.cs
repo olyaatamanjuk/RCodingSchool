@@ -1,11 +1,11 @@
-﻿using RCodingSchool.UnitOW;
-using RCodingSchool.ViewModels;
+﻿using StudLine.UnitOW;
+using StudLine.ViewModels;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 
-namespace RCodingSchool.Services
+namespace StudLine.Services
 {
     public class FileService : BaseService
     {

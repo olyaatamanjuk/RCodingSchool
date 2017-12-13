@@ -1,7 +1,7 @@
-﻿using RCodingSchool.Services;
+﻿using StudLine.Services;
 using System.Web.Mvc;
 
-namespace RCodingSchool.Controllers
+namespace StudLine.Controllers
 {
     public class DownloadController : Controller
     {

@@ -2,16 +2,16 @@
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Mvc;
 using Owin;
-using RCodingSchool.Hubs;
-using RCodingSchool.Interfaces;
-using RCodingSchool.Models;
-using RCodingSchool.Repositories;
-using RCodingSchool.Services;
-using RCodingSchool.UnitOW;
+using StudLine.Hubs;
+using StudLine.Interfaces;
+using StudLine.Models;
+using StudLine.Repositories;
+using StudLine.Services;
+using StudLine.UnitOW;
 using System.Web;
 using System.Web.Mvc;
 
-namespace RCodingSchool.Extensions
+namespace StudLine.Extensions
 {
     public static class DIExtention
     {
@@ -21,7 +21,7 @@ namespace RCodingSchool.Extensions
             var container = new UnityContainer();
 
             // Db context
-            container.RegisterType<RCodingSchoolContext>();
+            container.RegisterType<StudLineContext>();
 
             // Repositories
             container.RegisterType<IUnitOfWork, UnitOfWork>();

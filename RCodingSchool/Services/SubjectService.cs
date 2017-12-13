@@ -1,12 +1,12 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using RCodingSchool.ViewModels;
+using StudLine.ViewModels;
 using System.Web;
-using RCodingSchool.UnitOW;
+using StudLine.UnitOW;
 
-namespace RCodingSchool.Services
+namespace StudLine.Services
 {
     public class SubjectService : BaseService
     {

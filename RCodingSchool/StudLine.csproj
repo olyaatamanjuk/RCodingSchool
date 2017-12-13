@@ -311,7 +311,7 @@
     <Compile Include="Models\File.cs" />
     <Compile Include="Models\GroupSubject.cs" />
     <Compile Include="Models\News.cs" />
-    <Compile Include="Models\RCoddingSchoolContext.cs" />
+    <Compile Include="Models\StudLineContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -386,7 +386,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

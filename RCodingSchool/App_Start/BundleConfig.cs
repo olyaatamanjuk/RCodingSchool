@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace RCodingSchool.App_Start
+namespace StudLine.App_Start
 {
 	public class BundleConfig
 	{

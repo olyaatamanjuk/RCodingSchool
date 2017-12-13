@@ -1,12 +1,12 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System.Linq;
-using RCodingSchool.Interfaces;
+using StudLine.Interfaces;
 
-namespace RCodingSchool.Repositories
+namespace StudLine.Repositories
 {
     public class TopicRepository : Repository<Topic>, ITopicRepository
     {
-        public TopicRepository(RCodingSchoolContext context)
+        public TopicRepository(StudLineContext context)
             : base(context)
         {
         }

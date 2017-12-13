@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using RCodingSchool.Models;
-using RCodingSchool.Services;
-using RCodingSchool.ViewModels;
+using StudLine.Models;
+using StudLine.Services;
+using StudLine.ViewModels;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace RCodingSchool.Controllers
+namespace StudLine.Controllers
 {
     [Authorize]
     public class ChapterController : Controller
@@ -123,5 +123,17 @@ namespace RCodingSchool.Controllers
         {
             _chapterService.RemoveTopic(id);
         }
-    }
+
+		[HttpGet]
+		public void RemoveChapter(int id)
+		{
+			_chapterService.RemoveChapter(id);
+		}
+
+		[HttpGet]
+		public void EditChapter(int id, string newName)
+		{
+			_chapterService.EditChapter(id, newName);
+		}
+	}
 }

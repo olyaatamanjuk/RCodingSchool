@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RCodingSchool.Models
+namespace StudLine.Models
 {
 	public class DoneTask: Entity
 	{

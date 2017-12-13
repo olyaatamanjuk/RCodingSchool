@@ -1,12 +1,12 @@
-﻿using RCodingSchool.App_Start;
-using RCodingSchool.Extensions;
+﻿using StudLine.App_Start;
+using StudLine.Extensions;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.IO;
 
-namespace RCodingSchool
+namespace StudLine
 {
     public class MvcApplication : System.Web.HttpApplication
     {

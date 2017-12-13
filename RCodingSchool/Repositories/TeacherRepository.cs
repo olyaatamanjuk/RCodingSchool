@@ -1,13 +1,13 @@
-﻿using RCodingSchool.Models;
-using RCodingSchool.Interfaces;
+﻿using StudLine.Models;
+using StudLine.Interfaces;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace RCodingSchool.Repositories
+namespace StudLine.Repositories
 {
 	public class TeacherRepository : Repository<Teacher>, ITeacherRepository
 	{
-		public TeacherRepository(RCodingSchoolContext context)
+		public TeacherRepository(StudLineContext context)
 			: base(context)
 		{
 		}

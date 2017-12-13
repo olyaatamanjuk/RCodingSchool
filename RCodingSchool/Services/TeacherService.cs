@@ -1,10 +1,10 @@
-﻿using RCodingSchool.Models;
-using RCodingSchool.UnitOW;
+﻿using StudLine.Models;
+using StudLine.UnitOW;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RCodingSchool.Services
+namespace StudLine.Services
 {
 	public class TeacherService : BaseService
 	{

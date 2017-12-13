@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace RCodingSchool.Hubs
+namespace StudLine.Hubs
 {
     public class Connections
 	{

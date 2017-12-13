@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using RCodingSchool.Models;
+using StudLine.Models;
 using System.Linq;
-using RCodingSchool.Interfaces;
+using StudLine.Interfaces;
 
-namespace RCodingSchool.Repositories
+namespace StudLine.Repositories
 {
     public class ChapterRepository : Repository<Chapter>, IChapterRepository
     {
-        public ChapterRepository(RCodingSchoolContext context)
+        public ChapterRepository(StudLineContext context)
             : base(context)
         {
         }

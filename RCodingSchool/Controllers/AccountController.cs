@@ -1,6 +1,6 @@
-﻿using RCodingSchool.Models;
-using RCodingSchool.Services;
-using RCodingSchool.ViewModels;
+﻿using StudLine.Models;
+using StudLine.Services;
+using StudLine.ViewModels;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Web;
@@ -8,11 +8,11 @@ using System.Web.Mvc;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using RCodingSchool.Common;
+using StudLine.Common;
 using System;
 using AutoMapper;
 
-namespace RCodingSchool.Controllers
+namespace StudLine.Controllers
 {
 	public class AccountController : Controller
 	{

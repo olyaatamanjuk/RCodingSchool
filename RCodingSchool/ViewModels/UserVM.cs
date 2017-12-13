@@ -1,8 +1,8 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace RCodingSchool.ViewModels
+namespace StudLine.ViewModels
 {
     public class UserVM: Entity
 	{

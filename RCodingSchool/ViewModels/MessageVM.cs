@@ -1,7 +1,7 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System;
 
-namespace RCodingSchool.ViewModels
+namespace StudLine.ViewModels
 {
     public class MessageVM : Entity
     {

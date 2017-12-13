@@ -1,4 +1,4 @@
-﻿@model RCodingSchool.ViewModels.ChaptersListVM
+﻿@model StudLine.ViewModels.ChaptersListVM
 @{
      ViewBag.Title = "Subject";
     string firstTopicId = string.Empty;
@@ -14,7 +14,7 @@
 <input class="first-topic-id" hidden value="@firstTopicId" />
 <div class="container">
     <div class="btn-group teacher-toolbar text-center">
-        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Новий розділ</button>
+        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#chapterCreate"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Новий розділ</button>
         <button class="btn btn-default" type="button" onclick="location.href='@Url.Action("Tasks", "Subject", new { id = Model.SubjectId })'"><i class="fa fa-files-o" aria-hidden="true"></i> Усі завдання</button>
         <button class="btn btn-default" type="button" onclick="location.href='@Url.Action("CreateTask", "Subject", new { id = Model.SubjectId })'"><i class="fa fa-file-o" aria-hidden="true"></i> Нове завдання</button>
     </div>
@@ -24,9 +24,11 @@
                 @foreach (var el in Model.Chapters)
                 {
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-heading" onMouseOver="show(@el.Id)" onmouseout="hide(@el.Id)">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="@("#collapse" + el.Id)">@el.Name</a>
+                                <a id= @el.Id.ToString()del hidden class="pull-right" href="#"><i class="fa fa-trash-o delete-chapter" chapter-id=@el.Id aria-hidden="true" title="Видалити"></i></a>
+                                <a id= @el.Id.ToString()ed class ="pull-right" hidden href="#"><i class="fa fa-pencil edit-chapter"chapter-id=@el.Id aria-hidden="true" title="Редагувати"> </i></a>
                             </h4>
                         </div>
                         <div id="@("collapse" + el.Id)" class="panel-collapse collapse">
@@ -74,17 +76,52 @@
                 <h4 class="modal-title">Видалення</h4>
             </div>
             <div class="modal-body">
-                <p>Ви дійсно хочете видалити елемент?</p>
+                <p>Ви справді хочете видалити тему?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-yes" id="save-range-btn">Так</button>
-                <button type="button" class="btn btn-primary btn-no" id="save-range-btn">Ні</button>
+                <button type="button" class="btn btn-danger btn-no" id="save-range-btn">Ні</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="chapter-delete-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Видалення</h4>
+            </div>
+            <div class="modal-body">
+                <p>Ви справді хочете видалити розділ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-yes-chapter" id="save-range-btn">Так</button>
+                <button type="button" class="btn btn-danger btn-no" id="save-range-btn">Ні</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="chapter-edit-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Редагування</h4>
+            </div>
+            <div class="modal-body">
+                @Html.TextBox("Name", null, new { @type = "text",@id = "new-chapter-name", @class = "form-control input", @placeholder = "Нова назва розділу" })
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-yes-chapter-edit" id="save-range-btn">Так</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="chapterCreate" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             @using (Html.BeginForm("CreateChapter", "Chapter", FormMethod.Post))
@@ -104,12 +141,23 @@
     </div>
 </div>
 
-
-
 @section Script
 {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.3.1/markdown-it.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
     <script src="~/Scripts/texmath.js"></script>
     <script src="~/Scripts/chapter.js"></script>
+<script>
+    function show(id) {
+        $('#'+id.toString()+"del").removeAttr('hidden');
+        $('#'+id.toString()+"del").show();
+        $('#'+id.toString()+"ed").removeAttr('hidden');
+        $('#'+id.toString()+"ed").show();
+    }
+
+    function hide(id) {
+        $('#'+id.toString()+"del").hide();
+        $('#'+id.toString()+"ed").hide();
+    }
+    </script>
 }

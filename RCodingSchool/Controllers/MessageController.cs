@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using RCodingSchool.Extensions;
-using RCodingSchool.Models;
-using RCodingSchool.Services;
-using RCodingSchool.ViewModels;
+using StudLine.Extensions;
+using StudLine.Models;
+using StudLine.Services;
+using StudLine.ViewModels;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace RCodingSchool.Controllers
+namespace StudLine.Controllers
 {
 	[Authorize(Roles = "Student")]
 	public class MessageController : Controller

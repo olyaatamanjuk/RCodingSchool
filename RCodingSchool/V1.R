@@ -3,7 +3,7 @@ library(fractal)
 library(fracdiff)
 library(pracma)
 
-setwd("D:/PROJECT/RCodingSchool/RCodingSchool/App_Data/R/Calculate")
+setwd("D:/PROJECT/StudLine/StudLine/App_Data/R/Calculate")
 
 f <- file("stdin")
 open(f)
@@ -46,7 +46,7 @@ plot(clusters)
 clusterCut <- cutree(clusters, N)
 
 ## Plot data with color 
-png(file="D:/PROJECT/RCodingSchool/RCodingSchool/Content/images/plots/current_plot.png", width=800, height=450)
+png(file="D:/PROJECT/StudLine/StudLine/Content/images/plots/current_plot.png", width=800, height=450)
 for (i in 1:(K*N)){
   if (i<K*N){
     data = Data[((i-1)*L+1):(i*L),2]

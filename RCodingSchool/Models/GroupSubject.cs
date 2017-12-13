@@ -1,4 +1,4 @@
-﻿namespace RCodingSchool.Models
+﻿namespace StudLine.Models
 {
     public class GroupSubject
     {

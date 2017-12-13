@@ -1,12 +1,12 @@
-﻿using RCodingSchool.Models;
-using RCodingSchool.Interfaces;
+﻿using StudLine.Models;
+using StudLine.Interfaces;
 using System.Linq;
 
-namespace RCodingSchool.Repositories
+namespace StudLine.Repositories
 {
     public class FileRepository : Repository<File>, IFileRepository
     {
-        public FileRepository(RCodingSchoolContext context)
+        public FileRepository(StudLineContext context)
             : base(context)
         {
         }

@@ -1,14 +1,14 @@
-﻿using RCodingSchool.Models;
-using RCodingSchool.Repositories;
-using RCodingSchool.Interfaces;
+﻿using StudLine.Models;
+using StudLine.Repositories;
+using StudLine.Interfaces;
 using System;
 
-namespace RCodingSchool.UnitOW
+namespace StudLine.UnitOW
 {
     public class UnitOfWork : IUnitOfWork
     {
         private bool disposedValue = false;
-        private readonly RCodingSchoolContext _dbContext;
+        private readonly StudLineContext _dbContext;
         private IUserRepository _userRepository;
         private IChapterRepository _chapterRepository;
         private ICommentRepository _commentRepository;
@@ -167,7 +167,7 @@ namespace RCodingSchool.UnitOW
             }
         }
 
-        public UnitOfWork(RCodingSchoolContext dbcontext)
+        public UnitOfWork(StudLineContext dbcontext)
         {
             _dbContext = dbcontext;
         }

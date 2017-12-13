@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using RCodingSchool.Models;
-using RCodingSchool.ViewModels;
+using StudLine.Models;
+using StudLine.ViewModels;
 
-namespace RCodingSchool.Extensions
+namespace StudLine.Extensions
 {
     public class AutoMapperProfile : Profile
     {

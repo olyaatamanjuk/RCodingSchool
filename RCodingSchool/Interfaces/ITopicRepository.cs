@@ -1,6 +1,6 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 
-namespace RCodingSchool.Interfaces
+namespace StudLine.Interfaces
 {
     public interface ITopicRepository : IRepository<Topic>
     {

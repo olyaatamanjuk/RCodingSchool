@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace RCodingSchool.App_Start
+namespace StudLine.App_Start
 {
     public class DbContextConfiguration : DbConfiguration
     {

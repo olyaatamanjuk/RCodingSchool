@@ -1,4 +1,4 @@
-﻿namespace RCodingSchool.Common
+﻿namespace StudLine.Common
 {
     public class Roles
     {

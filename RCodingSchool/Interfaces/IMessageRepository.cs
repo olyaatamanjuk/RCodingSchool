@@ -1,7 +1,7 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System.Linq;
 
-namespace RCodingSchool.Interfaces
+namespace StudLine.Interfaces
 {
     public interface IMessageRepository : IRepository<Message>
     {

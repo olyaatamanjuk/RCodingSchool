@@ -1,11 +1,11 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Linq;
-using RCodingSchool.UnitOW;
+using StudLine.UnitOW;
 
-namespace RCodingSchool.Services
+namespace StudLine.Services
 {
     public class MessageService : BaseService
     {

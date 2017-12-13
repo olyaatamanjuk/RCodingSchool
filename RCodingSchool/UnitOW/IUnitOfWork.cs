@@ -1,7 +1,7 @@
-﻿using RCodingSchool.Interfaces;
+﻿using StudLine.Interfaces;
 using System;
 
-namespace RCodingSchool.UnitOW
+namespace StudLine.UnitOW
 {
     public interface IUnitOfWork : IDisposable
     {

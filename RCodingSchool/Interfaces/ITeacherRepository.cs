@@ -1,8 +1,8 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace RCodingSchool.Interfaces
+namespace StudLine.Interfaces
 {
     public interface ITeacherRepository : IRepository<Teacher>
     {

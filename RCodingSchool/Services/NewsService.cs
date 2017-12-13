@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using RCodingSchool.Models;
-using RCodingSchool.UnitOW;
-using RCodingSchool.ViewModels;
+using StudLine.Models;
+using StudLine.UnitOW;
+using StudLine.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Web;
 
-namespace RCodingSchool.Services
+namespace StudLine.Services
 {
     public class NewsService : BaseService
     {

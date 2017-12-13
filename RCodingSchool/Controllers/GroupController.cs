@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using RCodingSchool.Models;
-using RCodingSchool.Services;
-using RCodingSchool.ViewModels;
+using StudLine.Models;
+using StudLine.Services;
+using StudLine.ViewModels;
 using System;
 using System.Collections.Generic;
 
 using System.Web.Mvc;
 
-namespace RCodingSchool.Controllers
+namespace StudLine.Controllers
 {
 	public class GroupController : Controller
 	{

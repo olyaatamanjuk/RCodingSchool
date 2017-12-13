@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RCodingSchool", "RCodingSchool\RCodingSchool.csproj", "{F4B86D83-E59B-4CD4-A9A1-962CA3CA40E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudLine", "RCodingSchool\StudLine.csproj", "{F4B86D83-E59B-4CD4-A9A1-962CA3CA40E7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{25C09F0D-56AD-4A80-95DC-BBC16E2C345F}"
 	ProjectSection(SolutionItems) = preProject

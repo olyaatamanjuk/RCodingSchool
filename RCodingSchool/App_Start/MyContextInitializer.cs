@@ -1,14 +1,14 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Helpers;
 
-namespace RCodingSchool
+namespace StudLine
 {
-    public class MyContextInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<RCodingSchoolContext>
+    public class MyContextInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<StudLineContext>
     {
-        protected override void Seed(RCodingSchoolContext context)
+        protected override void Seed(StudLineContext context)
         {
             var groupList = new List<Group>()
             {

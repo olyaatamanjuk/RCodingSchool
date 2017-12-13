@@ -1,7 +1,7 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System.Collections.Generic;
 
-namespace RCodingSchool.ViewModels
+namespace StudLine.ViewModels
 {
     public class TopicVM : Entity
     {

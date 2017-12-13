@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
 
-namespace RCodingSchool.Models
+namespace StudLine.Models
 {
-	public class RCodingSchoolContext : DbContext
+	public class StudLineContext : DbContext
 	{
 		public DbSet<User> Users { get; set; }
 		public DbSet<Teacher> Teachers { get; set; }
@@ -18,8 +18,8 @@ namespace RCodingSchool.Models
 		public DbSet<Comment> Comments { get; set; }
 		public DbSet<TeacherGroup> TeacherGroup { get; set; }
 
-		public RCodingSchoolContext()
-            : base("RCoddingSchoolContext")
+		public StudLineContext()
+            : base("StudLineContext")
         {
 		}
 
@@ -48,7 +48,6 @@ namespace RCodingSchool.Models
 				.HasRequired(x => x.Task)
 				.WithMany(c => c.DoneTasks)
 				.WillCascadeOnDelete(false);
-
 
 			base.OnModelCreating(modelBuilder);
 		}

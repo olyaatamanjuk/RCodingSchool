@@ -1,12 +1,12 @@
-﻿using RCodingSchool.Models;
+﻿using StudLine.Models;
 using System.Linq;
-using RCodingSchool.Interfaces;
+using StudLine.Interfaces;
 
-namespace RCodingSchool.Repositories
+namespace StudLine.Repositories
 {
 	public class CommentRepository : Repository<Comment>, ICommentRepository
 	{
-		public CommentRepository(RCodingSchoolContext context)
+		public CommentRepository(StudLineContext context)
             : base(context)
         {
 		}
