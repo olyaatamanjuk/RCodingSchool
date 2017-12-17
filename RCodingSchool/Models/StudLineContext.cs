@@ -17,6 +17,8 @@ namespace StudLine.Models
 		public DbSet<News> News { get; set; }
 		public DbSet<Comment> Comments { get; set; }
 		public DbSet<TeacherGroup> TeacherGroup { get; set; }
+		public DbSet<TeacherSubject> TeacherSubject { get; set; }
+		public DbSet<GroupSubject> GroupSubject { get; set; }
 
 		public StudLineContext()
             : base("StudLineContext")

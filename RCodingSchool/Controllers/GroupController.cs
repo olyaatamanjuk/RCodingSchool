@@ -54,5 +54,14 @@ namespace StudLine.Controllers
 			_teacherService.DeleteGroup(id);
 			return RedirectToAction("Groups", myGroups);
 		}
+
+		[HttpGet]
+		public ActionResult Teachers()
+		{
+			List <Teacher> teachers = _teacherService.GetAllTeachers();
+			List <TeacherVM > teachersVM = Mapper.Map<List<TeacherVM>>(teachers);
+
+			return View(teachersVM);
+		}
 	}
 }

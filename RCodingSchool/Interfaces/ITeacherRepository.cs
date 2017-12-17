@@ -10,5 +10,7 @@ namespace StudLine.Interfaces
 		void AddGroup(int teacherId, int groupId);
 		List <Group> GetTeacherGroups(int teacherId);
 		Teacher GetTeacherByUserId(int Id);
+		void DeleteTeacherFromSubject(int subjectId, int teacherId);
+		void AddTeacherToSubject(int subjectId, int teacherId);
 	}
 }

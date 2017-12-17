@@ -8,7 +8,8 @@ namespace StudLine.Models
 		public string Calendar { get; set; }
 
 		public IEnumerable<TeacherSubject> Teachers { get; set; }
-        public IEnumerable<GroupSubject> GroupSubject { get; set; }
+        public virtual ICollection<GroupSubject> GroupSubject { get; set; }
+		public virtual ICollection<Group> Groups { get; set; }
         public bool IsExam { get; set; }
     }
 }

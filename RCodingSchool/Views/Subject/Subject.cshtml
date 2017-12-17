@@ -1,41 +1,61 @@
-﻿@model List<StudLine.ViewModels.SubjectVM>
+﻿@model StudLine.ViewModels.SubjectGroupListsVM
 @{
     ViewBag.Title = "Subject";
 }
 <div class="container">
+@using (Html.BeginForm("TeacherConfigure", "Subject", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
                 <tr onclick="location.href='link.com'">
                     <th>Назва предмету</th>
-                    <th>Вид контролю</th>
+                    @if (User.IsInRole("Teacher"))
+                    {
+                        <th>Групи</th>
+                        <th>Викладати</th>
+                    }
                     <th>Календар подій</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var x in Model)
+                @for(int i = 0; i < Model.Subjects.Count; i++)
                 {
+                    @Html.HiddenFor(m => m.Subjects[i].Id)
                     <tr>
-                        <td>@Html.ActionLink(@x.Name, "Chapter", "Chapter", new { id = @x.Id}, null)</td>
-                        @if (x.IsExam)
+                        <td>@Html.ActionLink(Model.Subjects[i].Name, "Chapter", "Chapter", new { id = Model.Subjects[i].Id }, null)</td>
+
+                        <td>
+                            <ol>
+                                @for (int j = 0; j < Model.Subjects[i].Groups.Count; j++)
+                                {
+                                    @Html.HiddenFor(m => m.Subjects[i].Groups[j].Id)
+                                    <li class="list-unstyled">@Model.Subjects[i].Groups[j].Name @Html.CheckBoxFor(m => m.Subjects[i].Groups[j].Join)</li>
+                                }
+                            </ol>
+                        </td>
+
+                        @if (!(String.IsNullOrWhiteSpace(Model.Subjects[i].Calendar)) || (User.IsInRole("Admin") || User.IsInRole("Teacher")))
                         {
-                            <td>Екзамен</td>
-                        }
-                        else
-                        {
-                            <td>Залік</td>
-                        }
-                        @if (!(String.IsNullOrWhiteSpace(x.Calendar)) || (User.IsInRole("Admin") || User.IsInRole("Teacher"))){
-                        <td onclick="location.href='@Url.Action("Calendar", "Subject", new { id = @x.Id })'"><i class="fa fa-calendar fa-x2" aria-hidden="true"></i></td>
-                        }
+                        <td onclick="location.href='@Url.Action("Calendar", "Subject", new { id = Model.Subjects[i].Id })'"><i class="fa fa-calendar fa-x2" aria-hidden="true"></i></td>
+}
                         else
                         {
                             <td></td>
-                        }
+}
+@if (User.IsInRole("Teacher"))
+{
+                        <td>@Html.CheckBoxFor(m => m.Subjects[i].Join)</td>
+}
                     </tr>
-                }
+}
             </tbody>
         </table>
+@if (User.IsInRole("Teacher"))
+{
+        <button class="btn btn-primary" type="submit">Зберегти</button>
+}
     </div>
+}
 </div>
 

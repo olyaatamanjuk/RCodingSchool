@@ -27,6 +27,31 @@ namespace StudLine.Repositories
             dbContext.SaveChanges();
 		}
 
+		public void DeleteTeacherFromGroup(int groupId, int teacherId)
+		{
+			TeacherGroup tg =  dbContext.TeacherGroup.Where(x => x.GroupId == groupId && x.TeacherId == teacherId).FirstOrDefault();
+			if (tg != null)
+			{
+				dbContext.TeacherGroup.Remove(tg);
+				dbContext.SaveChanges();
+			}
+		}
+
+		public void AddTeacherToGroup(int groupId, int teacherId)
+		{
+			if (dbContext.TeacherGroup.Where(x => x.GroupId == groupId && x.TeacherId == teacherId).FirstOrDefault() == null)
+			{
+				TeacherGroup tg = new TeacherGroup()
+				{
+					GroupId = groupId,
+					TeacherId = teacherId
+				};
+
+				dbContext.TeacherGroup.Add(tg);
+				dbContext.SaveChanges();
+			}
+		}
+
 		public Group GetByName( string groupName)
 		{
 			return dbContext.Groups.FirstOrDefault(e => e.Name == groupName);
@@ -54,6 +79,31 @@ namespace StudLine.Repositories
 			Group group = dbContext.Groups.Where(x => x.Id == groupId).FirstOrDefault();
 			dbContext.Groups.Remove(group);
             dbContext.SaveChanges();
+		}
+
+		public void DeleteSubjectFromGroup(int subjectId, int groupId)
+		{
+			GroupSubject gs = dbContext.GroupSubject.Where(x => x.SubjectId == subjectId && x.GroupId == groupId).FirstOrDefault();
+			if(gs != null)
+			{
+				dbContext.GroupSubject.Remove(gs);
+				dbContext.SaveChanges();
+			}
+		}
+
+		public void AddSubjectToGroup(int subjectId, int groupId)
+		{
+			if (dbContext.GroupSubject.Where(x => x.SubjectId == subjectId && x.GroupId == groupId).FirstOrDefault() == null)
+			{
+				GroupSubject gs = new GroupSubject()
+				{
+					SubjectId = subjectId,
+					GroupId = groupId
+				};
+
+				dbContext.GroupSubject.Add(gs);
+				dbContext.SaveChanges();
+			}
 		}
 	}
 }

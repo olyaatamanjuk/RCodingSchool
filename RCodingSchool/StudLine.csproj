@@ -345,6 +345,7 @@
     <Compile Include="ViewModels\StudentVM.cs" />
     <Compile Include="ViewModels\SubjectVM.cs" />
     <Compile Include="ViewModels\TaskVM.cs" />
+    <Compile Include="ViewModels\SubjectGroupListsVM.cs" />
     <Compile Include="ViewModels\TeacherVM.cs" />
     <Compile Include="ViewModels\TopicVM.cs" />
     <Compile Include="ViewModels\UserListsVM.cs" />
@@ -420,6 +421,7 @@
     <Content Include="Views\Home\EditNews.cshtml" />
     <Content Include="Views\Account\EditAccount.cshtml" />
     <Content Include="Views\Subject\Calendar.cshtml" />
+    <Content Include="Views\Group\Teachers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -39,8 +39,9 @@
                             </li>
                             @if (this.User.IsInRole("Student"))
                             {
-                                <li class="dropdown-item"><a href="#"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Викладачі</a></li>
-                            }
+                                <li class="dropdown-item">
+                                    <a href="@Url.Action("Teachers", "Group")" title="Викладачі"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Викладачі</a>
+                                </li>}
                             @if (this.User.IsInRole("Student") || this.User.IsInRole("Teacher"))
                             {
                                 <li class="dropdown-item">

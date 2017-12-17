@@ -3,7 +3,9 @@ using StudLine.Models;
 using StudLine.Services;
 using StudLine.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,20 +15,65 @@ namespace StudLine.Controllers
     public class SubjectController : Controller
     {
         private readonly SubjectService _subjectService;
+		private readonly TeacherService _teacherService;
 
-        public SubjectController(SubjectService subjectService)
+		public SubjectController(SubjectService subjectService, TeacherService techerService)
         {
             _subjectService = subjectService;
+			_teacherService = techerService;
         }
 
+		[HttpGet]
         public ActionResult Subject()
         {
             List<Subject> subjects = _subjectService.GetList();
             List<SubjectVM> subjectsVM = Mapper.Map<List<Subject>, List<SubjectVM>>(subjects);
-            return View(subjectsVM);
+
+			List<Group> groups = _teacherService.GetAllGroups();
+			List<GroupVM> groupsVM = Mapper.Map<List<GroupVM>>(groups);
+
+			if (User.IsInRole("Teacher"))
+			{
+				Teacher teacher = _teacherService.GetTeacherByUserId(_teacherService.UserId);
+
+				foreach (var c in teacher.Subjects)
+				{
+					subjectsVM.Find(x => x.Id == c.SubjectId).Join = true;
+				}
+
+
+				foreach (var i in subjectsVM)
+				{
+					i.Groups = Mapper.Map<List<GroupVM>>(groups);
+				}
+
+				foreach (var a in subjectsVM)
+				{
+					foreach (var b in a.GroupSubject)
+					{
+						a.Groups.Find(x => x.Id == b.GroupId).Join = true;
+					}
+				}
+			}
+
+			SubjectGroupListsVM subjectGroupList = new SubjectGroupListsVM
+			{
+				Subjects = subjectsVM,
+				AllGroups = groupsVM
+			};
+
+			return View(subjectGroupList);
         }
 
-        public ActionResult Tasks(int? id)
+		[HttpPost]
+		public ActionResult TeacherConfigure(SubjectGroupListsVM subjectGroupList)
+		{
+			_teacherService.TeacherConfigure(subjectGroupList);
+			return RedirectToAction("Subject");
+		}
+
+
+		public ActionResult Tasks(int? id)
         {
             List<Task> tasks = new List<Task>();
             if (id == null)

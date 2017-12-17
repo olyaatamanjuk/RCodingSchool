@@ -44,12 +44,14 @@ namespace StudLine.Extensions
             container.RegisterType<ChapterService>();
             container.RegisterType<NewsService>();
             container.RegisterType<TeacherService>();
+			container.RegisterType<FileService>();
+			container.RegisterType<BaseService>();
+			container.RegisterType<RService>();
 
-            // Hubs
-            container.RegisterType<ChatHub>();
+			// Hubs
+			container.RegisterType<ChatHub>();
             container.RegisterType<Connections>();
 
-            // Dark magic
             container.RegisterType<HttpContextBase>(new InjectionFactory(x => HttpContext.Current != null ? new HttpContextWrapper(HttpContext.Current) : null));
 
             signalrResolver.Register(typeof(ChatHub), () => container.Resolve<ChatHub>());

@@ -1,5 +1,6 @@
 ﻿using StudLine.Models;
 using StudLine.UnitOW;
+using StudLine.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -52,6 +53,37 @@ namespace StudLine.Services
             _unitOfWork.GroupRepository.DeleteStudentFromGroup(studentId);
 		}
 
+		public void DeleteTeacherFromGroup(int groupId, int teacherId)
+		{
+			_unitOfWork.GroupRepository.DeleteTeacherFromGroup(groupId, teacherId);
+		}
+
+		public void AddTeacherToGroup(int groupId, int teacherId)
+		{
+			_unitOfWork.GroupRepository.AddTeacherToGroup(groupId, teacherId);
+		}
+
+		public void DeleteTeacherFromSubject(int subjectId, int teacherId)
+		{
+			_unitOfWork.TeacherRepository.DeleteTeacherFromSubject(subjectId, teacherId);
+		}
+
+		public void AddTeacherToSubject(int subjectId, int teacherId)
+		{
+			_unitOfWork.TeacherRepository.AddTeacherToSubject(subjectId, teacherId);
+		}
+
+		public void DeleteSubjectFromGroup(int subjectId, int groupId)
+		{
+			_unitOfWork.GroupRepository.DeleteSubjectFromGroup(subjectId, groupId);
+		}
+
+		public void AddSubjectToGroup(int subjectId, int groupId)
+		{
+			_unitOfWork.GroupRepository.AddSubjectToGroup(subjectId, groupId);
+		}
+
+
 		public void DeleteGroup(int groupId)
 		{
             _unitOfWork.GroupRepository.DeleteGroup(groupId);
@@ -70,6 +102,64 @@ namespace StudLine.Services
 		public List<Group> GetAllGroups()
 		{
 			return _unitOfWork.GroupRepository.GetAll().ToList();
+		}
+
+
+		public List<Teacher> GetAllTeachers()
+		{
+			return _unitOfWork.TeacherRepository.GetAll().ToList();
+		}
+
+		public void TeacherConfigure(SubjectGroupListsVM subjectGroupList)
+		{
+
+			Teacher teacher = GetTeacherByUserId(UserId);
+			if (teacher != null)
+			{
+				foreach (var i in subjectGroupList.Subjects)
+				{
+					Subject subject = _unitOfWork.SubjectRepository.Get(i.Id);
+					if (i.Join == false && teacher.Subjects.FirstOrDefault(t => t.SubjectId == i.Id) != null)
+					{
+						DeleteTeacherFromSubject(i.Id, teacher.Id);
+					}
+					else if (i.Join && teacher.Subjects.FirstOrDefault(t => t.SubjectId == i.Id) == null)
+					{
+						AddTeacherToSubject(i.Id, teacher.Id);
+					}
+
+					foreach (var x in i.Groups)
+					{
+						if (x.Join)
+						{
+							if (subject.GroupSubject == null || subject.GroupSubject.Where(t => t.GroupId == x.Id).FirstOrDefault() == null)
+							{
+								AddSubjectToGroup(i.Id, x.Id);
+								if (teacher.Groups.Where(t => t.GroupId == i.Id).FirstOrDefault() == null)
+								{
+									AddTeacherToGroup(x.Id, teacher.Id);
+								}
+							}
+						}
+						else if (!(x.Join))
+						{
+							if (subject.GroupSubject != null && subject.GroupSubject.Where(t => t.GroupId == x.Id).FirstOrDefault() != null) {
+								DeleteSubjectFromGroup(i.Id, x.Id);
+							}
+						}
+					}
+				}
+
+				var groups = _unitOfWork.GroupRepository.GetAll();
+				foreach (var group in groups)
+				{ 
+					var subjectsTG = subjectGroupList.Subjects.Where(x => x.Groups.Where(t => t.Id == group.Id && t.Join == false) != null);
+					if (subjectsTG != null && subjectsTG.Count() == subjectGroupList.Subjects.Count())
+					{
+						DeleteTeacherFromGroup(group.Id, teacher.Id);
+					}
+				}
+			}
 		}
 	}
 }

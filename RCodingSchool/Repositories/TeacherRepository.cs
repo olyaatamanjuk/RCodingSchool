@@ -46,5 +46,30 @@ namespace StudLine.Repositories
 		{
 			return dbContext.Teachers.FirstOrDefault(x => x.UserId == userId);
 		}
+
+		public void DeleteTeacherFromSubject(int subjectId, int teacherId)
+		{
+			TeacherSubject ts = dbContext.TeacherSubject.Where(x => x.SubjectId == subjectId && x.TeacherId == teacherId).FirstOrDefault();
+			if (ts != null)
+			{
+				dbContext.TeacherSubject.Remove(ts);
+				dbContext.SaveChanges();
+			}
+		}
+
+		public void AddTeacherToSubject(int subjectId, int teacherId)
+		{
+			if( dbContext.TeacherSubject.Where(x => x.SubjectId == subjectId && x.TeacherId == teacherId).FirstOrDefault() == null)
+			{
+				TeacherSubject ts = new TeacherSubject()
+				{
+					SubjectId = subjectId,
+					TeacherId = teacherId
+				};
+
+				dbContext.TeacherSubject.Add(ts);
+				dbContext.SaveChanges();
+			}
+		}
 	}
 }

@@ -7,8 +7,8 @@ namespace StudLine.Models
         public int UserId { get; set; }
         public virtual User User { get; set; }
 
-		public ICollection<TeacherGroup> Groups { get; set; }
-        public ICollection<TeacherSubject> Subjects { get; set; }
+		public virtual ICollection<TeacherGroup> Groups { get; set; }
+        public virtual ICollection<TeacherSubject> Subjects { get; set; }
 		public ICollection<News> News { get; set; }
 	}
 }
