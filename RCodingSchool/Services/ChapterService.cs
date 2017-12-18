@@ -130,6 +130,18 @@ namespace StudLine.Services
 			_unitOfWork.SaveChanges();
 		}
 
+		public void RemoveSubject(int id)
+		{
+			Subject subject = _unitOfWork.SubjectRepository.Get(id);
+			foreach( var x in subject.Chapters)
+			{
+				RemoveChapter(x.Id);
+			}
+
+			_unitOfWork.SubjectRepository.Remove(subject);
+			_unitOfWork.SaveChanges();
+		}
+
 		public void EditChapter(int id, string newName)
 		{
 			var chapter = _unitOfWork.ChapterRepository.Get(id);

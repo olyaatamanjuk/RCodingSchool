@@ -13,11 +13,14 @@
 }
 <input class="first-topic-id" hidden value="@firstTopicId" />
 <div class="container">
-    <div class="btn-group teacher-toolbar text-center">
-        <button class="btn btn-default" type="button" data-toggle="modal" data-target="#chapterCreate"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Новий розділ</button>
-        <button class="btn btn-default" type="button" onclick="location.href='@Url.Action("Tasks", "Subject", new { id = Model.SubjectId })'"><i class="fa fa-files-o" aria-hidden="true"></i> Усі завдання</button>
-        <button class="btn btn-default" type="button" onclick="location.href='@Url.Action("CreateTask", "Subject", new { id = Model.SubjectId })'"><i class="fa fa-file-o" aria-hidden="true"></i> Нове завдання</button>
-    </div>
+    @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
+    {
+        <div class="btn-group teacher-toolbar text-center">
+            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#chapterCreate"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Новий розділ</button>
+            <button class="btn btn-default" type="button" onclick="location.href='@Url.Action("Tasks", "Subject", new { id = Model.SubjectId })'"><i class="fa fa-files-o" aria-hidden="true"></i> Усі завдання</button>
+            <button class="btn btn-default" type="button" onclick="location.href='@Url.Action("CreateTask", "Subject", new { id = Model.SubjectId })'"><i class="fa fa-file-o" aria-hidden="true"></i> Нове завдання</button>
+        </div>
+    }
     <div class="row">
         <div class="col-sm-4 col-md-4">
             <div class="panel-group" id="accordion">
@@ -27,8 +30,11 @@
                         <div class="panel-heading" onMouseOver="show(@el.Id)" onmouseout="hide(@el.Id)">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="@("#collapse" + el.Id)">@el.Name</a>
-                                <a id= @el.Id.ToString()del hidden class="pull-right" href="#"><i class="fa fa-trash-o delete-chapter" chapter-id=@el.Id aria-hidden="true" title="Видалити"></i></a>
-                                <a id= @el.Id.ToString()ed class ="pull-right" hidden href="#"><i class="fa fa-pencil edit-chapter"chapter-id=@el.Id aria-hidden="true" title="Редагувати"> </i></a>
+                                @if (User.IsInRole("Teacher")|| User.IsInRole("Admin"))
+                                {
+                                    <a id=@el.Id.ToString()del hidden class="pull-right" href="#"><i class="fa fa-trash-o delete-chapter" chapter-id=@el.Id aria-hidden="true" title="Видалити"></i></a>
+                                    <a id=@el.Id.ToString()ed class="pull-right" hidden href="#"><i class="fa fa-pencil edit-chapter" chapter-id=@el.Id aria-hidden="true" title="Редагувати"> </i></a>
+                                }
                             </h4>
                         </div>
                         <div id="@("collapse" + el.Id)" class="panel-collapse collapse">
@@ -45,7 +51,7 @@
                                         </div>
                                     </div>
                                 }
-                                @if (this.User.IsInRole("Teacher") || this.User.IsInRole("Admin"))
+                                @if (this.User.IsInRole("Teacher"))
                                 {
                                     <div class="row">
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">

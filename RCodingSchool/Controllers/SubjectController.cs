@@ -148,12 +148,25 @@ namespace StudLine.Controllers
 			return View(doneTaskVM);
 		}
 
-		//[HttpPost]
-		//public ActionResult DoneTask(DoneTaskVM doneTask)
-		//{
-		//	_subjectService.EvaluateTask(doneTask.Id, doneTask.Mark);
-		//	return RedirectToAction("Task", new { id = doneTask.TaskId });
-		//}
+		[HttpGet]
+		public ActionResult RemoveSubject(int id)
+		{
+			_subjectService.RemoveSubject(id);
+			return RedirectToAction("Subject");
+		}
+
+		[HttpPost]
+		public ActionResult CreateSubject(string name)
+		{
+			if (_subjectService.TrySaveSubject(name))
+			{
+				return RedirectToAction("Subject");
+			}
+			else
+			{
+				return View();
+			}
+		}
 
 		[HttpPost]
 		public ActionResult DoneTask(DoneTaskVM doneTaskVM, string save, string saveEdit)

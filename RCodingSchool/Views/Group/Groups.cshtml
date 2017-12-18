@@ -14,16 +14,6 @@
             <a href="@Url.Action("Groups", "Group", new { myGroups = true })" title="Показати мої групи"><i class="fa fa-eye-slash fa-2x" aria-hidden="true"></i></a>
             <h3>Всі групи</h3>
         }
-        @*<div class="form-group">
-                <a href="@Url.Action("Groups", "Group", new { myGroups = false})" title="Groups">
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(m => m.MyGroups, false) Всі групи
-                    </label>
-                </a>
-                <label class="radio-inline">
-                    @Html.RadioButtonFor(m => m.MyGroups, true, new { @name = "lf" }) Мої групи
-                </label>
-            </div>*@
 
         <table class="table table-striped ">
             <thead>
@@ -78,13 +68,3 @@
             </div>
             <div class="col-lg-2 col-md-2 col-sm-1"></div>
         </div>
-        @section Script{
-            @*<script>
-                     $('input:radio[name=MyGroups]').on('change', function () {
-                         var url = "/group/getgroups/";
-                         var myGroups = $('input[name=MyGroups]:checked').val();
-                         alert(myGroups);
-                         $.get(url, { mygroups: myGroups })
-                        });
-                </script>*@
-        }

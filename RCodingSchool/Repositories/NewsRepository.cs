@@ -13,7 +13,7 @@ namespace StudLine.Repositories
 
 		public override News Get(int id)
 		{
-			return dbContext.News.Include("NewsAuthor").Include("Comments").FirstOrDefault(x => x.Id == id);
+			return dbContext.News.Include("User").Include("Comments").FirstOrDefault(x => x.Id == id);
 		}
 	}
 }

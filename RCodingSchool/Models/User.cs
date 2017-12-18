@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace StudLine.Models
 {
@@ -12,5 +13,6 @@ namespace StudLine.Models
 		public bool IsAdmin { get; set; }
         public Guid RegisterCode { get; set; }
 		public bool IsActive { get; set; }
+		public ICollection<News> News { get; set; }
 	}
 }

@@ -9,6 +9,6 @@ namespace StudLine.Models
 
 		public virtual ICollection<TeacherGroup> Groups { get; set; }
         public virtual ICollection<TeacherSubject> Subjects { get; set; }
-		public ICollection<News> News { get; set; }
+		
 	}
 }

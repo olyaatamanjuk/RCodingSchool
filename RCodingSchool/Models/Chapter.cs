@@ -9,6 +9,6 @@ namespace StudLine.Models
         public virtual ICollection<Topic> Topics { get; set; }
 
         public int SubjectId { get; set; }
-        public Subject Subject { get; set; }
+        public virtual Subject Subject { get; set; }
     }
 }

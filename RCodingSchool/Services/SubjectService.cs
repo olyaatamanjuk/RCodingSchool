@@ -12,13 +12,16 @@ namespace StudLine.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly FileService _fileService;
+		private readonly ChapterService _chapterService;
 
-        public SubjectService(IUnitOfWork unitOfWork, FileService fileService, HttpContextBase httpContext)
+		public SubjectService(IUnitOfWork unitOfWork, FileService fileService, ChapterService chapterService, HttpContextBase httpContext)
             : base(httpContext)
         {
             _unitOfWork = unitOfWork;
             _fileService = fileService;
-        }
+			_chapterService = chapterService;
+
+		}
 
         public List<Subject> GetList()
         {
@@ -137,6 +140,26 @@ namespace StudLine.Services
 			{
 				Subject subject = Get(subjectVM.Id);
 				subject.Calendar = subjectVM.Calendar;
+				_unitOfWork.SaveChanges();
+				return true;
+			}
+		}
+
+		public void RemoveSubject(int id)
+		{
+			_chapterService.RemoveSubject(id);
+		}
+
+		public bool TrySaveSubject(string name)
+		{
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				return false;
+			}
+			else
+			{
+				Subject subject = new Subject() { Name = name };
+				_unitOfWork.SubjectRepository.Add(subject);
 				_unitOfWork.SaveChanges();
 				return true;
 			}

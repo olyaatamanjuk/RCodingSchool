@@ -10,7 +10,9 @@ namespace StudLine.ViewModels
 		public string Title { get; set; }
 		public string Description { get; set; }
 		public DateTime Date { get; set; }
-		public int NewsAuthorId { get; set; }
+
+		public virtual User User { get; set; }
+		public int UserId { get; set; }
 
 		public string CommentText { get; set; }
 	}

@@ -24,6 +24,8 @@
                 <a class="navbar-brand" href="/">StudLine <i class="fa fa-connectdevelop fa-3x" aria-hidden="true"></i></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
+             @if (User.Identity.IsAuthenticated)
+             {
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Головна", "Index", "Home")</li>
                     <li>@Html.ActionLink("Новини", "News", "Home")</li>
@@ -83,6 +85,7 @@
                         </li>}
                     <li> <a href="@Url.Action("Logout","Account")"><i class="fa fa-share-square-o" aria-hidden="true"></i></a></li>
                 </ul>
+                }
             </div><!--/.nav-collapse -->
         </div>
     </nav>

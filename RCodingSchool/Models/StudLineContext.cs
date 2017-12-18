@@ -36,13 +36,13 @@ namespace StudLine.Models
 			modelBuilder.Entity<TeacherSubject>()
 				 .HasKey(x => new { x.TeacherId, x.SubjectId });
 
-			modelBuilder.Entity<Teacher>()
+			modelBuilder.Entity<User>()
 				.HasMany(t => t.News)
-				.WithRequired( x => x.NewsAuthor)
+				.WithRequired( x => x.User)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<News>()
-				.HasRequired(x => x.NewsAuthor)
+				.HasRequired(x => x.User)
 				.WithMany(c => c.News)
 				.WillCascadeOnDelete(false);
 

@@ -55,7 +55,7 @@ namespace StudLine.Services
             if (!String.IsNullOrWhiteSpace(news.Title) && !String.IsNullOrWhiteSpace(news.Description))
             {
                 news.Date = DateTime.Now;
-                news.NewsAuthorId = _unitOfWork.UserRepository.GetActualUserById<Teacher>(UserId).Id;
+                news.UserId = UserId;
                 _unitOfWork.NewsRepository.Add(news);
                 _unitOfWork.SaveChanges();
                 return true;
