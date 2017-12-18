@@ -3,7 +3,10 @@
     ViewBag.Title = "Subject";
 }
 <div class="container">
-    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#subjectCreate"><i class="fa fa-plus fa-x2" aria-hidden="true"></i></button>
+    @if (User.IsInRole("Teacher"))
+    {
+        <button class="btn btn-default" type="button" title="Створити предмет" data-toggle="modal" data-target="#subjectCreate"><i class="fa fa-plus fa-x2" aria-hidden="true"></i></button>
+    }
     @using (Html.BeginForm("TeacherConfigure", "Subject", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="table-responsive">

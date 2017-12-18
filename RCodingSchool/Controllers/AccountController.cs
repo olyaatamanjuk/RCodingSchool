@@ -99,8 +99,7 @@ namespace StudLine.Controllers
 			if (_userService.CheckValidation(userVM))
 			{
 				User user = _userService.RegisterNew(userVM);
-				//return RedirectToAction("Index", "Home"); // Change
-				return null;
+				return RedirectToAction("Сongratulation", "Home");
 			}
 			else
 			{

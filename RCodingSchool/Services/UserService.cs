@@ -134,7 +134,8 @@ namespace StudLine.Services
 			{
 				if (string.IsNullOrWhiteSpace(userVM.Password)
 					|| string.IsNullOrWhiteSpace(userVM.ConfirmPassword)
-					|| userVM.Password != userVM.ConfirmPassword)
+					|| userVM.Password != userVM.ConfirmPassword
+					|| _unitOfWork.UserRepository.GetByEmail(userVM.Email) != null)
 				{
 					isValid = false;
 				}

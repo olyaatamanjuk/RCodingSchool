@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace StudLine.Controllers
 {
+	[Authorize]
 	public class GroupController : Controller
 	{
 		private readonly TeacherService _teacherService;

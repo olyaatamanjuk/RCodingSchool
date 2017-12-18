@@ -3,7 +3,8 @@ using System.Web.Mvc;
 
 namespace StudLine.Controllers
 {
-    public class DownloadController : Controller
+	[Authorize]
+	public class DownloadController : Controller
     {
         private readonly FileService _fileService;
 

@@ -148,5 +148,11 @@ namespace StudLine.Controllers
 
 			return RedirectToAction("HerstIndex");
 		}
+
+		[HttpGet]
+		public ActionResult Сongratulation()
+		{
+			return View();
+		}
 	}
 }

@@ -8,5 +8,6 @@ namespace StudLine.Models
 
 		public virtual ICollection<Student> Students { get; set; }
 		public virtual ICollection<Teacher> Teachers { get; set; }
+		public virtual ICollection<GroupSubject> GroupSubjects { get; set; }
 	}
 }

@@ -165,5 +165,40 @@ namespace StudLine.Services
 			}
 		}
 
+		public List<Subject> GetStudentSubjects()
+		{
+			Student student = _unitOfWork.UserRepository.GetActualUserById<Student>(UserId);
+			var gs = student.Group.GroupSubjects.ToList();
+			List<Subject> subjects = new List<Subject>();
+			foreach(var x in gs)
+			{
+				Subject subject = _unitOfWork.SubjectRepository.Get(x.SubjectId);
+				subjects.Add(subject);
+			}
+
+			return subjects;
+		}
+
+		public List<Task> GetStudentTasks()
+		{
+			List<Subject> subjects = GetStudentSubjects();
+			List<Task> tasks = new List<Task>();
+			foreach(var x in subjects)
+			{
+				tasks.AddRange(_unitOfWork.TaskRepository.GetTaskListBySubjectId(x.Id));
+			}
+			return tasks;
+		}
+
+		public List<Task> GetTeacherTasks()
+		{
+			Teacher teacher = _unitOfWork.UserRepository.GetActualUserById<Teacher>(UserId);
+			List<Task> tasks = new List<Task>();
+			foreach ( var x in teacher.Subjects)
+			{
+				tasks.AddRange(_unitOfWork.TaskRepository.GetTaskListBySubjectId(x.SubjectId));
+			}
+			return tasks;
+		}
 	}
 }

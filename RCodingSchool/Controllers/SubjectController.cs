@@ -26,21 +26,29 @@ namespace StudLine.Controllers
 		[HttpGet]
         public ActionResult Subject()
         {
-            List<Subject> subjects = _subjectService.GetList();
-            List<SubjectVM> subjectsVM = Mapper.Map<List<Subject>, List<SubjectVM>>(subjects);
+			List<Subject> subjects = new List<Subject>();
+			List<SubjectVM> subjectsVM = new List<SubjectVM>();
 
 			List<Group> groups = _teacherService.GetAllGroups();
 			List<GroupVM> groupsVM = Mapper.Map<List<GroupVM>>(groups);
 
-			if (User.IsInRole("Teacher"))
+			if (User.IsInRole("Student"))
 			{
+				subjects = _subjectService.GetStudentSubjects();
+				subjectsVM = Mapper.Map<List<Subject>, List<SubjectVM>>(subjects);
+			}
+
+			else if (User.IsInRole("Teacher"))
+			{
+				subjects = _subjectService.GetList();
+				subjectsVM = Mapper.Map<List<Subject>, List<SubjectVM>>(subjects);
+
 				Teacher teacher = _teacherService.GetTeacherByUserId(_teacherService.UserId);
 
 				foreach (var c in teacher.Subjects)
 				{
 					subjectsVM.Find(x => x.Id == c.SubjectId).Join = true;
 				}
-
 
 				foreach (var i in subjectsVM)
 				{
@@ -56,6 +64,11 @@ namespace StudLine.Controllers
 				}
 			}
 
+			else
+			{
+				subjects = _subjectService.GetList();
+				subjectsVM = Mapper.Map<List<Subject>, List<SubjectVM>>(subjects);
+			}
 			SubjectGroupListsVM subjectGroupList = new SubjectGroupListsVM
 			{
 				Subjects = subjectsVM,
@@ -72,23 +85,38 @@ namespace StudLine.Controllers
 			return RedirectToAction("Subject");
 		}
 
-
+		[HttpGet]
 		public ActionResult Tasks(int? id)
         {
             List<Task> tasks = new List<Task>();
-            if (id == null)
-            {
-                tasks = _subjectService.GetTaskList();
-            }
-            else
-            {
-                tasks = _subjectService.GetTaskListBySubjectId((int)id);
-            }
-            List<TaskVM> tasksVM = Mapper.Map<List<Task>, List<TaskVM>>(tasks);
-            return View(tasksVM);
-        }
+			if (User.IsInRole("Student"))
+			{
+				tasks = _subjectService.GetStudentTasks();
+			}
+			else
+			{
+				if (id == null)
+				{
+					if (User.IsInRole("Admin"))
+					{
+						tasks = _subjectService.GetTaskList();
+					}
+					else if (User.IsInRole("Teacher"))
+					{
+						tasks = _subjectService.GetTeacherTasks();
+					}	
+				}
+				else
+				{
+					tasks = _subjectService.GetTaskListBySubjectId((int)id);
+				}
+			}
+			List<TaskVM> tasksVM = Mapper.Map<List<Task>, List<TaskVM>>(tasks);
+			return View(tasksVM);
+		}
 
-        public ActionResult Task(int id)
+		[HttpGet]
+		public ActionResult Task(int id)
         {
             Task task = _subjectService.GetTaskById(id);
             TaskVM taskVM = Mapper.Map<Task, TaskVM>(task);

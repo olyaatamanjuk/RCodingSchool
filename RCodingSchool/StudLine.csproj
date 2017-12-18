@@ -422,6 +422,7 @@
     <Content Include="Views\Account\EditAccount.cshtml" />
     <Content Include="Views\Subject\Calendar.cshtml" />
     <Content Include="Views\Group\Teachers.cshtml" />
+    <Content Include="Views\Home\Сongratulation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
