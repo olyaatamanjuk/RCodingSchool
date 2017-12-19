@@ -17,12 +17,14 @@ namespace StudLine.Controllers
 		private readonly NewsService _newsService;
 		private readonly UserService _userService;
 		private readonly FileService _fileService;
+		private readonly RService _RService;
 
-		public HomeController(NewsService newsService, UserService userService, FileService fileService)
+		public HomeController(NewsService newsService, UserService userService, FileService fileService, RService RService)
 		{
 			_newsService = newsService;
 			_userService = userService;
 			_fileService = fileService;
+			_RService = RService;
 		}
 
 		[HttpGet]
@@ -127,22 +129,30 @@ namespace StudLine.Controllers
 		public ActionResult HerstIndex()
 		{
 			var model = TempData["Results"] as HerstIndex;
-			return View(model);
+			if (model!= null && model.H == null)
+			{
+				ModelState.AddModelError("validValues", "Ви ввели недопустимі значення параметрів");
+				return View();
+			}
+			else
+			{
+				return View(model);
+			}
 		}
 
 		[HttpPost]
 		public ActionResult HerstIndex(HttpPostedFileBase file, HerstIndex herstIndex)
 		{
-			if (herstIndex.N == 0 || herstIndex.N == 0)
+			if (herstIndex.N == 0 || herstIndex.K == 0)
 			{
-				ModelState.AddModelError("validValues", "Ви ввели недопустимі значення параметрів");
+				ModelState.AddModelError("validValues", "Ви ввели недопустимі значення");
 				return View();
 			}
 			string filePath = _fileService.TrySaveDataFile(file);
 			HerstIndex herstIndexResult = new HerstIndex();
 			if (!String.IsNullOrWhiteSpace(filePath))
 			{
-				herstIndexResult = new RService().AnalizeDataByRange(herstIndex.N.ToString(), herstIndex.K.ToString());
+				herstIndexResult = _RService.AnalizeDataByRange(herstIndex.N.ToString(), herstIndex.K.ToString());
 				TempData["Results"] = herstIndexResult;
 			}
 

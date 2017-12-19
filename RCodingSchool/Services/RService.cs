@@ -1,6 +1,9 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
+using System.Web;
 
 namespace StudLine.Services
 {
@@ -28,6 +31,39 @@ namespace StudLine.Services
 			herstIndex.CreateObjectFromString(result, N, K);
 			return herstIndex;
 		}
+
+		public bool IsCorrectInputValues(HttpPostedFileBase file, int N, int K)
+		{
+			string fileName = file.FileName;
+			string fileContentType = file.ContentType;
+			byte[] fileBytes = new byte[file.ContentLength];
+			var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+
+			int T = 0;
+
+			try {
+				using (var package = new ExcelPackage(file.InputStream))
+				{
+					var currentSheet = package.Workbook.Worksheets;
+					var workSheet = currentSheet.First();
+					T = workSheet.Dimension.End.Row;
+				}
+
+				if (T > 500 && ((T/N)-K)>0)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			catch
+			{
+				return false;
+			}
+		}
+	
 	}
 
 	public class HerstIndex
@@ -45,23 +81,24 @@ namespace StudLine.Services
 				this.K = Convert.ToInt32(K);
 				int indexOfChar = text.IndexOf("RESULTS:");
 
-
-				text = text.Substring(indexOfChar + 10).Replace("[1] ", "").Trim();
-
-				string[] mas = text.Split(new char[] { ' ' });
-				H = new double[mas.Length];
-				for (int i = 0; i < mas.Length; i++)
+				if(indexOfChar != -1)
 				{
-					H[i] = double.Parse(mas[i], CultureInfo.InvariantCulture);
+					text = text.Substring(indexOfChar + 10).Replace("[1] ", "").Trim();
+
+					string[] mas = text.Split(new char[] { ' ' });
+					H = new double[mas.Length];
+					for (int i = 0; i < mas.Length; i++)
+					{
+						H[i] = double.Parse(mas[i], CultureInfo.InvariantCulture);
+					}
 				}
 
 			}
 			catch (Exception)
 			{
-				//TODO : What we must to do here?
+				
 			}
 		}
 	}
 }
 
-// @"C:\Program Files\R\R-3.4.2\bin\x64\Rscript.exe", @"D:\temp-projects\StudLine\StudLine\V1.R"
