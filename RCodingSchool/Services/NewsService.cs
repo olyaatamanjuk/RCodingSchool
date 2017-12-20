@@ -4,6 +4,7 @@ using StudLine.UnitOW;
 using StudLine.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 
 namespace StudLine.Services
@@ -44,9 +45,9 @@ namespace StudLine.Services
             return true;
         }
 
-        public IEnumerable<News> GetAll()
+        public List<News> GetAll()
         {
-            return _unitOfWork.NewsRepository.GetAll();
+            return _unitOfWork.NewsRepository.GetAll().OrderByDescending(m => m.Date).ToList();
         }
 
         public bool TrySaveNews(NewsVM newsVM)
@@ -96,5 +97,11 @@ namespace StudLine.Services
             _unitOfWork.CommentRepository.Remove(comment);
             _unitOfWork.SaveChanges();
         }
-    }
+
+		public List<News> GetByMonth(int month)
+		{
+			return _unitOfWork.NewsRepository.GetByMonth(month);
+		}
+
+	}
 }

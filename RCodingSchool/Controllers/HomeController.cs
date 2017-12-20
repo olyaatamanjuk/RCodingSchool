@@ -34,14 +34,19 @@ namespace StudLine.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult News(int page = 1, int pagsize = 4)
+		public ActionResult News(int page = 1, int pagsize = 4, int month = -1)
 		{
-			List<News> newsList = _newsService.GetAll().ToList();
-			NewsListVM newsListVM = new NewsListVM
+			List<News> newsList = new List<News>();
+			if (month == -1)
 			{
-				AllNews = Mapper.Map<List<News>, List<NewsVM>>(newsList)
-			};
-			PagedList<NewsVM> model = new PagedList<NewsVM>(newsListVM.AllNews, page, pagsize);
+				newsList = _newsService.GetAll().ToList();
+			}
+			else
+			{
+				newsList = _newsService.GetByMonth(month);
+			}
+			List<NewsVM> newsListVM = Mapper.Map<List<News>, List<NewsVM>>(newsList);
+			PagedList<NewsVM> model = new PagedList<NewsVM>(newsListVM, page, pagsize);
 			return View(model);
 		}
 

@@ -8,5 +8,6 @@ namespace StudLine.Interfaces
 {
     public interface INewsRepository : IRepository<News>
     {
-    }
+		List<News> GetByMonth(int month);
+	}
 }

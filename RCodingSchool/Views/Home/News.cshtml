@@ -4,7 +4,7 @@
 @model PagedList<StudLine.ViewModels.NewsVM>
 @{
     ViewBag.Title = "News";
-    int year = 
+    int year = DateTime.Now.Year;
 }
 <div class="row">
     <div class="col-sm-12 col-xs-12 col-lg-9 col-md-9 ">
@@ -50,12 +50,12 @@
     <aside class="col-lg-3 col-md-3">
         <h4><i class="fa fa-calendar fa-x2" aria-hidden="true"></i> Архів новин</h4>
         <ol class="list-unstyled">
-            <li><a href="#" class="list-group-item">Листопад 2017</a></li>
-            <li><a href="#" class="list-group-item">Жовтень 2017</a></li>
-            <li><a href="#" class="list-group-item">Вересень 2017</a></li>
-            <li><a href="#" class="list-group-item">Серпень 2017</a></li>
-            <li><a href="#" class="list-group-item">Липень 2017</a></li>
-            <li><a href="#" class="list-group-item">Червень 2017</a></li>
+            <li><a href="@Url.Action("News", new { month = 11})" class="list-group-item">Листопад @year</a></li>
+            <li><a href="@Url.Action("News", new { month = 10})" class="list-group-item">Жовтень @year</a></li>
+            <li><a href="@Url.Action("News", new { month = 9})" class="list-group-item">Вересень @year</a></li>
+            <li><a href="@Url.Action("News", new { month = 8})" class="list-group-item">Серпень @year</a></li>
+            <li><a href="@Url.Action("News", new { month = 7})" class="list-group-item">Липень @year</a></li>
+            <li><a href="@Url.Action("News", new { month = 6})" class="list-group-item">Червень @year</a></li>
             <li><a href="#" class="list-group-item"><i class="fa fa-angle-left" aria-hidden="true"></i>  Попередні </a></li>
         </ol>
     </aside>

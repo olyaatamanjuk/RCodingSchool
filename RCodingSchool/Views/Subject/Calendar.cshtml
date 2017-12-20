@@ -4,7 +4,7 @@
 }
 
 @if (String.IsNullOrWhiteSpace(Model.Calendar) && (User.IsInRole("Admin") || User.IsInRole("Teacher"))){
-<button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Новий календар</button>
+<button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><i class="fa fa-calendar fa-x2" aria-hidden="true"></i> Новий календар</button>
 }
 else
 {
